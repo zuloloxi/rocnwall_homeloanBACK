@@ -1,11 +1,11 @@
-package fr.bnp.homeloan.domain.mortgage;
+package fr.bnp.homeloancalculator.domain.mortgage;
 
 import javax.money.MonetaryAmount;
 import java.util.List;
 
 public class MortgageProject {
 
-    public static enum ProjectType {
+    enum ProjectType {
         PURCHASE, CONSTRUCTION;
     }
 

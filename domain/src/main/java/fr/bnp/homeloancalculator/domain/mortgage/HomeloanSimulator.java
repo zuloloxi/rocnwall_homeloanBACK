@@ -1,4 +1,4 @@
-package fr.bnp.homeloan.domain.mortgage;
+package fr.bnp.homeloancalculator.domain.mortgage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -8,7 +8,7 @@ public class HomeloanSimulator {
 
     private final static double LOAN_INTEREST_RATE = 0.0085;
 
-    public static enum  CalculationMode {
+    enum  CalculationMode {
         CAPITALTARGET, PAYMENTTARGET;
     }
 

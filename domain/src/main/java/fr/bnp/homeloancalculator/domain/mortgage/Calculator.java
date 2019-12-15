@@ -1,4 +1,4 @@
-package fr.bnp.homeloan.domain.mortgage;
+package fr.bnp.homeloancalculator.domain.mortgage;
 
 import javax.money.MonetaryAmount;
 

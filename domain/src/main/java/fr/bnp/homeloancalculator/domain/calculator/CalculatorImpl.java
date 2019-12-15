@@ -1,7 +1,7 @@
-package fr.bnp.domain.calculator;
+package fr.bnp.homeloancalculator.domain.calculator;
 
-import fr.bnp.homeloan.domain.mortgage.Calculator;
-import fr.bnp.homeloan.domain.mortgage.Periodicity;
+import fr.bnp.homeloancalculator.domain.mortgage.Calculator;
+import fr.bnp.homeloancalculator.domain.mortgage.Periodicity;
 import org.springframework.stereotype.Component;
 
 import javax.money.MonetaryAmount;

@@ -1,4 +1,4 @@
-package fr.bnp.homeloan.domain.mortgage;
+package fr.bnp.homeloancalculator.domain.mortgage;
 
 public enum Periodicity {
     MONTHLY,
