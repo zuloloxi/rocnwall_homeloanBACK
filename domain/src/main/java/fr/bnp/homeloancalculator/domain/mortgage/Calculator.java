@@ -1,9 +1,7 @@
 package fr.bnp.homeloancalculator.domain.mortgage;
 
-import javax.money.MonetaryAmount;
-
 public interface Calculator {
-    MonetaryAmount calculateLoanAmount (Periodicity periodicity, double interestRate, MonetaryAmount loanPayment, int loanDuration);
-    MonetaryAmount calculateLoanPayment (Periodicity periodicity, double interestRate, MonetaryAmount loanAmount, int loanDuration);
-
+    Double calculateLoanAmount (Periodicity periodicity, double interestRate, double loanPayment, int loanDuration);
+    Double calculateLoanPayment (Periodicity periodicity, double interestRate, double loanAmount, int loanDuration);
+    Double calculateCostOverview (Periodicity periodicity, double loanAmount, double loanPayment,int loanDuration);
 }

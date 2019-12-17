@@ -2,26 +2,24 @@ package fr.bnp.homeloancalculator.domain.mortgage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.money.MonetaryAmount;
-
 public class HomeloanSimulator {
 
-    private final static double LOAN_INTEREST_RATE = 0.0085;
+    private final static double LOAN_INTEREST_RATE = 1.00;
 
     enum  CalculationMode {
         CAPITALTARGET, PAYMENTTARGET;
     }
 
-    private MonetaryAmount personalDeposit;
-    private MonetaryAmount loanAmount;
-    private MonetaryAmount loanPayment;
+    private double personalDeposit;
+    private double loanAmount;
+    private double loanPayment;
     private int loanDuration;
     private Periodicity periodicity;
 
-    private MonetaryAmount  loanCost;
-    private MonetaryAmount interestCost;
-    private MonetaryAmount applicationFee;
-    private MonetaryAmount loanGuaranty;
+    private double loanCost;
+    private double interestCost;
+    private double applicationFee;
+    private double loanGuaranty;
 
     private double effectiveInterestRate;
     private double insuranceImpactOnInterestRate;

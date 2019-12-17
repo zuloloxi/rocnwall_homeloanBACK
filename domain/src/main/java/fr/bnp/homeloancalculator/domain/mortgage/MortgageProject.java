@@ -9,7 +9,7 @@ public class MortgageProject {
         PURCHASE, CONSTRUCTION;
     }
 
-    private MonetaryAmount householdCharges;
+    private double householdCharges;
     private List<Borrower> borrowers;
     private List<HomeloanSimulator> homeloanSimulators;
 
