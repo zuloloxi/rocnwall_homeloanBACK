@@ -1,6 +1,8 @@
-package fr.bnp.homeloancalculator.domain.calculator;
+package fr.bnp.homeloancalculator.domain.math;
 
- // Interface that can find the root (= zero) of univariate functions.
+import fr.bnp.homeloancalculator.domain.math.UnivariateFunction;
+
+// Interface that can find the root (= zero) of univariate functions.
  public interface UnivariateSolver {
 
      // Calculate the root of a given univariate function.

@@ -1,11 +1,16 @@
-package fr.bnp.homeloancalculator.domain.calculator;
+package fr.bnp.homeloancalculator.domain.math;
+
+import org.springframework.stereotype.Component;
 
 // Calculator of the effective interest rate (EIR) given the present value and a series of cash flow.
 public class EIRCalculator {
 
     private UnivariateSolver univariateSolver = new NewtonUnivariateSolver();
 
-    public double calculateEIR(double presentValue, double[] cashFlow) {
+    public EIRCalculator() {
+    }
+
+    public double calculateEffectiveInterestRate(double presentValue, double[] cashFlow) {
         // transform presentValue and cashFlow to polynomial function's coefficients
         double[] coefficients = new double[cashFlow.length + 1];
         coefficients[cashFlow.length] = presentValue;

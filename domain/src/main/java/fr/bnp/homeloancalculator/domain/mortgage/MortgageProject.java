@@ -5,12 +5,13 @@ import java.util.List;
 
 public class MortgageProject {
 
+
     enum ProjectType {
         PURCHASE, CONSTRUCTION;
     }
 
     private double householdCharges;
     private List<Borrower> borrowers;
-    private List<HomeloanSimulator> homeloanSimulators;
+    private List<HomeloanSimulation> homeloanSimulations;
 
 }

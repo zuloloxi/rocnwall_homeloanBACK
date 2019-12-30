@@ -1,4 +1,4 @@
-package fr.bnp.homeloancalculator.domain.calculator;
+package fr.bnp.homeloancalculator.domain.math;
 
 //Representation of an univariate function
 public interface UnivariateFunction {

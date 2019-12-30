@@ -1,16 +1,16 @@
-package fr.bnp.homeloancalculator.domain.calculator;
+package fr.bnp.homeloancalculator.domain.math;
 
 // A class that can find the root (=zero) of univariate function using Newton-Raphson method.
 public class NewtonUnivariateSolver implements UnivariateSolver
 {
     // Maximum iteration steps
-    private int MAX_ITERATION = 1000000;
+    private final int MAX_ITERATION = 1000000;
 
     // Root found if current root - previous root < ACCURACY
-    private double ACCURACY = 0.0000000000001;
+    private final double ACCURACY = 0.0000000000001;
 
     // Default initial value for the first iteration, if not specified.
-    private double DEFAULT_START_VALUE = 1.25;
+    private final double DEFAULT_START_VALUE = 1.25;
 
     // Calculate the root of given univariate function.
     public double calculateRoot(UnivariateFunction univariateFunction)
