@@ -1,7 +1,7 @@
 package fr.bnp.homeloancalculator.domain.calculator;
 
 import fr.bnp.homeloancalculator.domain.math.EIRCalculator;
-import fr.bnp.homeloancalculator.domain.mortgage.HomeloanSimulation;
+import fr.bnp.homeloancalculator.domain.mortgage.CalculationMode;
 
 public class CalculatorImpl implements Calculator {
 
@@ -11,6 +11,7 @@ public class CalculatorImpl implements Calculator {
 
     EIRCalculator eirCalculator = new EIRCalculator();
 
+    private CalculationMode calculationMode;
     private int loanDuration;
     private int periodDurationInMonths;
     private int durationInPeriods;     // length of the term in periods
@@ -21,17 +22,32 @@ public class CalculatorImpl implements Calculator {
     private double applicationFee;
     private double interestCost;
     private double loanCost;
+    private double nominalInterestRate;
     private double insuranceImpactOnInterestRate;
     private double globalEffectiveInterestRate;
 
+    public CalculatorImpl(CalculationMode calculationMode,
+                          double nominalInterestRate,
+                          int loanDuration,
+                          int periodDurationInMonths,
+                          double loanAmount,
+                          double loanPayment) {
+        this.calculationMode = calculationMode;
+        this.loanDuration = loanDuration;
+        this.periodDurationInMonths = periodDurationInMonths;
+        this.loanAmount = loanAmount;
+        this.loanPayment = loanPayment;
+        this.nominalInterestRate = nominalInterestRate;
+    }
 
-    public void calculateCost(HomeloanSimulation homeloanSimulation) {
-        loanDuration = homeloanSimulation.getLoanDuration();
-        periodDurationInMonths = homeloanSimulation.getPeriodicity().numberOfMonths();
-        // length of the term in periods
+    public void calculateCost() {
         durationInPeriods = getNumberOfPeriods(loanDuration, periodDurationInMonths);
-        loanAmount = homeloanSimulation.getLoanAmount();
-        loanPayment = homeloanSimulation.getLoanPayment();
+
+        // Calculate loan amount or periodic payment depending on the input parameters filled by the user
+        loanAmount = calculationMode == CalculationMode.CAPITAL_TARGET ?
+                loanAmount : calculateLoanAmount(nominalInterestRate, loanPayment, loanDuration, periodDurationInMonths);
+        loanPayment = calculationMode == CalculationMode.PAYMENT_TARGET ?
+                loanPayment : calculateLoanPayment(nominalInterestRate, loanAmount, loanDuration, periodDurationInMonths);
 
         // Calcul of the cost credit
         insuranceFee = loanAmount * (INSURANCE_INTEREST_RATE / 100);
@@ -40,19 +56,46 @@ public class CalculatorImpl implements Calculator {
         interestCost = (loanPayment * durationInPeriods) - loanAmount;
         loanCost = interestCost + insuranceFee + applicationFee + loanGuarantee;
 
-        calculateRates();
-
-        // Update simulation structure
-        homeloanSimulation.setInsuranceFee(insuranceFee);
-        homeloanSimulation.setLoanGuarantee(loanGuarantee);
-        homeloanSimulation.setApplicationFee(applicationFee);
-        homeloanSimulation.setInterestCost(interestCost);
-        homeloanSimulation.setLoanCost(loanCost);
-        homeloanSimulation.setGlobalEffectiveInterestRate(globalEffectiveInterestRate);
-        homeloanSimulation.setInsuranceImpactOnInterestRate(insuranceImpactOnInterestRate);
+        calculateInterestRates();
     }
 
-    private void calculateRates() {
+    public double getLoanAmount() {
+        return loanAmount;
+    }
+
+    public double getLoanPayment() {
+        return loanPayment;
+    }
+
+    public double getInsuranceFee() {
+        return insuranceFee;
+    }
+
+    public double getLoanGuarantee() {
+        return loanGuarantee;
+    }
+
+    public double getApplicationFee() {
+        return applicationFee;
+    }
+
+    public double getInterestCost() {
+        return interestCost;
+    }
+
+    public double getLoanCost() {
+        return loanCost;
+    }
+
+    public double getInsuranceImpactOnInterestRate() {
+        return insuranceImpactOnInterestRate;
+    }
+
+    public double getGlobalEffectiveInterestRate() {
+        return globalEffectiveInterestRate;
+    }
+
+    private void calculateInterestRates() {
         double periodicInsuranceFee = insuranceFee / durationInPeriods;
         // --> Calculation of the nominal effective interest rates (EIR)
         double presentValue = loanAmount;
@@ -84,7 +127,7 @@ public class CalculatorImpl implements Calculator {
         System.out.printf("EIR with insurance & fees = %s\n", globalEffectiveInterestRate);
     }
 
-    public double calculateLoanAmount(double annualInterestRate, double loanPayment, int loanDuration, int periodDurationInMonths) {
+    private double calculateLoanAmount(double annualInterestRate, double loanPayment, int loanDuration, int periodDurationInMonths) {
 
         // Convert interest rate into a decimal; eg. 0,85% = 0.0085
         annualInterestRate /= 100.0;
@@ -103,7 +146,7 @@ public class CalculatorImpl implements Calculator {
         return loanAmount;
     }
 
-    public double calculateLoanPayment(double annualInterestRate, double loanAmount, int loanDuration, int periodDurationInMonths) {
+    private double calculateLoanPayment(double annualInterestRate, double loanAmount, int loanDuration, int periodDurationInMonths) {
 
         // Convert interest rate into a decimal; eg. 0,85% = 0.0085
         annualInterestRate /= 100.0;
@@ -115,10 +158,8 @@ public class CalculatorImpl implements Calculator {
         int durationInPeriods = getNumberOfPeriods(loanDuration, periodDurationInMonths);
 
         // Calculate the periodic payment
-        double periodicPayment = loanAmount * periodicRate
+        return loanAmount * periodicRate
                 / (1 - Math.pow(1 + periodicRate, -durationInPeriods));
-
-        return periodicPayment;
     }
 
     private double getPeriodicRate(double annualInterestRate, int numberOfMonths) {

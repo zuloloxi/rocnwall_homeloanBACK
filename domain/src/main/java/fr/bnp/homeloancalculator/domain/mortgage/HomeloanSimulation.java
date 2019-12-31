@@ -1,13 +1,15 @@
 package fr.bnp.homeloancalculator.domain.mortgage;
 
 import fr.bnp.homeloancalculator.domain.calculator.Calculator;
-import fr.bnp.homeloancalculator.domain.math.EIRCalculator;
 import fr.bnp.homeloancalculator.domain.calculator.CalculatorImpl;
+
+import java.util.UUID;
 
 public class HomeloanSimulation {
 
     private final static double LOAN_INTEREST_RATE = 1.00;
 
+    private UUID id;
     private CalculationMode calculationMode;
     private double personalDeposit;
     private double loanAmount;
@@ -26,26 +28,38 @@ public class HomeloanSimulation {
     private double insuranceImpactOnInterestRate;
 
     // Constructor used when credit cost must be calculated
-    public HomeloanSimulation(CalculationMode calculationMode, double loanPayment, double loanAmount, int loanDuration, Periodicity periodicity) {
+    public HomeloanSimulation(CalculationMode calculationMode, double nominalInterestRate, double loanPayment, double loanAmount,
+                              int loanDuration, Periodicity periodicity) {
 
-        Calculator calculator = new CalculatorImpl();
-
+        this.id = UUID.randomUUID();
         this.calculationMode = calculationMode;
-        this.nominalInterestRate = LOAN_INTEREST_RATE;
+        this.nominalInterestRate = nominalInterestRate;
         this.loanDuration = loanDuration;
         this.periodicity = periodicity;
-        this.loanPayment = calculationMode == CalculationMode.PAYMENT_TARGET ?
-                loanPayment : calculator.calculateLoanPayment(LOAN_INTEREST_RATE, loanAmount, loanDuration, periodicity.numberOfMonths());
-        this.loanAmount = calculationMode == CalculationMode.CAPITAL_TARGET ?
-                loanAmount : calculator.calculateLoanAmount(LOAN_INTEREST_RATE, loanPayment, loanDuration, periodicity.numberOfMonths());
-        calculator.calculateCost(this);
+        this.loanAmount = loanAmount;
+        this.loanPayment = loanPayment;
+    }
+
+    public void calculateCost() {
+        Calculator calculator = new CalculatorImpl(calculationMode,nominalInterestRate, loanDuration, periodicity.numberOfMonths(), loanAmount, loanPayment);
+        calculator.calculateCost();
+        loanAmount = calculator.getLoanAmount();
+        loanPayment = calculator.getLoanPayment();
+        insuranceFee = calculator.getInsuranceFee();
+        loanGuarantee = calculator.getLoanGuarantee();
+        applicationFee = calculator.getApplicationFee();
+        interestCost = calculator.getInterestCost();
+        loanCost = calculator.getLoanCost();
+        insuranceImpactOnInterestRate = calculator.getInsuranceImpactOnInterestRate();
+        globalEffectiveInterestRate = calculator.getGlobalEffectiveInterestRate();
     }
 
     // Constructor used when simulation is retrieved from the database (credit cost has already been calculated)
-    public HomeloanSimulation(double personalDeposit, double loanAmount, double loanPayment, int loanDuration,
+    public HomeloanSimulation(UUID id, double personalDeposit, double loanAmount, double loanPayment, int loanDuration,
                               Periodicity periodicity, double loanCost, double interestCost, double applicationFee,
                               double loanGuarantee, double nominalInterestRate, double globalEffectiveInterestRate,
                               double insuranceImpactOnInterestRate) {
+        this.id = id;
         this.personalDeposit = personalDeposit;
         this.loanAmount = loanAmount;
         this.loanPayment = loanPayment;
@@ -108,34 +122,6 @@ public class HomeloanSimulation {
         return nominalInterestRate;
     }
 
-    public void setLoanCost(double loanCost) {
-        this.loanCost = loanCost;
-    }
-
-    public void setInterestCost(double interestCost) {
-        this.interestCost = interestCost;
-    }
-
-    public void setInsuranceFee(double insuranceFee) {
-        this.insuranceFee = insuranceFee;
-    }
-
-    public void setApplicationFee(double applicationFee) {
-        this.applicationFee = applicationFee;
-    }
-
-    public void setLoanGuarantee(double loanGuarantee) {
-        this.loanGuarantee = loanGuarantee;
-    }
-
-    public void setGlobalEffectiveInterestRate(double globalEffectiveInterestRate) {
-        this.globalEffectiveInterestRate = globalEffectiveInterestRate;
-    }
-
-    public void setInsuranceImpactOnInterestRate(double insuranceImpactOnInterestRate) {
-        this.insuranceImpactOnInterestRate = insuranceImpactOnInterestRate;
-    }
-
     public double getGlobalEffectiveInterestRate() {
         return globalEffectiveInterestRate;
     }
@@ -143,4 +129,5 @@ public class HomeloanSimulation {
     public double getInsuranceImpactOnInterestRate() {
         return insuranceImpactOnInterestRate;
     }
+
 }
