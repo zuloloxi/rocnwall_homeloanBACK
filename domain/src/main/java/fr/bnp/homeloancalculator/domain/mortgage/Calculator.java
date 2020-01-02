@@ -1,16 +1,18 @@
-package fr.bnp.homeloancalculator.domain.calculator;
+package fr.bnp.homeloancalculator.domain.mortgage;
 
 import fr.bnp.homeloancalculator.domain.mortgage.HomeloanSimulation;
 
 public interface Calculator {
-    void calculateCost();
+    void calculateCost(CalculationMode calculationMode);
     double getLoanAmount();
     double getLoanPayment();
-    double getInsuranceFee();
-    double getLoanGuarantee();
+    double getInsuranceCost();
+    double getLoanGuaranty();
+    double getGlobalLoanPayment();
     double getApplicationFee();
     double getInterestCost();
     double getLoanCost();
     double getInsuranceImpactOnInterestRate();
     double getGlobalEffectiveInterestRate();
+    double getFeesImpactOnInterestRate();
 }
