@@ -22,7 +22,7 @@ public class HomeloanSimulationAdapter {
 
     public static HomeloanSimulationQueryDTO adaptToHomeloanSimulationDTO(HomeloanSimulation homeloanSimulation) {
         return new HomeloanSimulationQueryDTO(
-                homeloanSimulation.getId(),
+                homeloanSimulation.getId().toString(),
                 homeloanSimulation.getSimulationDate(),
                 homeloanSimulation.getPersonalDeposit(),
                 homeloanSimulation.getLoanAmount(),
@@ -45,10 +45,6 @@ public class HomeloanSimulationAdapter {
     }
 
     public static List<HomeloanSimulationQueryDTO> adaptToHomeloanSimulationListDTO(List<HomeloanSimulation> homeloanSimulations) {
-        return null;
-    }
-
-    public static List<HomeloanSimulationQueryDTO> adaptToHomeloanSimulatorListDTO(List<HomeloanSimulation> homeloanSimulations) {
         return homeloanSimulations.stream().map(HomeloanSimulationAdapter::adaptToHomeloanSimulationDTO).collect(Collectors.toList());
     }
 }

@@ -1,6 +1,5 @@
 package fr.bnp.homeloancalculator.exposition;
 
-
 import fr.bnp.homeloancalculator.application.MortgageProjectService;
 import fr.bnp.homeloancalculator.domain.mortgage.HomeloanSimulation;
 import fr.bnp.homeloancalculator.domain.mortgage.MortgageProject;
@@ -27,7 +26,8 @@ public class MortgageProjectResource {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = {"/mortgageProjects/{mortgageProjectId}"})
-    public MortgageProjectQueryDTO detailMortgageProject(@PathVariable("mortgageProjectId") UUID mortgageProjectId) {
+    public MortgageProjectQueryDTO detailMortgageProject(@PathVariable("mortgageProjectId") String projectId) {
+        UUID mortgageProjectId = UUID.fromString(projectId);
         MortgageProject mortgageProject = this.mortgageProjectService.obtain(mortgageProjectId);
         return MortgageProjectAdapter.adaptToMortgageProjectDTO(mortgageProject);
     }
@@ -39,48 +39,64 @@ public class MortgageProjectResource {
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = {"/mortgageProjects/{mortgageProjectId}"})
-    public  MortgageProjectQueryDTO updateMortgageProject(@PathVariable("mortgageProjectId") UUID mortgageProjectId,
-                                                           @RequestBody MortgageProjectUpdateDTO mortgageProjectDTO) {
-        MortgageProject mortgageProject = MortgageProjectAdapter.transformToMortgageProject(mortgageProjectDTO);
+    public  MortgageProjectQueryDTO updateMortgageProject(@PathVariable("mortgageProjectId") String projectId,
+                                                           @RequestBody MortgageProjectUpdateDTO mortgageProjectUpdateDTO) {
+        UUID mortgageProjectId = UUID.fromString(projectId);
+        MortgageProject mortgageProject = MortgageProjectAdapter.transformToMortgageProject(mortgageProjectUpdateDTO);
         mortgageProject = this.mortgageProjectService.update(mortgageProjectId, mortgageProject);
         return MortgageProjectAdapter.adaptToMortgageProjectDTO(mortgageProject);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = {"/mortgageProjects/{mortgageProjectId}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeMortgageProject(@PathVariable("mortgageProjectId") UUID mortgageProjectId) {
+    public void removeMortgageProject(@PathVariable("mortgageProjectId") String projectId) {
+        UUID mortgageProjectId = UUID.fromString(projectId);
         this.mortgageProjectService.remove(mortgageProjectId);
     }
 
     @RequestMapping(method = RequestMethod.POST, path = {"/mortgageProjects/{mortgageProjectId}/homeloanSimulations"})
     @ResponseStatus(HttpStatus.CREATED)
-    public HomeloanSimulationQueryDTO addHomeloanSimulationToMortgageProject(@PathVariable("mortgageProjectId") UUID mortgageProjectId,
+    public HomeloanSimulationQueryDTO addHomeloanSimulationToMortgageProject(@PathVariable("mortgageProjectId") String projectId,
                                                                              @RequestBody HomeloanSimulationUpdateDTO homeloanSimulationUpdateDTO) {
+        UUID mortgageProjectId = UUID.fromString(projectId);
         HomeloanSimulation homeloanSimulation = HomeloanSimulationAdapter.transformToHomeloanSimulation(homeloanSimulationUpdateDTO);
         homeloanSimulation = this.mortgageProjectService.addHomeloanSimulation(mortgageProjectId, homeloanSimulation);
         return HomeloanSimulationAdapter.adaptToHomeloanSimulationDTO(homeloanSimulation);
-
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = {"/mortgageProjects/{mortgageProjectId}/homeloanSimulations/{homeloanSimulationId}"})
-    public HomeloanSimulationQueryDTO updateHomeloanSimulator(@PathVariable("mortgageProjectId") UUID mortgageProjectId,
-                                                              @PathVariable("homeloanSimulationId") UUID homeloanSimulationId,
+    public HomeloanSimulationQueryDTO updateHomeloanSimulator(@PathVariable("mortgageProjectId") String projectId,
+                                                              @PathVariable("homeloanSimulationId") String simulationId,
                                                               @RequestBody HomeloanSimulationUpdateDTO homeloanSimulationUpdateDTO) {
+        UUID mortgageProjectId = UUID.fromString(projectId);
+        UUID homeloanSimulationId = UUID.fromString(simulationId);
         HomeloanSimulation homeloanSimulation = HomeloanSimulationAdapter.transformToHomeloanSimulation(homeloanSimulationUpdateDTO);
         homeloanSimulation = this.mortgageProjectService.updateHomeloanSimulation(mortgageProjectId, homeloanSimulationId, homeloanSimulation);
         return HomeloanSimulationAdapter.adaptToHomeloanSimulationDTO(homeloanSimulation);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = {"/mortgageProjects/{mortgageProjectId}/homeloanSimulations"})
-    public List<HomeloanSimulationQueryDTO> listAllHomeloanSimulationsFromMortgageProject(@PathVariable("mortgageProjectId") UUID mortgageProjectId) {
+    public List<HomeloanSimulationQueryDTO> listAllHomeloanSimulations(@PathVariable("mortgageProjectId") String projectId) {
+        UUID mortgageProjectId = UUID.fromString(projectId);
         List<HomeloanSimulation> homeloanSimulations = this.mortgageProjectService.listAllHomeloanSimulations(mortgageProjectId);
         return HomeloanSimulationAdapter.adaptToHomeloanSimulationListDTO(homeloanSimulations);
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = {"/mortgageProjects/{mortgageProjectId}/homeloanSimulations/{homeloanSimulationId}"})
+    public HomeloanSimulationQueryDTO detailHomeloanSimulation(@PathVariable("mortgageProjectId") String projectId,
+                                                              @PathVariable("homeloanSimulationId") String simulationId) {
+        UUID mortgageProjectId = UUID.fromString(projectId);
+        UUID homeloanSimulationId = UUID.fromString(simulationId);
+        HomeloanSimulation homeloanSimulation = this.mortgageProjectService.obtainHomeloanSimulation(mortgageProjectId, homeloanSimulationId);
+        return HomeloanSimulationAdapter.adaptToHomeloanSimulationDTO(homeloanSimulation);
+    }
+
     @RequestMapping(method = RequestMethod.DELETE, path = {"/mortgageProjects/{mortgageProjectId}/homeloanSimulations/{homeloanSimulationId}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeHomeloanSimulationFromMortgageProject(@PathVariable("mortgageProjectId") UUID mortgageProjectId,
-                                                            @PathVariable("homeloanSimulationId") UUID homeloanSimulationId) {
+    public void removeHomeloanSimulation(@PathVariable("mortgageProjectId") String projectId,
+                                                            @PathVariable("homeloanSimulationId") String simulationId) {
+        UUID mortgageProjectId = UUID.fromString(projectId);
+        UUID homeloanSimulationId = UUID.fromString(simulationId);
         this.mortgageProjectService.removeHomeloanSimulation(mortgageProjectId, homeloanSimulationId);
     }
 

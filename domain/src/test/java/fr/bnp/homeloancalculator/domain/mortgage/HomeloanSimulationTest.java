@@ -16,7 +16,6 @@ class HomeloanSimulationTest {
                 new HomeloanSimulation(0, 0, 1244.547635,
                         LOAN_INTEREST_RATE, INSURANCE_INTEREST_RATE, GUARANTEE_INTEREST_RATE, APPLICATION_FEE,
                         15, Periodicity.MONTHLY);
-        homeloanSimulation.calculateCost(CalculationMode.PAYMENT_TARGET);
         /* Arrondir à deux décimales */
         double arrondi = (double)Math.round(homeloanSimulation.getLoanAmount() * 100)/100;
 
@@ -29,7 +28,6 @@ class HomeloanSimulationTest {
                 new HomeloanSimulation(0, 300000.00, 0,
                         LOAN_INTEREST_RATE, INSURANCE_INTEREST_RATE, GUARANTEE_INTEREST_RATE, APPLICATION_FEE,
                         15, Periodicity.MONTHLY);
-        homeloanSimulation.calculateCost(CalculationMode.CAPITAL_TARGET);
         double arrondi = (double)Math.round(homeloanSimulation.getLoanPayment() * 100)/100;
         Assertions.assertEquals(1795.48,arrondi);
     }
@@ -40,7 +38,6 @@ class HomeloanSimulationTest {
                 new HomeloanSimulation(0, 300000.00, 0,
                         LOAN_INTEREST_RATE, INSURANCE_INTEREST_RATE, GUARANTEE_INTEREST_RATE, APPLICATION_FEE,
                         15, Periodicity.MONTHLY);
-        homeloanSimulation.calculateCost(CalculationMode.CAPITAL_TARGET);
         double arrondi = (double)Math.round(homeloanSimulation.getGlobalEffectiveInterestRate() * 100)/100;
         Assertions.assertEquals(1.64,arrondi);
     }
@@ -51,7 +48,6 @@ class HomeloanSimulationTest {
                 new HomeloanSimulation(0, 200000.00, 0,
                         LOAN_INTEREST_RATE, INSURANCE_INTEREST_RATE, GUARANTEE_INTEREST_RATE, APPLICATION_FEE,
                         15, Periodicity.MONTHLY);
-        homeloanSimulation.calculateCost(CalculationMode.CAPITAL_TARGET);
         double arrondi = (double)Math.round(homeloanSimulation.getGlobalEffectiveInterestRate() * 100)/100;
         Assertions.assertEquals(1.66,arrondi);
     }

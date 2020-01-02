@@ -3,14 +3,13 @@ package fr.bnp.homeloancalculator.exposition;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 @Data
 public class MortgageProjectQueryDTO {
-    @JsonProperty
-    UUID id;
+    @JsonProperty (access = JsonProperty.Access.READ_ONLY)
+    String id;
     @JsonProperty
     String referenceId;
     @JsonProperty
@@ -19,22 +18,18 @@ public class MortgageProjectQueryDTO {
     double maxLoanPayment;
     @JsonProperty
     List<BorrowerDTO> borrowerDTOList;
-    @JsonProperty
-    List<HomeloanSimulationQueryDTO> homeloanSimulationDTOList;
 
     public MortgageProjectQueryDTO() {
     }
 
-    public MortgageProjectQueryDTO(UUID id, String referenceId,
+    public MortgageProjectQueryDTO(String id, String referenceId,
                                    double householdCharges,
                                    List<BorrowerDTO> borrowerDTOList,
-                                   double maxLoanPayment,
-                                   List<HomeloanSimulationQueryDTO> homeloanSimulationDTOList) {
+                                   double maxLoanPayment) {
         this.id = id;
         this.referenceId = referenceId;
         this.householdCharges = householdCharges;
         this.borrowerDTOList = borrowerDTOList;
         this.maxLoanPayment = maxLoanPayment;
-        this.homeloanSimulationDTOList = homeloanSimulationDTOList;
     }
 }

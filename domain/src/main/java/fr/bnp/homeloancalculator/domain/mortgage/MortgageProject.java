@@ -17,10 +17,25 @@ public class MortgageProject {
     private UUID id;
     private String referenceId; // External reference (eg. "name" of the principal borrower)
     private double householdCharges;
-    private List<Borrower> borrowers = new ArrayList<>();
+    private List<Borrower> borrowers;
     private double maxLoanPayment;
-    private List<HomeloanSimulation> homeloanSimulations = new ArrayList<>();
+    private List<HomeloanSimulation> homeloanSimulations;
 
+    // Constructor used when the project is created for the first time and credit cost is not yet calculated
+    public MortgageProject(String referenceId,
+                           double householdCharges,
+                           List<Borrower> borrowers,
+                           double maxLoanPayment) {
+        this.id = UUID.randomUUID();
+        this.referenceId = referenceId;
+        this.householdCharges = householdCharges;
+        this.borrowers = borrowers;
+        this.maxLoanPayment = maxLoanPayment;
+        this.homeloanSimulations = new ArrayList<>();
+        // Validate
+    }
+
+    // Constructor used when the project is retrieved from the database
     public MortgageProject(UUID id, String referenceId,
                            double householdCharges,
                            List<Borrower> borrowers,
@@ -32,18 +47,16 @@ public class MortgageProject {
         this.borrowers = borrowers;
         this.maxLoanPayment = maxLoanPayment;
         this.homeloanSimulations = homeloanSimulations;
-        // validate();
     }
 
-    public MortgageProject(String referenceId,
-                           double householdCharges,
-                           List<Borrower> borrowers,
-                           double maxLoanPayment) {
-        this.id = UUID.randomUUID();
-        this.referenceId = referenceId;
-        this.householdCharges = householdCharges;
-        this.borrowers = borrowers;
-        this.maxLoanPayment = maxLoanPayment;
+    public MortgageProject update(MortgageProject mortgageProjectWithNewInformation) {
+        this.referenceId = mortgageProjectWithNewInformation.getReferenceId();
+        this.householdCharges = mortgageProjectWithNewInformation.getHouseholdCharges();
+        this.householdCharges = mortgageProjectWithNewInformation.getHouseholdCharges();
+        this.borrowers = mortgageProjectWithNewInformation.getBorrowers();
+        this.maxLoanPayment = mortgageProjectWithNewInformation.getMaxLoanPayment();
+        this.homeloanSimulations = mortgageProjectWithNewInformation.getHomeloanSimulations();
+        return this;
     }
 
     public void addHomeloanSimulation(HomeloanSimulation homeloanSimulation) {
@@ -60,7 +73,7 @@ public class MortgageProject {
         this.homeloanSimulations.remove(homeloanSimulation);
     }
 
-    private HomeloanSimulation searchHomeloanSimulation(UUID homeloanSimulationId) {
+    public HomeloanSimulation searchHomeloanSimulation(UUID homeloanSimulationId) {
         HomeloanSimulation homeloanSimulation =
                 this.homeloanSimulations
                         .stream()

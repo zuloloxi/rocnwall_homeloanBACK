@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 public class HomeloanSimulationQueryDTO {
     @JsonProperty
-    UUID id;
+    String id;
     @JsonProperty
     Date simulationDate;
     @JsonProperty
@@ -54,7 +54,7 @@ public class HomeloanSimulationQueryDTO {
     }
 
     public HomeloanSimulationQueryDTO(
-            UUID id,
+            String id,
             Date simulationDate,
             double personalDeposit,
             double loanAmount,

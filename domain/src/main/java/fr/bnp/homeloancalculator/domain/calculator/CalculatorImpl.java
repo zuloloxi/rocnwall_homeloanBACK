@@ -44,16 +44,16 @@ public class CalculatorImpl implements Calculator {
         this.loanPayment = loanPayment;
     }
 
-    public void calculateCost(CalculationMode calculationMode) {
+    public void calculateCost() {
         // Length of the term in periods
         durationInPeriods = getNumberOfPeriods(loanDuration, periodDurationInMonths);
 
         // Calculate loan amount or periodic payment depending on the input parameters filled by the user
-        loanAmount = calculationMode == CalculationMode.CAPITAL_TARGET ?
+        loanAmount = loanAmount != 0 ?
                 loanAmount : calculateLoanAmount(loanInterestRate, loanPayment, loanDuration, periodDurationInMonths);
         System.out.printf("Montant crédit = %s\n", loanAmount);
 
-        loanPayment = calculationMode == CalculationMode.PAYMENT_TARGET ?
+        loanPayment = loanPayment != 0 ?
                 loanPayment : calculateLoanPayment(loanInterestRate, loanAmount, loanDuration, periodDurationInMonths);
         System.out.printf("Echéance = %s\n", loanPayment);
 

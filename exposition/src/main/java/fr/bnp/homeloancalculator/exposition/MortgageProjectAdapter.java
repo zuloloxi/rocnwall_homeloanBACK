@@ -21,12 +21,11 @@ public class MortgageProjectAdapter {
 
     public static MortgageProjectQueryDTO adaptToMortgageProjectDTO(MortgageProject mortgageProject) {
         return new MortgageProjectQueryDTO(
-                mortgageProject.getId(),
+                mortgageProject.getId().toString(),
                 mortgageProject.getReferenceId(),
                 mortgageProject.getHouseholdCharges(),
                 adaptToBorrowerListDTO(mortgageProject.getBorrowers()),
-                mortgageProject.getMaxLoanPayment(),
-                adaptToHomeloanSimulationListDTO(mortgageProject.getHomeloanSimulations())
+                mortgageProject.getMaxLoanPayment()
         );
     }
 

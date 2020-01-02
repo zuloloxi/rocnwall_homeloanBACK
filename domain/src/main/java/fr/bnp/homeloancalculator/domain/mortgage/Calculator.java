@@ -3,7 +3,7 @@ package fr.bnp.homeloancalculator.domain.mortgage;
 import fr.bnp.homeloancalculator.domain.mortgage.HomeloanSimulation;
 
 public interface Calculator {
-    void calculateCost(CalculationMode calculationMode);
+    void calculateCost();
     double getLoanAmount();
     double getLoanPayment();
     double getInsuranceCost();

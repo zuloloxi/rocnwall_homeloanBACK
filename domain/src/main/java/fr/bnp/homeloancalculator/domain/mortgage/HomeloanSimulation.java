@@ -3,6 +3,7 @@ package fr.bnp.homeloancalculator.domain.mortgage;
 import fr.bnp.homeloancalculator.domain.calculator.CalculatorImpl;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 public class HomeloanSimulation {
@@ -34,6 +35,7 @@ public class HomeloanSimulation {
                               int loanDuration, Periodicity periodicity) {
 
         this.id = UUID.randomUUID();
+        this.simulationDate = new Date();
         this.personalDeposit = personalDeposit;
         this.loanAmount = loanAmount;
         this.loanPayment = loanPayment;
@@ -43,16 +45,18 @@ public class HomeloanSimulation {
         this.applicationFee = applicationFee;
         this.loanDuration = loanDuration;
         this.periodicity = periodicity;
+        calculateCost();
     }
 
     // Constructor used when simulation is retrieved from the database (credit cost has already been calculated)
-    public HomeloanSimulation(UUID id, double personalDeposit, double loanAmount, double loanPayment,
+    public HomeloanSimulation(UUID id, Date simulationDate, double personalDeposit, double loanAmount, double loanPayment,
                               double loanInterestRate, double loanInsuranceRate, double loanGuarantyRate,
                               int loanDuration, Periodicity periodicity, double globalLoanPayment,
                               double loanCost, double interestCost, double insuranceCost, double applicationFee,
                               double loanGuaranty, double globalEffectiveInterestRate,
                               double insuranceImpactOnInterestRate, double feesImpactOnInterestRate, boolean creditRequest) {
         this.id = id;
+        this.simulationDate = simulationDate;
         this.personalDeposit = personalDeposit;
         this.loanAmount = loanAmount;
         this.loanPayment = loanPayment;
@@ -73,10 +77,10 @@ public class HomeloanSimulation {
         this.creditRequest = creditRequest;
     }
 
-    public void calculateCost(CalculationMode calculationMode) {
+    public void calculateCost() {
         Calculator calculator = new CalculatorImpl(loanInterestRate, loanInsuranceRate, loanGuarantyRate, applicationFee,
                 loanDuration, periodicity.numberOfMonths(), loanAmount, loanPayment);
-        calculator.calculateCost(calculationMode);
+        calculator.calculateCost();
         loanAmount = calculator.getLoanAmount();
         loanPayment = calculator.getLoanPayment();
         insuranceCost = calculator.getInsuranceCost();
@@ -190,5 +194,18 @@ public class HomeloanSimulation {
 
     public boolean isCreditRequest() {
         return creditRequest;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HomeloanSimulation that = (HomeloanSimulation) o;
+        return getId().equals(that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }
