@@ -3,8 +3,6 @@ package fr.bnp.homeloancalculator.infrastructure;
 import fr.bnp.homeloancalculator.domain.mortgage.Borrower;
 import fr.bnp.homeloancalculator.domain.mortgage.HomeloanSimulation;
 import fr.bnp.homeloancalculator.domain.mortgage.MortgageProject;
-import fr.bnp.homeloancalculator.infrastructure.BorrowerJPA;
-import fr.bnp.homeloancalculator.infrastructure.HomeloanSimulationJPA;
 
 import javax.persistence.*;
 import java.util.List;
@@ -24,14 +22,14 @@ public class MortgageProjectJPA {
     @Column(name = "HOUSEHOLD_CHARGES")
     private double householdCharges;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="PROJECT_ID", referencedColumnName = "ID")
     private List<BorrowerJPA> borrowers;
 
     @Column(name = "MAX_LOAN_PAYMENT")
     private double maxLoanPayment;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="PROJECT_ID", referencedColumnName = "ID")
     private List<HomeloanSimulationJPA> homeloanSimulations;
 

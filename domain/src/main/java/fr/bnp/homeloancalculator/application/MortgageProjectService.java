@@ -5,10 +5,12 @@ import fr.bnp.homeloancalculator.domain.mortgage.MortgageProject;
 import fr.bnp.homeloancalculator.domain.mortgage.MortgageProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 
+@Transactional
 @Service
 public class MortgageProjectService {
 

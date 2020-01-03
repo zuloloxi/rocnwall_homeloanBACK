@@ -22,6 +22,12 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.8</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
             <groupId>fr.bnp.homeloan</groupId>
             <artifactId>domain</artifactId>
             <version>0.0.1-SNAPSHOT</version>

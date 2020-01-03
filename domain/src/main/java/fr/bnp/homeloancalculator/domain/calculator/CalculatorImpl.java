@@ -1,8 +1,9 @@
 package fr.bnp.homeloancalculator.domain.calculator;
 
 import fr.bnp.homeloancalculator.domain.math.EIRCalculator;
-import fr.bnp.homeloancalculator.domain.mortgage.CalculationMode;
 import fr.bnp.homeloancalculator.domain.mortgage.Calculator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CalculatorImpl implements Calculator {
 
@@ -26,6 +27,8 @@ public class CalculatorImpl implements Calculator {
     private double insuranceImpactOnInterestRate;
     private double feesImpactOnInterestRate;
 
+    Logger logger = LoggerFactory.getLogger(CalculatorImpl.class);
+
     public CalculatorImpl(double loanInterestRate,
                           double loanInsuranceRate,
                           double loanGuarantyRate,
@@ -45,41 +48,43 @@ public class CalculatorImpl implements Calculator {
     }
 
     public void calculateCost() {
+        logger.info("Démarrage du calcul du coût du crédit");
+
         // Length of the term in periods
         durationInPeriods = getNumberOfPeriods(loanDuration, periodDurationInMonths);
 
         // Calculate loan amount or periodic payment depending on the input parameters filled by the user
         loanAmount = loanAmount != 0 ?
                 loanAmount : calculateLoanAmount(loanInterestRate, loanPayment, loanDuration, periodDurationInMonths);
-        System.out.printf("Montant crédit = %s\n", loanAmount);
+        logger.info("Montant crédit = {}", loanAmount);
 
         loanPayment = loanPayment != 0 ?
                 loanPayment : calculateLoanPayment(loanInterestRate, loanAmount, loanDuration, periodDurationInMonths);
-        System.out.printf("Echéance = %s\n", loanPayment);
+        logger.info("Echéance = {}", loanPayment);
 
         // Calcul of the cost credit
-        System.out.printf("Frais de dossier = %s\n", applicationFee);
+        logger.info("Frais de dossier = {}", applicationFee);
 
         // Total insurance periodic fees = % of loan amount
         insuranceCost = loanAmount * loanInsuranceRate;
-        System.out.printf("Coût assurance = %s\n", insuranceCost);
+        logger.info("Coût assurance = {}", insuranceCost);
 
         // Initial guarantee fee = % of loan amount
         loanGuaranty = loanAmount * loanGuarantyRate * periodDurationInMonths;
-        System.out.printf("Coût garantie = %s\n", loanGuaranty);
+        logger.info("Coût garantie = {}", loanGuaranty);
 
         // Global payment (periodic payment including insurance)
         double periodicInsuranceFee = insuranceCost / durationInPeriods;
         globalLoanPayment = loanPayment + periodicInsuranceFee;
-        System.out.printf("Echéance globale = %s\n", globalLoanPayment);
+        logger.info("Echéance globale = {}", globalLoanPayment);
 
         // Interest cost
         interestCost = (loanPayment * durationInPeriods) - loanAmount;
-        System.out.printf("Coût intérêts = %s\n", interestCost);
+        logger.info("Coût intérêts = {}", interestCost);
 
         // Loan cost
         loanCost = interestCost + insuranceCost + applicationFee + loanGuaranty;
-        System.out.printf("Coût du crédit = %s\n", loanCost);
+        logger.info("Coût du crédit = {}", loanCost);
 
         calculateEffectiveInterestRates();
 
@@ -97,7 +102,7 @@ public class CalculatorImpl implements Calculator {
         double nominalInterestRate =
                 eirCalculator.calculateEffectiveInterestRate(presentValue, cashFlow)
                         * 1200 / periodDurationInMonths;
-        System.out.printf("Nominal EIR = %s\n", nominalInterestRate);
+        logger.info("Nominal EIR = {}", nominalInterestRate);
 
         // EIR including insurance fees
         for (int i = 0; i < cashFlow.length; i++) {
@@ -106,11 +111,11 @@ public class CalculatorImpl implements Calculator {
         double eirWithInsurance =
                 eirCalculator.calculateEffectiveInterestRate(presentValue, cashFlow)
                         * 1200 / periodDurationInMonths;
-        System.out.printf("EIR with insurance = %s\n", eirWithInsurance);
+        logger.info("EIR with insurance = {}", eirWithInsurance);
 
         // Insurance impact on interest rate
         insuranceImpactOnInterestRate = eirWithInsurance - nominalInterestRate;
-        System.out.printf("TAEA = %s\n", insuranceImpactOnInterestRate);
+        logger.info("TAEA = {}", insuranceImpactOnInterestRate);
 
         // EIR including insurance, guarantee & application fees
         presentValue -= loanGuaranty;
@@ -118,11 +123,11 @@ public class CalculatorImpl implements Calculator {
         globalEffectiveInterestRate =
                 eirCalculator.calculateEffectiveInterestRate(presentValue, cashFlow)
                         * 1200 / periodDurationInMonths;
-        System.out.printf("TAEG = %s\n", globalEffectiveInterestRate);
+        logger.info("TAEG = {}", globalEffectiveInterestRate);
 
         // Fee impact on interest rate
         feesImpactOnInterestRate = globalEffectiveInterestRate - eirWithInsurance;
-        System.out.printf("TAEF = %s\n", feesImpactOnInterestRate);
+        logger.info("TAEF = {}", feesImpactOnInterestRate);
     }
 
     private double calculateLoanAmount(double annualInterestRate, double loanPayment, int loanDuration, int periodDurationInMonths) {
