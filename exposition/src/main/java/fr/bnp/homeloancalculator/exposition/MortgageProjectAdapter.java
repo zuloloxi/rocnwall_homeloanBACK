@@ -1,6 +1,7 @@
 package fr.bnp.homeloancalculator.exposition;
 
 import fr.bnp.homeloancalculator.domain.mortgage.MortgageProject;
+import fr.bnp.homeloancalculator.domain.mortgage.ProjectType;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,6 +15,7 @@ public class MortgageProjectAdapter {
 
     public static MortgageProject transformToMortgageProject(MortgageProjectUpdateDTO mortgageProjectUpdateDTO) {
         return new MortgageProject(mortgageProjectUpdateDTO.referenceId,
+                Enum.valueOf(ProjectType.class, mortgageProjectUpdateDTO.projectType),
                 mortgageProjectUpdateDTO.householdCharges,
                 transformToBorrowerList(mortgageProjectUpdateDTO.borrowerDTOList),
                 mortgageProjectUpdateDTO.maxLoanPayment);
@@ -23,6 +25,7 @@ public class MortgageProjectAdapter {
         return new MortgageProjectQueryDTO(
                 mortgageProject.getId().toString(),
                 mortgageProject.getReferenceId(),
+                mortgageProject.getProjectType().toString(),
                 mortgageProject.getHouseholdCharges(),
                 adaptToBorrowerListDTO(mortgageProject.getBorrowers()),
                 mortgageProject.getMaxLoanPayment()

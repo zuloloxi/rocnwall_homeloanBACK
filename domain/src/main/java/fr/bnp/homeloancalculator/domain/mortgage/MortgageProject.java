@@ -9,13 +9,9 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class MortgageProject {
-
-    enum ProjectType {
-        PURCHASE, CONSTRUCTION;
-    }
-
     private UUID id;
     private String referenceId; // External reference (eg. "name" of the principal borrower)
+    private ProjectType projectType;
     private double householdCharges;
     private List<Borrower> borrowers;
     private double maxLoanPayment;
@@ -23,11 +19,13 @@ public class MortgageProject {
 
     // Constructor used when the project is created for the first time and credit cost is not yet calculated
     public MortgageProject(String referenceId,
+                           ProjectType projectType,
                            double householdCharges,
                            List<Borrower> borrowers,
                            double maxLoanPayment) {
         this.id = UUID.randomUUID();
         this.referenceId = referenceId;
+        this.projectType = projectType;
         this.householdCharges = householdCharges;
         this.borrowers = borrowers;
         this.maxLoanPayment = maxLoanPayment;
@@ -37,12 +35,14 @@ public class MortgageProject {
 
     // Constructor used when the project is retrieved from the database
     public MortgageProject(UUID id, String referenceId,
+                           ProjectType projectType,
                            double householdCharges,
                            List<Borrower> borrowers,
                            double maxLoanPayment,
                            List<HomeloanSimulation> homeloanSimulations) {
         this.id = id;
         this.referenceId = referenceId;
+        this.projectType = projectType;
         this.householdCharges = householdCharges;
         this.borrowers = borrowers;
         this.maxLoanPayment = maxLoanPayment;
@@ -51,6 +51,7 @@ public class MortgageProject {
 
     public MortgageProject update(MortgageProject mortgageProjectWithNewInformation) {
         this.referenceId = mortgageProjectWithNewInformation.getReferenceId();
+        this.projectType = mortgageProjectWithNewInformation.getProjectType();
         this.householdCharges = mortgageProjectWithNewInformation.getHouseholdCharges();
         this.householdCharges = mortgageProjectWithNewInformation.getHouseholdCharges();
         this.borrowers = mortgageProjectWithNewInformation.getBorrowers();
@@ -89,6 +90,10 @@ public class MortgageProject {
 
     public String getReferenceId() {
         return referenceId;
+    }
+
+    public ProjectType getProjectType() {
+        return projectType;
     }
 
     public double getHouseholdCharges() {
