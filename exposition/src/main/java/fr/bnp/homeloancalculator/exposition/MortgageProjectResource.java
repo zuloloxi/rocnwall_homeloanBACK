@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin
 public class MortgageProjectResource {
 
     @Autowired

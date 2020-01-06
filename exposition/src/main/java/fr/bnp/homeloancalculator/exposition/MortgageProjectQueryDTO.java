@@ -19,7 +19,7 @@ public class MortgageProjectQueryDTO {
     @JsonProperty
     double maxLoanPayment;
     @JsonProperty
-    List<BorrowerDTO> borrowerDTOList;
+    List<BorrowerDTO> borrowers;
 
     public MortgageProjectQueryDTO() {
     }
@@ -33,7 +33,7 @@ public class MortgageProjectQueryDTO {
         this.referenceId = referenceId;
         this.projectType = projectType;
         this.householdCharges = householdCharges;
-        this.borrowerDTOList = borrowerDTOList;
+        this.borrowers = borrowerDTOList;
         this.maxLoanPayment = maxLoanPayment;
     }
 }

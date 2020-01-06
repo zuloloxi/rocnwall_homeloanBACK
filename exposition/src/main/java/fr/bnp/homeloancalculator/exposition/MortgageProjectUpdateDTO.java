@@ -17,7 +17,7 @@ public class MortgageProjectUpdateDTO {
     @JsonProperty
     double maxLoanPayment;
     @JsonProperty
-    List<BorrowerDTO> borrowerDTOList;
+    List<BorrowerDTO> borrowers;
 
     public MortgageProjectUpdateDTO() {
     }
@@ -25,12 +25,12 @@ public class MortgageProjectUpdateDTO {
     public MortgageProjectUpdateDTO(String referenceId,
                                     String projectType,
                                     double householdCharges,
-                                    List<BorrowerDTO> borrowerDTOList,
+                                    List<BorrowerDTO> borrowers,
                                     double maxLoanPayment) {
         this.referenceId = referenceId;
         this.projectType = projectType;
         this.householdCharges = householdCharges;
-        this.borrowerDTOList = borrowerDTOList;
+        this.borrowers = borrowers;
         this.maxLoanPayment = maxLoanPayment;
     }
 }

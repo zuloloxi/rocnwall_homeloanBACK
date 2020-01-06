@@ -17,7 +17,7 @@ public class MortgageProjectAdapter {
         return new MortgageProject(mortgageProjectUpdateDTO.referenceId,
                 Enum.valueOf(ProjectType.class, mortgageProjectUpdateDTO.projectType),
                 mortgageProjectUpdateDTO.householdCharges,
-                transformToBorrowerList(mortgageProjectUpdateDTO.borrowerDTOList),
+                transformToBorrowerList(mortgageProjectUpdateDTO.borrowers),
                 mortgageProjectUpdateDTO.maxLoanPayment);
     }
 
