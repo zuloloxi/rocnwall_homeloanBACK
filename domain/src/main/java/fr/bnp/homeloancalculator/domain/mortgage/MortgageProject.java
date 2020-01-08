@@ -104,8 +104,12 @@ public class MortgageProject {
         return borrowers;
     }
 
+    // public double getMaxLoanPayment() {return maxLoanPayment;}
+
+    // Max loan payment = 35% of borrowers net income minus global charges
     public double getMaxLoanPayment() {
-        return maxLoanPayment;
+        return (((borrowers.stream().mapToDouble(b -> b.getNetIncome()).sum())
+                - householdCharges) * 0.35);
     }
 
     public List<HomeloanSimulation> getHomeloanSimulations() {

@@ -70,7 +70,7 @@ public class CalculatorImpl implements Calculator {
         logger.info("Coût assurance = {}", insuranceCost);
 
         // Initial guarantee fee = % of loan amount
-        loanGuaranty = loanAmount * loanGuarantyRate * periodDurationInMonths;
+        loanGuaranty = loanAmount * loanGuarantyRate;
         logger.info("Coût garantie = {}", loanGuaranty);
 
         // Global payment (periodic payment including insurance)

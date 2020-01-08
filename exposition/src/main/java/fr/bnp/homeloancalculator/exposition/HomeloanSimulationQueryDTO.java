@@ -64,6 +64,7 @@ public class HomeloanSimulationQueryDTO {
             double loanGuarantyRate,
             int loanDuration,
             Periodicity periodicity,
+            double globalLoanPayment,
             double loanCost,
             double interestCost,
             double insuranceCost,
@@ -83,6 +84,7 @@ public class HomeloanSimulationQueryDTO {
         this.loanGuarantyRate = loanGuarantyRate;
         this.loanDuration = loanDuration;
         this.periodicity = periodicity;
+        this.globalLoanPayment = globalLoanPayment;
         this.loanCost = loanCost;
         this.interestCost = interestCost;
         this.insuranceCost = insuranceCost;

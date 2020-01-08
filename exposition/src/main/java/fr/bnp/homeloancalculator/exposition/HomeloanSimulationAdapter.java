@@ -32,6 +32,7 @@ public class HomeloanSimulationAdapter {
                 homeloanSimulation.getLoanGuarantyRate(),
                 homeloanSimulation.getLoanDuration(),
                 homeloanSimulation.getPeriodicity(),
+                homeloanSimulation.getGlobalLoanPayment(),
                 homeloanSimulation.getLoanCost(),
                 homeloanSimulation.getInterestCost(),
                 homeloanSimulation.getInsuranceCost(),
