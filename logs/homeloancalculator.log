@@ -2636,3 +2636,1904 @@
 2020-01-08 09:44:46.082+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
 2020-01-08 09:44:46.082+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [HomeloanSimulationQueryDTO(id=0a233cf6-91e0-472a-9076-47809bb8aa2a, simulationDate=Wed Jan 08 01:20: (truncated)...]
 2020-01-08 09:44:46.083+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Failed to complete request: org.apache.catalina.connector.ClientAbortException: java.io.IOException: Une connexion établie a été abandonnée par un logiciel de votre ordinateur hôte
+2020-01-08 10:33:11.899+01:00 | INFO | f.b.h.HomeloancalculatorApplication | Starting HomeloancalculatorApplication on DESKTOP-JF9S2UQ with PID 21352 (started by BNPPARIBAS in C:\Users\BNPPARIBAS\Cours DOJO\ZZ - Projet EPITA\homeloancalculator-master)
+2020-01-08 10:33:11.902+01:00 | INFO | f.b.h.HomeloancalculatorApplication | The following profiles are active: dev
+2020-01-08 10:33:12.915+01:00 | INFO | o.s.d.r.c.RepositoryConfigurationDelegate | Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-01-08 10:33:12.993+01:00 | INFO | o.s.d.r.c.RepositoryConfigurationDelegate | Finished Spring Data repository scanning in 66ms. Found 1 JPA repository interfaces.
+2020-01-08 10:33:13.357+01:00 | INFO | o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker | Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-08 10:33:14.136+01:00 | INFO | o.s.b.w.e.tomcat.TomcatWebServer | Tomcat initialized with port(s): 8080 (http)
+2020-01-08 10:33:14.147+01:00 | INFO | o.a.coyote.http11.Http11NioProtocol | Initializing ProtocolHandler ["http-nio-8080"]
+2020-01-08 10:33:14.148+01:00 | INFO | o.a.catalina.core.StandardService | Starting service [Tomcat]
+2020-01-08 10:33:14.148+01:00 | INFO | o.a.catalina.core.StandardEngine | Starting Servlet engine: [Apache Tomcat/9.0.29]
+2020-01-08 10:33:14.276+01:00 | INFO | o.a.c.c.C.[Tomcat].[localhost].[/] | Initializing Spring embedded WebApplicationContext
+2020-01-08 10:33:14.276+01:00 | DEBUG| o.s.web.context.ContextLoader | Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2020-01-08 10:33:14.276+01:00 | INFO | o.s.web.context.ContextLoader | Root WebApplicationContext: initialization completed in 2276 ms
+2020-01-08 10:33:14.323+01:00 | INFO | com.zaxxer.hikari.HikariDataSource | HikariPool-1 - Starting...
+2020-01-08 10:33:14.689+01:00 | INFO | com.zaxxer.hikari.HikariDataSource | HikariPool-1 - Start completed.
+2020-01-08 10:33:14.697+01:00 | INFO | o.s.b.a.h.H2ConsoleAutoConfiguration | H2 console available at '/h2'. Database available at 'jdbc:h2:mem:testdb'
+2020-01-08 10:33:14.865+01:00 | INFO | o.h.jpa.internal.util.LogHelper | HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-01-08 10:33:14.988+01:00 | INFO | org.hibernate.Version | HHH000412: Hibernate Core {5.4.9.Final}
+2020-01-08 10:33:15.207+01:00 | INFO | o.h.annotations.common.Version | HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-01-08 10:33:15.368+01:00 | INFO | org.hibernate.dialect.Dialect | HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-01-08 10:33:16.315+01:00 | DEBUG| org.hibernate.SQL | 
+    
+    drop table borrower if exists
+2020-01-08 10:33:16.317+01:00 | DEBUG| org.hibernate.SQL | 
+    
+    drop table homeloan_simulation if exists
+2020-01-08 10:33:16.318+01:00 | DEBUG| org.hibernate.SQL | 
+    
+    drop table mortgage_project if exists
+2020-01-08 10:33:16.318+01:00 | DEBUG| org.hibernate.SQL | 
+    
+    drop sequence if exists hibernate_sequence
+2020-01-08 10:33:16.321+01:00 | DEBUG| org.hibernate.SQL | create sequence hibernate_sequence start with 1 increment by 1
+2020-01-08 10:33:16.325+01:00 | DEBUG| org.hibernate.SQL | 
+    
+    create table borrower (
+       id bigint not null,
+        date_of_birth timestamp,
+        net_income double,
+        project_id varchar(255),
+        primary key (id)
+    )
+2020-01-08 10:33:16.334+01:00 | DEBUG| org.hibernate.SQL | 
+    
+    create table homeloan_simulation (
+       id varchar(255) not null,
+        application_fee double,
+        credit_request boolean,
+        fees_impact_on_interest_rate double,
+        effective_interest_rate double,
+        global_loan_payment double,
+        insurance_cost double,
+        insurance_impact_on_interest_rate double,
+        interest_cost double,
+        loan_amount double,
+        loan_cost double,
+        loan_duration integer,
+        loan_guaranty double,
+        loan_guaranty_rate double,
+        loan_insurance_rate double,
+        loan_interest_rate double,
+        loan_payment double,
+        periodicity varchar(255),
+        personal_deposit double,
+        simulation_date timestamp,
+        project_id varchar(255),
+        primary key (id)
+    )
+2020-01-08 10:33:16.338+01:00 | DEBUG| org.hibernate.SQL | 
+    
+    create table mortgage_project (
+       id varchar(255) not null,
+        household_charges double,
+        max_loan_payment double,
+        project_type varchar(255),
+        reference_id varchar(255),
+        primary key (id)
+    )
+2020-01-08 10:33:16.339+01:00 | DEBUG| org.hibernate.SQL | 
+    
+    alter table borrower 
+       add constraint FKdvbtiebul0l0lqa4b7pnjkqeh 
+       foreign key (project_id) 
+       references mortgage_project
+2020-01-08 10:33:16.345+01:00 | DEBUG| org.hibernate.SQL | 
+    
+    alter table homeloan_simulation 
+       add constraint FKljdgaw1dkqqfwetv1e6qmjlyt 
+       foreign key (project_id) 
+       references mortgage_project
+2020-01-08 10:33:16.348+01:00 | INFO | o.h.e.t.j.p.i.JtaPlatformInitiator | HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-01-08 10:33:16.356+01:00 | INFO | o.s.o.j.LocalContainerEntityManagerFactoryBean | Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-01-08 10:33:16.897+01:00 | WARN | o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration | spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-01-08 10:33:16.986+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | 15 mappings in 'requestMappingHandlerMapping'
+2020-01-08 10:33:17.067+01:00 | INFO | s.d.s.w.PropertySourcedRequestMappingHandlerMapping | Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2020-01-08 10:33:17.361+01:00 | INFO | o.s.s.c.ThreadPoolTaskExecutor | Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-08 10:33:17.378+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerAdapter | ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-01-08 10:33:17.426+01:00 | DEBUG| o.s.w.s.h.SimpleUrlHandlerMapping | Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-01-08 10:33:17.433+01:00 | DEBUG| o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver | ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-01-08 10:33:17.499+01:00 | INFO | s.d.s.w.p.DocumentationPluginsBootstrapper | Context refreshed
+2020-01-08 10:33:17.525+01:00 | INFO | s.d.s.w.p.DocumentationPluginsBootstrapper | Found 1 custom documentation plugin(s)
+2020-01-08 10:33:17.570+01:00 | INFO | s.d.s.w.s.ApiListingReferenceScanner | Scanning for api listing references
+2020-01-08 10:33:17.795+01:00 | INFO | o.a.coyote.http11.Http11NioProtocol | Starting ProtocolHandler ["http-nio-8080"]
+2020-01-08 10:33:17.822+01:00 | INFO | o.s.b.w.e.tomcat.TomcatWebServer | Tomcat started on port(s): 8080 (http) with context path ''
+2020-01-08 10:33:17.824+01:00 | INFO | f.b.h.HomeloancalculatorApplication | Started HomeloancalculatorApplication in 6.603 seconds (JVM running for 7.242)
+2020-01-08 10:35:56.990+01:00 | INFO | o.a.c.c.C.[Tomcat].[localhost].[/] | Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-08 10:35:56.990+01:00 | INFO | o.s.web.servlet.DispatcherServlet | Initializing Servlet 'dispatcherServlet'
+2020-01-08 10:35:56.991+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Detected StandardServletMultipartResolver
+2020-01-08 10:35:57.006+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2020-01-08 10:35:57.007+01:00 | INFO | o.s.web.servlet.DispatcherServlet | Completed initialization in 16 ms
+2020-01-08 10:35:57.030+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | OPTIONS "/mortgageProjects", parameters={}
+2020-01-08 10:35:57.041+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#createMortgageProject(MortgageProjectUpdateDTO)
+2020-01-08 10:35:57.065+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 10:35:57.084+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | POST "/mortgageProjects", parameters={}
+2020-01-08 10:35:57.084+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#createMortgageProject(MortgageProjectUpdateDTO)
+2020-01-08 10:35:57.219+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [MortgageProjectUpdateDTO(referenceId=0.35011561816845393, projectType=PURCHASE, householdCharges=100 (truncated)...]
+2020-01-08 10:35:57.352+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_1_,
+        mortgagepr0_.household_charges as househol2_2_1_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_1_,
+        mortgagepr0_.project_type as project_4_2_1_,
+        mortgagepr0_.reference_id as referenc5_2_1_,
+        borrowers1_.project_id as project_4_0_3_,
+        borrowers1_.id as id1_0_3_,
+        borrowers1_.id as id1_0_0_,
+        borrowers1_.date_of_birth as date_of_2_0_0_,
+        borrowers1_.net_income as net_inco3_0_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    left outer join
+        borrower borrowers1_ 
+            on mortgagepr0_.id=borrowers1_.project_id 
+    where
+        mortgagepr0_.id=?
+2020-01-08 10:35:57.365+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [160dc2db-e402-41bb-b730-36bf0b52b429]
+2020-01-08 10:35:57.458+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        mortgage_project
+        (household_charges, max_loan_payment, project_type, reference_id, id) 
+    values
+        (?, ?, ?, ?, ?)
+2020-01-08 10:35:57.460+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [100.0]
+2020-01-08 10:35:57.461+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [-35.0]
+2020-01-08 10:35:57.461+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [VARCHAR] - [PURCHASE]
+2020-01-08 10:35:57.462+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [VARCHAR] - [0.35011561816845393]
+2020-01-08 10:35:57.462+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [VARCHAR] - [160dc2db-e402-41bb-b730-36bf0b52b429]
+2020-01-08 10:35:57.507+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 10:35:57.508+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [MortgageProjectQueryDTO(id=160dc2db-e402-41bb-b730-36bf0b52b429, referenceId=0.35011561816845393, pr (truncated)...]
+2020-01-08 10:35:57.533+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 201 CREATED
+2020-01-08 10:35:59.592+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | OPTIONS "/mortgageProjects/160dc2db-e402-41bb-b730-36bf0b52b429", parameters={}
+2020-01-08 10:35:59.595+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#updateMortgageProject(String, MortgageProjectUpdateDTO)
+2020-01-08 10:35:59.597+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 10:35:59.611+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | PUT "/mortgageProjects/160dc2db-e402-41bb-b730-36bf0b52b429", parameters={}
+2020-01-08 10:35:59.613+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#updateMortgageProject(String, MortgageProjectUpdateDTO)
+2020-01-08 10:35:59.624+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [MortgageProjectUpdateDTO(referenceId=0.35011561816845393, projectType=PURCHASE, householdCharges=100 (truncated)...]
+2020-01-08 10:35:59.633+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_0_,
+        mortgagepr0_.household_charges as househol2_2_0_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_0_,
+        mortgagepr0_.project_type as project_4_2_0_,
+        mortgagepr0_.reference_id as referenc5_2_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    where
+        mortgagepr0_.id=?
+2020-01-08 10:35:59.634+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [160dc2db-e402-41bb-b730-36bf0b52b429]
+2020-01-08 10:35:59.655+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        borrowers0_.project_id as project_4_0_0_,
+        borrowers0_.id as id1_0_0_,
+        borrowers0_.id as id1_0_1_,
+        borrowers0_.date_of_birth as date_of_2_0_1_,
+        borrowers0_.net_income as net_inco3_0_1_ 
+    from
+        borrower borrowers0_ 
+    where
+        borrowers0_.project_id=?
+2020-01-08 10:35:59.656+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [160dc2db-e402-41bb-b730-36bf0b52b429]
+2020-01-08 10:35:59.660+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        homeloansi0_.project_id as project21_1_0_,
+        homeloansi0_.id as id1_1_0_,
+        homeloansi0_.id as id1_1_1_,
+        homeloansi0_.application_fee as applicat2_1_1_,
+        homeloansi0_.credit_request as credit_r3_1_1_,
+        homeloansi0_.fees_impact_on_interest_rate as fees_imp4_1_1_,
+        homeloansi0_.effective_interest_rate as effectiv5_1_1_,
+        homeloansi0_.global_loan_payment as global_l6_1_1_,
+        homeloansi0_.insurance_cost as insuranc7_1_1_,
+        homeloansi0_.insurance_impact_on_interest_rate as insuranc8_1_1_,
+        homeloansi0_.interest_cost as interest9_1_1_,
+        homeloansi0_.loan_amount as loan_am10_1_1_,
+        homeloansi0_.loan_cost as loan_co11_1_1_,
+        homeloansi0_.loan_duration as loan_du12_1_1_,
+        homeloansi0_.loan_guaranty as loan_gu13_1_1_,
+        homeloansi0_.loan_guaranty_rate as loan_gu14_1_1_,
+        homeloansi0_.loan_insurance_rate as loan_in15_1_1_,
+        homeloansi0_.loan_interest_rate as loan_in16_1_1_,
+        homeloansi0_.loan_payment as loan_pa17_1_1_,
+        homeloansi0_.periodicity as periodi18_1_1_,
+        homeloansi0_.personal_deposit as persona19_1_1_,
+        homeloansi0_.simulation_date as simulat20_1_1_ 
+    from
+        homeloan_simulation homeloansi0_ 
+    where
+        homeloansi0_.project_id=?
+2020-01-08 10:35:59.662+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [160dc2db-e402-41bb-b730-36bf0b52b429]
+2020-01-08 10:35:59.666+01:00 | DEBUG| org.hibernate.SQL | 
+    call next value for hibernate_sequence
+2020-01-08 10:35:59.674+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        borrower
+        (date_of_birth, net_income, id) 
+    values
+        (?, ?, ?)
+2020-01-08 10:35:59.677+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [TIMESTAMP] - [Tue Jan 01 01:00:00 CET 1980]
+2020-01-08 10:35:59.693+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [4000.0]
+2020-01-08 10:35:59.695+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [BIGINT] - [1]
+2020-01-08 10:35:59.696+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        mortgage_project 
+    set
+        household_charges=?,
+        max_loan_payment=?,
+        project_type=?,
+        reference_id=? 
+    where
+        id=?
+2020-01-08 10:35:59.697+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [100.0]
+2020-01-08 10:35:59.697+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [1365.0]
+2020-01-08 10:35:59.698+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [VARCHAR] - [PURCHASE]
+2020-01-08 10:35:59.698+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [VARCHAR] - [0.35011561816845393]
+2020-01-08 10:35:59.698+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [VARCHAR] - [160dc2db-e402-41bb-b730-36bf0b52b429]
+2020-01-08 10:35:59.712+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        borrower 
+    set
+        project_id=? 
+    where
+        id=?
+2020-01-08 10:35:59.713+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [160dc2db-e402-41bb-b730-36bf0b52b429]
+2020-01-08 10:35:59.713+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [BIGINT] - [1]
+2020-01-08 10:35:59.718+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 10:35:59.718+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [MortgageProjectQueryDTO(id=160dc2db-e402-41bb-b730-36bf0b52b429, referenceId=0.35011561816845393, pr (truncated)...]
+2020-01-08 10:35:59.727+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 10:36:08.182+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | OPTIONS "/mortgageProjects/160dc2db-e402-41bb-b730-36bf0b52b429/homeloanSimulations/", parameters={}
+2020-01-08 10:36:08.184+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#addHomeloanSimulationToMortgageProject(String, HomeloanSimulationUpdateDTO)
+2020-01-08 10:36:08.185+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 10:36:08.190+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | POST "/mortgageProjects/160dc2db-e402-41bb-b730-36bf0b52b429/homeloanSimulations/", parameters={}
+2020-01-08 10:36:08.191+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#addHomeloanSimulationToMortgageProject(String, HomeloanSimulationUpdateDTO)
+2020-01-08 10:36:08.205+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [HomeloanSimulationUpdateDTO(personalDeposit=100000.0, loanAmount=200000.0, loanPayment=0.0, loanInte (truncated)...]
+2020-01-08 10:36:08.213+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Démarrage du calcul du coût du crédit
+2020-01-08 10:36:08.214+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Montant crédit = 200000.0
+2020-01-08 10:36:08.214+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Echéance = 1196.9890290366611
+2020-01-08 10:36:08.214+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Frais de dossier = 1000.0
+2020-01-08 10:36:08.214+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût assurance = 9600.0
+2020-01-08 10:36:08.214+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût garantie = 2500.0
+2020-01-08 10:36:08.214+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Echéance globale = 1250.3223623699944
+2020-01-08 10:36:08.215+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût intérêts = 15458.025226599013
+2020-01-08 10:36:08.215+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût du crédit = 28558.025226599013
+2020-01-08 10:36:08.220+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Nominal EIR = 1.0000000000014886
+2020-01-08 10:36:08.223+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | EIR with insurance = 1.5979285893418904
+2020-01-08 10:36:08.224+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | TAEA = 0.5979285893404018
+2020-01-08 10:36:08.227+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | TAEG = 1.8427090260725976
+2020-01-08 10:36:08.227+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | TAEF = 0.24478043673070715
+2020-01-08 10:36:08.229+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_0_,
+        mortgagepr0_.household_charges as househol2_2_0_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_0_,
+        mortgagepr0_.project_type as project_4_2_0_,
+        mortgagepr0_.reference_id as referenc5_2_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    where
+        mortgagepr0_.id=?
+2020-01-08 10:36:08.229+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [160dc2db-e402-41bb-b730-36bf0b52b429]
+2020-01-08 10:36:08.230+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        borrowers0_.project_id as project_4_0_0_,
+        borrowers0_.id as id1_0_0_,
+        borrowers0_.id as id1_0_1_,
+        borrowers0_.date_of_birth as date_of_2_0_1_,
+        borrowers0_.net_income as net_inco3_0_1_ 
+    from
+        borrower borrowers0_ 
+    where
+        borrowers0_.project_id=?
+2020-01-08 10:36:08.231+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [160dc2db-e402-41bb-b730-36bf0b52b429]
+2020-01-08 10:36:08.235+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        homeloansi0_.project_id as project21_1_0_,
+        homeloansi0_.id as id1_1_0_,
+        homeloansi0_.id as id1_1_1_,
+        homeloansi0_.application_fee as applicat2_1_1_,
+        homeloansi0_.credit_request as credit_r3_1_1_,
+        homeloansi0_.fees_impact_on_interest_rate as fees_imp4_1_1_,
+        homeloansi0_.effective_interest_rate as effectiv5_1_1_,
+        homeloansi0_.global_loan_payment as global_l6_1_1_,
+        homeloansi0_.insurance_cost as insuranc7_1_1_,
+        homeloansi0_.insurance_impact_on_interest_rate as insuranc8_1_1_,
+        homeloansi0_.interest_cost as interest9_1_1_,
+        homeloansi0_.loan_amount as loan_am10_1_1_,
+        homeloansi0_.loan_cost as loan_co11_1_1_,
+        homeloansi0_.loan_duration as loan_du12_1_1_,
+        homeloansi0_.loan_guaranty as loan_gu13_1_1_,
+        homeloansi0_.loan_guaranty_rate as loan_gu14_1_1_,
+        homeloansi0_.loan_insurance_rate as loan_in15_1_1_,
+        homeloansi0_.loan_interest_rate as loan_in16_1_1_,
+        homeloansi0_.loan_payment as loan_pa17_1_1_,
+        homeloansi0_.periodicity as periodi18_1_1_,
+        homeloansi0_.personal_deposit as persona19_1_1_,
+        homeloansi0_.simulation_date as simulat20_1_1_ 
+    from
+        homeloan_simulation homeloansi0_ 
+    where
+        homeloansi0_.project_id=?
+2020-01-08 10:36:08.235+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [160dc2db-e402-41bb-b730-36bf0b52b429]
+2020-01-08 10:36:08.237+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        homeloansi0_.id as id1_1_0_,
+        homeloansi0_.application_fee as applicat2_1_0_,
+        homeloansi0_.credit_request as credit_r3_1_0_,
+        homeloansi0_.fees_impact_on_interest_rate as fees_imp4_1_0_,
+        homeloansi0_.effective_interest_rate as effectiv5_1_0_,
+        homeloansi0_.global_loan_payment as global_l6_1_0_,
+        homeloansi0_.insurance_cost as insuranc7_1_0_,
+        homeloansi0_.insurance_impact_on_interest_rate as insuranc8_1_0_,
+        homeloansi0_.interest_cost as interest9_1_0_,
+        homeloansi0_.loan_amount as loan_am10_1_0_,
+        homeloansi0_.loan_cost as loan_co11_1_0_,
+        homeloansi0_.loan_duration as loan_du12_1_0_,
+        homeloansi0_.loan_guaranty as loan_gu13_1_0_,
+        homeloansi0_.loan_guaranty_rate as loan_gu14_1_0_,
+        homeloansi0_.loan_insurance_rate as loan_in15_1_0_,
+        homeloansi0_.loan_interest_rate as loan_in16_1_0_,
+        homeloansi0_.loan_payment as loan_pa17_1_0_,
+        homeloansi0_.periodicity as periodi18_1_0_,
+        homeloansi0_.personal_deposit as persona19_1_0_,
+        homeloansi0_.simulation_date as simulat20_1_0_ 
+    from
+        homeloan_simulation homeloansi0_ 
+    where
+        homeloansi0_.id=?
+2020-01-08 10:36:08.239+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [5cdaec54-ac1c-4cae-9efe-061a46812746]
+2020-01-08 10:36:08.244+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        homeloan_simulation
+        (application_fee, credit_request, fees_impact_on_interest_rate, effective_interest_rate, global_loan_payment, insurance_cost, insurance_impact_on_interest_rate, interest_cost, loan_amount, loan_cost, loan_duration, loan_guaranty, loan_guaranty_rate, loan_insurance_rate, loan_interest_rate, loan_payment, periodicity, personal_deposit, simulation_date, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2020-01-08 10:36:08.245+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [1000.0]
+2020-01-08 10:36:08.246+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [BOOLEAN] - [false]
+2020-01-08 10:36:08.246+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [DOUBLE] - [0.24478043673070715]
+2020-01-08 10:36:08.247+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [DOUBLE] - [1.8427090260725976]
+2020-01-08 10:36:08.247+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [DOUBLE] - [1250.3223623699944]
+2020-01-08 10:36:08.247+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [6] as [DOUBLE] - [9600.0]
+2020-01-08 10:36:08.247+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [7] as [DOUBLE] - [0.5979285893404018]
+2020-01-08 10:36:08.248+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [8] as [DOUBLE] - [15458.025226599013]
+2020-01-08 10:36:08.248+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [9] as [DOUBLE] - [200000.0]
+2020-01-08 10:36:08.248+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [10] as [DOUBLE] - [28558.025226599013]
+2020-01-08 10:36:08.249+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [11] as [INTEGER] - [15]
+2020-01-08 10:36:08.250+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [12] as [DOUBLE] - [2500.0]
+2020-01-08 10:36:08.250+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [13] as [DOUBLE] - [1.25]
+2020-01-08 10:36:08.250+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [14] as [DOUBLE] - [4.8]
+2020-01-08 10:36:08.250+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [15] as [DOUBLE] - [1.0]
+2020-01-08 10:36:08.250+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [16] as [DOUBLE] - [1196.9890290366611]
+2020-01-08 10:36:08.251+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [17] as [VARCHAR] - [MONTHLY]
+2020-01-08 10:36:08.251+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [18] as [DOUBLE] - [100000.0]
+2020-01-08 10:36:08.251+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [19] as [TIMESTAMP] - [Wed Jan 08 10:36:08 CET 2020]
+2020-01-08 10:36:08.253+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [20] as [VARCHAR] - [5cdaec54-ac1c-4cae-9efe-061a46812746]
+2020-01-08 10:36:08.254+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        homeloan_simulation 
+    set
+        project_id=? 
+    where
+        id=?
+2020-01-08 10:36:08.255+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [160dc2db-e402-41bb-b730-36bf0b52b429]
+2020-01-08 10:36:08.255+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [VARCHAR] - [5cdaec54-ac1c-4cae-9efe-061a46812746]
+2020-01-08 10:36:08.267+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 10:36:08.268+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [HomeloanSimulationQueryDTO(id=5cdaec54-ac1c-4cae-9efe-061a46812746, simulationDate=Wed Jan 08 10:36: (truncated)...]
+2020-01-08 10:36:08.270+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 201 CREATED
+2020-01-08 10:37:24.230+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | POST "/mortgageProjects", parameters={}
+2020-01-08 10:37:24.232+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#createMortgageProject(MortgageProjectUpdateDTO)
+2020-01-08 10:37:24.235+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [MortgageProjectUpdateDTO(referenceId=0.26503067796819346, projectType=PURCHASE, householdCharges=100 (truncated)...]
+2020-01-08 10:37:24.237+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_1_,
+        mortgagepr0_.household_charges as househol2_2_1_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_1_,
+        mortgagepr0_.project_type as project_4_2_1_,
+        mortgagepr0_.reference_id as referenc5_2_1_,
+        borrowers1_.project_id as project_4_0_3_,
+        borrowers1_.id as id1_0_3_,
+        borrowers1_.id as id1_0_0_,
+        borrowers1_.date_of_birth as date_of_2_0_0_,
+        borrowers1_.net_income as net_inco3_0_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    left outer join
+        borrower borrowers1_ 
+            on mortgagepr0_.id=borrowers1_.project_id 
+    where
+        mortgagepr0_.id=?
+2020-01-08 10:37:24.239+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [65694a53-0bba-4478-92b4-1d0d45852d00]
+2020-01-08 10:37:24.241+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        mortgage_project
+        (household_charges, max_loan_payment, project_type, reference_id, id) 
+    values
+        (?, ?, ?, ?, ?)
+2020-01-08 10:37:24.242+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [100.0]
+2020-01-08 10:37:24.242+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [-35.0]
+2020-01-08 10:37:24.243+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [VARCHAR] - [PURCHASE]
+2020-01-08 10:37:24.243+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [VARCHAR] - [0.26503067796819346]
+2020-01-08 10:37:24.244+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [VARCHAR] - [65694a53-0bba-4478-92b4-1d0d45852d00]
+2020-01-08 10:37:24.248+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 10:37:24.248+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [MortgageProjectQueryDTO(id=65694a53-0bba-4478-92b4-1d0d45852d00, referenceId=0.26503067796819346, pr (truncated)...]
+2020-01-08 10:37:24.252+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 201 CREATED
+2020-01-08 10:37:28.905+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | OPTIONS "/mortgageProjects/65694a53-0bba-4478-92b4-1d0d45852d00", parameters={}
+2020-01-08 10:37:28.907+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#updateMortgageProject(String, MortgageProjectUpdateDTO)
+2020-01-08 10:37:28.910+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 10:37:28.921+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | PUT "/mortgageProjects/65694a53-0bba-4478-92b4-1d0d45852d00", parameters={}
+2020-01-08 10:37:28.923+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#updateMortgageProject(String, MortgageProjectUpdateDTO)
+2020-01-08 10:37:28.927+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [MortgageProjectUpdateDTO(referenceId=0.26503067796819346, projectType=PURCHASE, householdCharges=100 (truncated)...]
+2020-01-08 10:37:28.929+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_0_,
+        mortgagepr0_.household_charges as househol2_2_0_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_0_,
+        mortgagepr0_.project_type as project_4_2_0_,
+        mortgagepr0_.reference_id as referenc5_2_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    where
+        mortgagepr0_.id=?
+2020-01-08 10:37:28.931+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [65694a53-0bba-4478-92b4-1d0d45852d00]
+2020-01-08 10:37:28.933+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        borrowers0_.project_id as project_4_0_0_,
+        borrowers0_.id as id1_0_0_,
+        borrowers0_.id as id1_0_1_,
+        borrowers0_.date_of_birth as date_of_2_0_1_,
+        borrowers0_.net_income as net_inco3_0_1_ 
+    from
+        borrower borrowers0_ 
+    where
+        borrowers0_.project_id=?
+2020-01-08 10:37:28.933+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [65694a53-0bba-4478-92b4-1d0d45852d00]
+2020-01-08 10:37:28.935+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        homeloansi0_.project_id as project21_1_0_,
+        homeloansi0_.id as id1_1_0_,
+        homeloansi0_.id as id1_1_1_,
+        homeloansi0_.application_fee as applicat2_1_1_,
+        homeloansi0_.credit_request as credit_r3_1_1_,
+        homeloansi0_.fees_impact_on_interest_rate as fees_imp4_1_1_,
+        homeloansi0_.effective_interest_rate as effectiv5_1_1_,
+        homeloansi0_.global_loan_payment as global_l6_1_1_,
+        homeloansi0_.insurance_cost as insuranc7_1_1_,
+        homeloansi0_.insurance_impact_on_interest_rate as insuranc8_1_1_,
+        homeloansi0_.interest_cost as interest9_1_1_,
+        homeloansi0_.loan_amount as loan_am10_1_1_,
+        homeloansi0_.loan_cost as loan_co11_1_1_,
+        homeloansi0_.loan_duration as loan_du12_1_1_,
+        homeloansi0_.loan_guaranty as loan_gu13_1_1_,
+        homeloansi0_.loan_guaranty_rate as loan_gu14_1_1_,
+        homeloansi0_.loan_insurance_rate as loan_in15_1_1_,
+        homeloansi0_.loan_interest_rate as loan_in16_1_1_,
+        homeloansi0_.loan_payment as loan_pa17_1_1_,
+        homeloansi0_.periodicity as periodi18_1_1_,
+        homeloansi0_.personal_deposit as persona19_1_1_,
+        homeloansi0_.simulation_date as simulat20_1_1_ 
+    from
+        homeloan_simulation homeloansi0_ 
+    where
+        homeloansi0_.project_id=?
+2020-01-08 10:37:28.936+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [65694a53-0bba-4478-92b4-1d0d45852d00]
+2020-01-08 10:37:28.939+01:00 | DEBUG| org.hibernate.SQL | 
+    call next value for hibernate_sequence
+2020-01-08 10:37:28.942+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        borrower
+        (date_of_birth, net_income, id) 
+    values
+        (?, ?, ?)
+2020-01-08 10:37:28.943+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [TIMESTAMP] - [Tue Jan 01 01:00:00 CET 1980]
+2020-01-08 10:37:28.944+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [4000.0]
+2020-01-08 10:37:28.944+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [BIGINT] - [2]
+2020-01-08 10:37:28.946+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        mortgage_project 
+    set
+        household_charges=?,
+        max_loan_payment=?,
+        project_type=?,
+        reference_id=? 
+    where
+        id=?
+2020-01-08 10:37:28.946+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [100.0]
+2020-01-08 10:37:28.947+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [1365.0]
+2020-01-08 10:37:28.947+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [VARCHAR] - [PURCHASE]
+2020-01-08 10:37:28.947+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [VARCHAR] - [0.26503067796819346]
+2020-01-08 10:37:28.947+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [VARCHAR] - [65694a53-0bba-4478-92b4-1d0d45852d00]
+2020-01-08 10:37:28.948+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        borrower 
+    set
+        project_id=? 
+    where
+        id=?
+2020-01-08 10:37:28.949+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [65694a53-0bba-4478-92b4-1d0d45852d00]
+2020-01-08 10:37:28.949+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [BIGINT] - [2]
+2020-01-08 10:37:28.950+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 10:37:28.951+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [MortgageProjectQueryDTO(id=65694a53-0bba-4478-92b4-1d0d45852d00, referenceId=0.26503067796819346, pr (truncated)...]
+2020-01-08 10:37:28.953+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 10:38:51.391+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | OPTIONS "/mortgageProjects/65694a53-0bba-4478-92b4-1d0d45852d00/homeloanSimulations/", parameters={}
+2020-01-08 10:38:51.393+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#addHomeloanSimulationToMortgageProject(String, HomeloanSimulationUpdateDTO)
+2020-01-08 10:38:51.395+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 10:38:51.406+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | POST "/mortgageProjects/65694a53-0bba-4478-92b4-1d0d45852d00/homeloanSimulations/", parameters={}
+2020-01-08 10:38:51.407+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#addHomeloanSimulationToMortgageProject(String, HomeloanSimulationUpdateDTO)
+2020-01-08 10:38:51.413+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [HomeloanSimulationUpdateDTO(personalDeposit=100000.0, loanAmount=200000.0, loanPayment=0.0, loanInte (truncated)...]
+2020-01-08 10:38:51.413+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Démarrage du calcul du coût du crédit
+2020-01-08 10:38:51.414+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Montant crédit = 200000.0
+2020-01-08 10:38:51.414+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Echéance = 1196.9890290366611
+2020-01-08 10:38:51.422+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Frais de dossier = 1000.0
+2020-01-08 10:38:51.422+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût assurance = 9600.0
+2020-01-08 10:38:51.422+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût garantie = 2500.0
+2020-01-08 10:38:51.423+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Echéance globale = 1250.3223623699944
+2020-01-08 10:38:51.423+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût intérêts = 15458.025226599013
+2020-01-08 10:38:51.423+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût du crédit = 28558.025226599013
+2020-01-08 10:38:51.427+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Nominal EIR = 1.0000000000014886
+2020-01-08 10:38:51.430+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | EIR with insurance = 1.5979285893418904
+2020-01-08 10:38:51.430+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | TAEA = 0.5979285893404018
+2020-01-08 10:38:51.433+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | TAEG = 1.8427090260725976
+2020-01-08 10:38:51.434+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | TAEF = 0.24478043673070715
+2020-01-08 10:38:51.435+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_0_,
+        mortgagepr0_.household_charges as househol2_2_0_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_0_,
+        mortgagepr0_.project_type as project_4_2_0_,
+        mortgagepr0_.reference_id as referenc5_2_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    where
+        mortgagepr0_.id=?
+2020-01-08 10:38:51.435+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [65694a53-0bba-4478-92b4-1d0d45852d00]
+2020-01-08 10:38:51.437+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        borrowers0_.project_id as project_4_0_0_,
+        borrowers0_.id as id1_0_0_,
+        borrowers0_.id as id1_0_1_,
+        borrowers0_.date_of_birth as date_of_2_0_1_,
+        borrowers0_.net_income as net_inco3_0_1_ 
+    from
+        borrower borrowers0_ 
+    where
+        borrowers0_.project_id=?
+2020-01-08 10:38:51.437+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [65694a53-0bba-4478-92b4-1d0d45852d00]
+2020-01-08 10:38:51.439+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        homeloansi0_.project_id as project21_1_0_,
+        homeloansi0_.id as id1_1_0_,
+        homeloansi0_.id as id1_1_1_,
+        homeloansi0_.application_fee as applicat2_1_1_,
+        homeloansi0_.credit_request as credit_r3_1_1_,
+        homeloansi0_.fees_impact_on_interest_rate as fees_imp4_1_1_,
+        homeloansi0_.effective_interest_rate as effectiv5_1_1_,
+        homeloansi0_.global_loan_payment as global_l6_1_1_,
+        homeloansi0_.insurance_cost as insuranc7_1_1_,
+        homeloansi0_.insurance_impact_on_interest_rate as insuranc8_1_1_,
+        homeloansi0_.interest_cost as interest9_1_1_,
+        homeloansi0_.loan_amount as loan_am10_1_1_,
+        homeloansi0_.loan_cost as loan_co11_1_1_,
+        homeloansi0_.loan_duration as loan_du12_1_1_,
+        homeloansi0_.loan_guaranty as loan_gu13_1_1_,
+        homeloansi0_.loan_guaranty_rate as loan_gu14_1_1_,
+        homeloansi0_.loan_insurance_rate as loan_in15_1_1_,
+        homeloansi0_.loan_interest_rate as loan_in16_1_1_,
+        homeloansi0_.loan_payment as loan_pa17_1_1_,
+        homeloansi0_.periodicity as periodi18_1_1_,
+        homeloansi0_.personal_deposit as persona19_1_1_,
+        homeloansi0_.simulation_date as simulat20_1_1_ 
+    from
+        homeloan_simulation homeloansi0_ 
+    where
+        homeloansi0_.project_id=?
+2020-01-08 10:38:51.439+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [65694a53-0bba-4478-92b4-1d0d45852d00]
+2020-01-08 10:38:51.441+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        homeloansi0_.id as id1_1_0_,
+        homeloansi0_.application_fee as applicat2_1_0_,
+        homeloansi0_.credit_request as credit_r3_1_0_,
+        homeloansi0_.fees_impact_on_interest_rate as fees_imp4_1_0_,
+        homeloansi0_.effective_interest_rate as effectiv5_1_0_,
+        homeloansi0_.global_loan_payment as global_l6_1_0_,
+        homeloansi0_.insurance_cost as insuranc7_1_0_,
+        homeloansi0_.insurance_impact_on_interest_rate as insuranc8_1_0_,
+        homeloansi0_.interest_cost as interest9_1_0_,
+        homeloansi0_.loan_amount as loan_am10_1_0_,
+        homeloansi0_.loan_cost as loan_co11_1_0_,
+        homeloansi0_.loan_duration as loan_du12_1_0_,
+        homeloansi0_.loan_guaranty as loan_gu13_1_0_,
+        homeloansi0_.loan_guaranty_rate as loan_gu14_1_0_,
+        homeloansi0_.loan_insurance_rate as loan_in15_1_0_,
+        homeloansi0_.loan_interest_rate as loan_in16_1_0_,
+        homeloansi0_.loan_payment as loan_pa17_1_0_,
+        homeloansi0_.periodicity as periodi18_1_0_,
+        homeloansi0_.personal_deposit as persona19_1_0_,
+        homeloansi0_.simulation_date as simulat20_1_0_ 
+    from
+        homeloan_simulation homeloansi0_ 
+    where
+        homeloansi0_.id=?
+2020-01-08 10:38:51.442+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [4c8afa6c-69ca-4865-970f-ab2ffc1c50e7]
+2020-01-08 10:38:51.444+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        homeloan_simulation
+        (application_fee, credit_request, fees_impact_on_interest_rate, effective_interest_rate, global_loan_payment, insurance_cost, insurance_impact_on_interest_rate, interest_cost, loan_amount, loan_cost, loan_duration, loan_guaranty, loan_guaranty_rate, loan_insurance_rate, loan_interest_rate, loan_payment, periodicity, personal_deposit, simulation_date, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2020-01-08 10:38:51.445+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [1000.0]
+2020-01-08 10:38:51.445+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [BOOLEAN] - [false]
+2020-01-08 10:38:51.446+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [DOUBLE] - [0.24478043673070715]
+2020-01-08 10:38:51.446+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [DOUBLE] - [1.8427090260725976]
+2020-01-08 10:38:51.446+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [DOUBLE] - [1250.3223623699944]
+2020-01-08 10:38:51.446+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [6] as [DOUBLE] - [9600.0]
+2020-01-08 10:38:51.446+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [7] as [DOUBLE] - [0.5979285893404018]
+2020-01-08 10:38:51.447+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [8] as [DOUBLE] - [15458.025226599013]
+2020-01-08 10:38:51.447+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [9] as [DOUBLE] - [200000.0]
+2020-01-08 10:38:51.447+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [10] as [DOUBLE] - [28558.025226599013]
+2020-01-08 10:38:51.447+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [11] as [INTEGER] - [15]
+2020-01-08 10:38:51.447+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [12] as [DOUBLE] - [2500.0]
+2020-01-08 10:38:51.447+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [13] as [DOUBLE] - [1.25]
+2020-01-08 10:38:51.447+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [14] as [DOUBLE] - [4.8]
+2020-01-08 10:38:51.448+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [15] as [DOUBLE] - [1.0]
+2020-01-08 10:38:51.448+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [16] as [DOUBLE] - [1196.9890290366611]
+2020-01-08 10:38:51.448+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [17] as [VARCHAR] - [MONTHLY]
+2020-01-08 10:38:51.448+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [18] as [DOUBLE] - [100000.0]
+2020-01-08 10:38:51.448+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [19] as [TIMESTAMP] - [Wed Jan 08 10:38:51 CET 2020]
+2020-01-08 10:38:51.448+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [20] as [VARCHAR] - [4c8afa6c-69ca-4865-970f-ab2ffc1c50e7]
+2020-01-08 10:38:51.454+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        homeloan_simulation 
+    set
+        project_id=? 
+    where
+        id=?
+2020-01-08 10:38:51.454+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [65694a53-0bba-4478-92b4-1d0d45852d00]
+2020-01-08 10:38:51.454+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [VARCHAR] - [4c8afa6c-69ca-4865-970f-ab2ffc1c50e7]
+2020-01-08 10:38:51.456+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 10:38:51.457+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [HomeloanSimulationQueryDTO(id=4c8afa6c-69ca-4865-970f-ab2ffc1c50e7, simulationDate=Wed Jan 08 10:38: (truncated)...]
+2020-01-08 10:38:51.459+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 201 CREATED
+2020-01-08 10:46:54.784+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | POST "/mortgageProjects", parameters={}
+2020-01-08 10:46:54.786+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#createMortgageProject(MortgageProjectUpdateDTO)
+2020-01-08 10:46:54.791+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [MortgageProjectUpdateDTO(referenceId=0.9307557971604283, projectType=PURCHASE, householdCharges=100. (truncated)...]
+2020-01-08 10:46:54.794+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_1_,
+        mortgagepr0_.household_charges as househol2_2_1_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_1_,
+        mortgagepr0_.project_type as project_4_2_1_,
+        mortgagepr0_.reference_id as referenc5_2_1_,
+        borrowers1_.project_id as project_4_0_3_,
+        borrowers1_.id as id1_0_3_,
+        borrowers1_.id as id1_0_0_,
+        borrowers1_.date_of_birth as date_of_2_0_0_,
+        borrowers1_.net_income as net_inco3_0_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    left outer join
+        borrower borrowers1_ 
+            on mortgagepr0_.id=borrowers1_.project_id 
+    where
+        mortgagepr0_.id=?
+2020-01-08 10:46:54.797+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [5ddf5fee-2ade-4f5d-9fa9-079912f43b01]
+2020-01-08 10:46:54.800+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        mortgage_project
+        (household_charges, max_loan_payment, project_type, reference_id, id) 
+    values
+        (?, ?, ?, ?, ?)
+2020-01-08 10:46:54.801+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [100.0]
+2020-01-08 10:46:54.801+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [-35.0]
+2020-01-08 10:46:54.802+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [VARCHAR] - [PURCHASE]
+2020-01-08 10:46:54.803+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [VARCHAR] - [0.9307557971604283]
+2020-01-08 10:46:54.803+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [VARCHAR] - [5ddf5fee-2ade-4f5d-9fa9-079912f43b01]
+2020-01-08 10:46:54.806+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 10:46:54.807+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [MortgageProjectQueryDTO(id=5ddf5fee-2ade-4f5d-9fa9-079912f43b01, referenceId=0.9307557971604283, pro (truncated)...]
+2020-01-08 10:46:54.810+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 201 CREATED
+2020-01-08 10:47:02.841+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | OPTIONS "/mortgageProjects/5ddf5fee-2ade-4f5d-9fa9-079912f43b01", parameters={}
+2020-01-08 10:47:02.843+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#updateMortgageProject(String, MortgageProjectUpdateDTO)
+2020-01-08 10:47:02.845+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 10:47:02.856+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | PUT "/mortgageProjects/5ddf5fee-2ade-4f5d-9fa9-079912f43b01", parameters={}
+2020-01-08 10:47:02.858+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#updateMortgageProject(String, MortgageProjectUpdateDTO)
+2020-01-08 10:47:02.861+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [MortgageProjectUpdateDTO(referenceId=0.9307557971604283, projectType=PURCHASE, householdCharges=100. (truncated)...]
+2020-01-08 10:47:02.863+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_0_,
+        mortgagepr0_.household_charges as househol2_2_0_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_0_,
+        mortgagepr0_.project_type as project_4_2_0_,
+        mortgagepr0_.reference_id as referenc5_2_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    where
+        mortgagepr0_.id=?
+2020-01-08 10:47:02.864+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [5ddf5fee-2ade-4f5d-9fa9-079912f43b01]
+2020-01-08 10:47:02.865+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        borrowers0_.project_id as project_4_0_0_,
+        borrowers0_.id as id1_0_0_,
+        borrowers0_.id as id1_0_1_,
+        borrowers0_.date_of_birth as date_of_2_0_1_,
+        borrowers0_.net_income as net_inco3_0_1_ 
+    from
+        borrower borrowers0_ 
+    where
+        borrowers0_.project_id=?
+2020-01-08 10:47:02.866+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [5ddf5fee-2ade-4f5d-9fa9-079912f43b01]
+2020-01-08 10:47:02.867+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        homeloansi0_.project_id as project21_1_0_,
+        homeloansi0_.id as id1_1_0_,
+        homeloansi0_.id as id1_1_1_,
+        homeloansi0_.application_fee as applicat2_1_1_,
+        homeloansi0_.credit_request as credit_r3_1_1_,
+        homeloansi0_.fees_impact_on_interest_rate as fees_imp4_1_1_,
+        homeloansi0_.effective_interest_rate as effectiv5_1_1_,
+        homeloansi0_.global_loan_payment as global_l6_1_1_,
+        homeloansi0_.insurance_cost as insuranc7_1_1_,
+        homeloansi0_.insurance_impact_on_interest_rate as insuranc8_1_1_,
+        homeloansi0_.interest_cost as interest9_1_1_,
+        homeloansi0_.loan_amount as loan_am10_1_1_,
+        homeloansi0_.loan_cost as loan_co11_1_1_,
+        homeloansi0_.loan_duration as loan_du12_1_1_,
+        homeloansi0_.loan_guaranty as loan_gu13_1_1_,
+        homeloansi0_.loan_guaranty_rate as loan_gu14_1_1_,
+        homeloansi0_.loan_insurance_rate as loan_in15_1_1_,
+        homeloansi0_.loan_interest_rate as loan_in16_1_1_,
+        homeloansi0_.loan_payment as loan_pa17_1_1_,
+        homeloansi0_.periodicity as periodi18_1_1_,
+        homeloansi0_.personal_deposit as persona19_1_1_,
+        homeloansi0_.simulation_date as simulat20_1_1_ 
+    from
+        homeloan_simulation homeloansi0_ 
+    where
+        homeloansi0_.project_id=?
+2020-01-08 10:47:02.867+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [5ddf5fee-2ade-4f5d-9fa9-079912f43b01]
+2020-01-08 10:47:02.870+01:00 | DEBUG| org.hibernate.SQL | 
+    call next value for hibernate_sequence
+2020-01-08 10:47:02.871+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        borrower
+        (date_of_birth, net_income, id) 
+    values
+        (?, ?, ?)
+2020-01-08 10:47:02.872+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [TIMESTAMP] - [Tue Jan 01 01:00:00 CET 1980]
+2020-01-08 10:47:02.872+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [4000.0]
+2020-01-08 10:47:02.872+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [BIGINT] - [3]
+2020-01-08 10:47:02.873+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        mortgage_project 
+    set
+        household_charges=?,
+        max_loan_payment=?,
+        project_type=?,
+        reference_id=? 
+    where
+        id=?
+2020-01-08 10:47:02.873+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [100.0]
+2020-01-08 10:47:02.873+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [1365.0]
+2020-01-08 10:47:02.873+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [VARCHAR] - [PURCHASE]
+2020-01-08 10:47:02.873+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [VARCHAR] - [0.9307557971604283]
+2020-01-08 10:47:02.874+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [VARCHAR] - [5ddf5fee-2ade-4f5d-9fa9-079912f43b01]
+2020-01-08 10:47:02.874+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        borrower 
+    set
+        project_id=? 
+    where
+        id=?
+2020-01-08 10:47:02.875+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [5ddf5fee-2ade-4f5d-9fa9-079912f43b01]
+2020-01-08 10:47:02.875+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [BIGINT] - [3]
+2020-01-08 10:47:02.877+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 10:47:02.877+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [MortgageProjectQueryDTO(id=5ddf5fee-2ade-4f5d-9fa9-079912f43b01, referenceId=0.9307557971604283, pro (truncated)...]
+2020-01-08 10:47:02.878+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 10:48:10.164+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | OPTIONS "/mortgageProjects/5ddf5fee-2ade-4f5d-9fa9-079912f43b01/homeloanSimulations/", parameters={}
+2020-01-08 10:48:10.167+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#addHomeloanSimulationToMortgageProject(String, HomeloanSimulationUpdateDTO)
+2020-01-08 10:48:10.168+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 10:48:10.179+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | POST "/mortgageProjects/5ddf5fee-2ade-4f5d-9fa9-079912f43b01/homeloanSimulations/", parameters={}
+2020-01-08 10:48:10.179+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#addHomeloanSimulationToMortgageProject(String, HomeloanSimulationUpdateDTO)
+2020-01-08 10:48:10.182+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [HomeloanSimulationUpdateDTO(personalDeposit=100000.0, loanAmount=200000.0, loanPayment=0.0, loanInte (truncated)...]
+2020-01-08 10:48:10.182+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Démarrage du calcul du coût du crédit
+2020-01-08 10:48:10.182+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Montant crédit = 200000.0
+2020-01-08 10:48:10.182+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Echéance = 1196.9890290366611
+2020-01-08 10:48:10.182+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Frais de dossier = 1000.0
+2020-01-08 10:48:10.183+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût assurance = 9600.0
+2020-01-08 10:48:10.183+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût garantie = 2500.0
+2020-01-08 10:48:10.183+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Echéance globale = 1250.3223623699944
+2020-01-08 10:48:10.183+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût intérêts = 15458.025226599013
+2020-01-08 10:48:10.183+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût du crédit = 28558.025226599013
+2020-01-08 10:48:10.187+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Nominal EIR = 1.0000000000014886
+2020-01-08 10:48:10.190+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | EIR with insurance = 1.5979285893418904
+2020-01-08 10:48:10.190+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | TAEA = 0.5979285893404018
+2020-01-08 10:48:10.193+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | TAEG = 1.8427090260725976
+2020-01-08 10:48:10.193+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | TAEF = 0.24478043673070715
+2020-01-08 10:48:10.194+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_0_,
+        mortgagepr0_.household_charges as househol2_2_0_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_0_,
+        mortgagepr0_.project_type as project_4_2_0_,
+        mortgagepr0_.reference_id as referenc5_2_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    where
+        mortgagepr0_.id=?
+2020-01-08 10:48:10.194+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [5ddf5fee-2ade-4f5d-9fa9-079912f43b01]
+2020-01-08 10:48:10.196+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        borrowers0_.project_id as project_4_0_0_,
+        borrowers0_.id as id1_0_0_,
+        borrowers0_.id as id1_0_1_,
+        borrowers0_.date_of_birth as date_of_2_0_1_,
+        borrowers0_.net_income as net_inco3_0_1_ 
+    from
+        borrower borrowers0_ 
+    where
+        borrowers0_.project_id=?
+2020-01-08 10:48:10.196+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [5ddf5fee-2ade-4f5d-9fa9-079912f43b01]
+2020-01-08 10:48:10.197+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        homeloansi0_.project_id as project21_1_0_,
+        homeloansi0_.id as id1_1_0_,
+        homeloansi0_.id as id1_1_1_,
+        homeloansi0_.application_fee as applicat2_1_1_,
+        homeloansi0_.credit_request as credit_r3_1_1_,
+        homeloansi0_.fees_impact_on_interest_rate as fees_imp4_1_1_,
+        homeloansi0_.effective_interest_rate as effectiv5_1_1_,
+        homeloansi0_.global_loan_payment as global_l6_1_1_,
+        homeloansi0_.insurance_cost as insuranc7_1_1_,
+        homeloansi0_.insurance_impact_on_interest_rate as insuranc8_1_1_,
+        homeloansi0_.interest_cost as interest9_1_1_,
+        homeloansi0_.loan_amount as loan_am10_1_1_,
+        homeloansi0_.loan_cost as loan_co11_1_1_,
+        homeloansi0_.loan_duration as loan_du12_1_1_,
+        homeloansi0_.loan_guaranty as loan_gu13_1_1_,
+        homeloansi0_.loan_guaranty_rate as loan_gu14_1_1_,
+        homeloansi0_.loan_insurance_rate as loan_in15_1_1_,
+        homeloansi0_.loan_interest_rate as loan_in16_1_1_,
+        homeloansi0_.loan_payment as loan_pa17_1_1_,
+        homeloansi0_.periodicity as periodi18_1_1_,
+        homeloansi0_.personal_deposit as persona19_1_1_,
+        homeloansi0_.simulation_date as simulat20_1_1_ 
+    from
+        homeloan_simulation homeloansi0_ 
+    where
+        homeloansi0_.project_id=?
+2020-01-08 10:48:10.197+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [5ddf5fee-2ade-4f5d-9fa9-079912f43b01]
+2020-01-08 10:48:10.200+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        homeloansi0_.id as id1_1_0_,
+        homeloansi0_.application_fee as applicat2_1_0_,
+        homeloansi0_.credit_request as credit_r3_1_0_,
+        homeloansi0_.fees_impact_on_interest_rate as fees_imp4_1_0_,
+        homeloansi0_.effective_interest_rate as effectiv5_1_0_,
+        homeloansi0_.global_loan_payment as global_l6_1_0_,
+        homeloansi0_.insurance_cost as insuranc7_1_0_,
+        homeloansi0_.insurance_impact_on_interest_rate as insuranc8_1_0_,
+        homeloansi0_.interest_cost as interest9_1_0_,
+        homeloansi0_.loan_amount as loan_am10_1_0_,
+        homeloansi0_.loan_cost as loan_co11_1_0_,
+        homeloansi0_.loan_duration as loan_du12_1_0_,
+        homeloansi0_.loan_guaranty as loan_gu13_1_0_,
+        homeloansi0_.loan_guaranty_rate as loan_gu14_1_0_,
+        homeloansi0_.loan_insurance_rate as loan_in15_1_0_,
+        homeloansi0_.loan_interest_rate as loan_in16_1_0_,
+        homeloansi0_.loan_payment as loan_pa17_1_0_,
+        homeloansi0_.periodicity as periodi18_1_0_,
+        homeloansi0_.personal_deposit as persona19_1_0_,
+        homeloansi0_.simulation_date as simulat20_1_0_ 
+    from
+        homeloan_simulation homeloansi0_ 
+    where
+        homeloansi0_.id=?
+2020-01-08 10:48:10.200+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [76c88030-9769-4215-9cb5-71a317f19d41]
+2020-01-08 10:48:10.201+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        homeloan_simulation
+        (application_fee, credit_request, fees_impact_on_interest_rate, effective_interest_rate, global_loan_payment, insurance_cost, insurance_impact_on_interest_rate, interest_cost, loan_amount, loan_cost, loan_duration, loan_guaranty, loan_guaranty_rate, loan_insurance_rate, loan_interest_rate, loan_payment, periodicity, personal_deposit, simulation_date, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2020-01-08 10:48:10.203+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [1000.0]
+2020-01-08 10:48:10.203+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [BOOLEAN] - [false]
+2020-01-08 10:48:10.203+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [DOUBLE] - [0.24478043673070715]
+2020-01-08 10:48:10.203+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [DOUBLE] - [1.8427090260725976]
+2020-01-08 10:48:10.203+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [DOUBLE] - [1250.3223623699944]
+2020-01-08 10:48:10.203+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [6] as [DOUBLE] - [9600.0]
+2020-01-08 10:48:10.203+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [7] as [DOUBLE] - [0.5979285893404018]
+2020-01-08 10:48:10.203+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [8] as [DOUBLE] - [15458.025226599013]
+2020-01-08 10:48:10.203+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [9] as [DOUBLE] - [200000.0]
+2020-01-08 10:48:10.205+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [10] as [DOUBLE] - [28558.025226599013]
+2020-01-08 10:48:10.205+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [11] as [INTEGER] - [15]
+2020-01-08 10:48:10.205+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [12] as [DOUBLE] - [2500.0]
+2020-01-08 10:48:10.205+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [13] as [DOUBLE] - [1.25]
+2020-01-08 10:48:10.205+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [14] as [DOUBLE] - [4.8]
+2020-01-08 10:48:10.205+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [15] as [DOUBLE] - [1.0]
+2020-01-08 10:48:10.205+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [16] as [DOUBLE] - [1196.9890290366611]
+2020-01-08 10:48:10.205+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [17] as [VARCHAR] - [MONTHLY]
+2020-01-08 10:48:10.205+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [18] as [DOUBLE] - [100000.0]
+2020-01-08 10:48:10.205+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [19] as [TIMESTAMP] - [Wed Jan 08 10:48:10 CET 2020]
+2020-01-08 10:48:10.205+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [20] as [VARCHAR] - [76c88030-9769-4215-9cb5-71a317f19d41]
+2020-01-08 10:48:10.211+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        homeloan_simulation 
+    set
+        project_id=? 
+    where
+        id=?
+2020-01-08 10:48:10.211+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [5ddf5fee-2ade-4f5d-9fa9-079912f43b01]
+2020-01-08 10:48:10.211+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [VARCHAR] - [76c88030-9769-4215-9cb5-71a317f19d41]
+2020-01-08 10:48:10.213+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 10:48:10.214+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [HomeloanSimulationQueryDTO(id=76c88030-9769-4215-9cb5-71a317f19d41, simulationDate=Wed Jan 08 10:48: (truncated)...]
+2020-01-08 10:48:10.216+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 201 CREATED
+2020-01-08 10:51:05.271+01:00 | INFO | o.a.tomcat.util.http.parser.Cookie | A cookie header was received [name":"Bob","email":"bob@bob.com"}] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+2020-01-08 10:54:36.560+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | POST "/mortgageProjects", parameters={}
+2020-01-08 10:54:36.562+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#createMortgageProject(MortgageProjectUpdateDTO)
+2020-01-08 10:54:36.565+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [MortgageProjectUpdateDTO(referenceId=0.9832341471496187, projectType=PURCHASE, householdCharges=100. (truncated)...]
+2020-01-08 10:54:36.568+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_1_,
+        mortgagepr0_.household_charges as househol2_2_1_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_1_,
+        mortgagepr0_.project_type as project_4_2_1_,
+        mortgagepr0_.reference_id as referenc5_2_1_,
+        borrowers1_.project_id as project_4_0_3_,
+        borrowers1_.id as id1_0_3_,
+        borrowers1_.id as id1_0_0_,
+        borrowers1_.date_of_birth as date_of_2_0_0_,
+        borrowers1_.net_income as net_inco3_0_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    left outer join
+        borrower borrowers1_ 
+            on mortgagepr0_.id=borrowers1_.project_id 
+    where
+        mortgagepr0_.id=?
+2020-01-08 10:54:36.570+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [c02a4840-4d24-42b0-b49b-984c3465b254]
+2020-01-08 10:54:36.573+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        mortgage_project
+        (household_charges, max_loan_payment, project_type, reference_id, id) 
+    values
+        (?, ?, ?, ?, ?)
+2020-01-08 10:54:36.574+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [100.0]
+2020-01-08 10:54:36.574+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [-35.0]
+2020-01-08 10:54:36.575+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [VARCHAR] - [PURCHASE]
+2020-01-08 10:54:36.575+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [VARCHAR] - [0.9832341471496187]
+2020-01-08 10:54:36.575+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [VARCHAR] - [c02a4840-4d24-42b0-b49b-984c3465b254]
+2020-01-08 10:54:36.578+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 10:54:36.578+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [MortgageProjectQueryDTO(id=c02a4840-4d24-42b0-b49b-984c3465b254, referenceId=0.9832341471496187, pro (truncated)...]
+2020-01-08 10:54:36.581+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 201 CREATED
+2020-01-08 10:54:38.533+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | OPTIONS "/mortgageProjects/c02a4840-4d24-42b0-b49b-984c3465b254", parameters={}
+2020-01-08 10:54:38.535+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#updateMortgageProject(String, MortgageProjectUpdateDTO)
+2020-01-08 10:54:38.536+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 10:54:38.561+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | PUT "/mortgageProjects/c02a4840-4d24-42b0-b49b-984c3465b254", parameters={}
+2020-01-08 10:54:38.562+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#updateMortgageProject(String, MortgageProjectUpdateDTO)
+2020-01-08 10:54:38.564+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [MortgageProjectUpdateDTO(referenceId=0.9832341471496187, projectType=PURCHASE, householdCharges=100. (truncated)...]
+2020-01-08 10:54:38.565+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_0_,
+        mortgagepr0_.household_charges as househol2_2_0_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_0_,
+        mortgagepr0_.project_type as project_4_2_0_,
+        mortgagepr0_.reference_id as referenc5_2_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    where
+        mortgagepr0_.id=?
+2020-01-08 10:54:38.565+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [c02a4840-4d24-42b0-b49b-984c3465b254]
+2020-01-08 10:54:38.567+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        borrowers0_.project_id as project_4_0_0_,
+        borrowers0_.id as id1_0_0_,
+        borrowers0_.id as id1_0_1_,
+        borrowers0_.date_of_birth as date_of_2_0_1_,
+        borrowers0_.net_income as net_inco3_0_1_ 
+    from
+        borrower borrowers0_ 
+    where
+        borrowers0_.project_id=?
+2020-01-08 10:54:38.567+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [c02a4840-4d24-42b0-b49b-984c3465b254]
+2020-01-08 10:54:38.568+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        homeloansi0_.project_id as project21_1_0_,
+        homeloansi0_.id as id1_1_0_,
+        homeloansi0_.id as id1_1_1_,
+        homeloansi0_.application_fee as applicat2_1_1_,
+        homeloansi0_.credit_request as credit_r3_1_1_,
+        homeloansi0_.fees_impact_on_interest_rate as fees_imp4_1_1_,
+        homeloansi0_.effective_interest_rate as effectiv5_1_1_,
+        homeloansi0_.global_loan_payment as global_l6_1_1_,
+        homeloansi0_.insurance_cost as insuranc7_1_1_,
+        homeloansi0_.insurance_impact_on_interest_rate as insuranc8_1_1_,
+        homeloansi0_.interest_cost as interest9_1_1_,
+        homeloansi0_.loan_amount as loan_am10_1_1_,
+        homeloansi0_.loan_cost as loan_co11_1_1_,
+        homeloansi0_.loan_duration as loan_du12_1_1_,
+        homeloansi0_.loan_guaranty as loan_gu13_1_1_,
+        homeloansi0_.loan_guaranty_rate as loan_gu14_1_1_,
+        homeloansi0_.loan_insurance_rate as loan_in15_1_1_,
+        homeloansi0_.loan_interest_rate as loan_in16_1_1_,
+        homeloansi0_.loan_payment as loan_pa17_1_1_,
+        homeloansi0_.periodicity as periodi18_1_1_,
+        homeloansi0_.personal_deposit as persona19_1_1_,
+        homeloansi0_.simulation_date as simulat20_1_1_ 
+    from
+        homeloan_simulation homeloansi0_ 
+    where
+        homeloansi0_.project_id=?
+2020-01-08 10:54:38.568+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [c02a4840-4d24-42b0-b49b-984c3465b254]
+2020-01-08 10:54:38.569+01:00 | DEBUG| org.hibernate.SQL | 
+    call next value for hibernate_sequence
+2020-01-08 10:54:38.570+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        borrower
+        (date_of_birth, net_income, id) 
+    values
+        (?, ?, ?)
+2020-01-08 10:54:38.571+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [TIMESTAMP] - [Tue Jan 01 01:00:00 CET 1980]
+2020-01-08 10:54:38.571+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [4000.0]
+2020-01-08 10:54:38.571+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [BIGINT] - [4]
+2020-01-08 10:54:38.572+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        mortgage_project 
+    set
+        household_charges=?,
+        max_loan_payment=?,
+        project_type=?,
+        reference_id=? 
+    where
+        id=?
+2020-01-08 10:54:38.572+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [100.0]
+2020-01-08 10:54:38.572+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [1365.0]
+2020-01-08 10:54:38.572+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [VARCHAR] - [PURCHASE]
+2020-01-08 10:54:38.572+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [VARCHAR] - [0.9832341471496187]
+2020-01-08 10:54:38.572+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [VARCHAR] - [c02a4840-4d24-42b0-b49b-984c3465b254]
+2020-01-08 10:54:38.574+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        borrower 
+    set
+        project_id=? 
+    where
+        id=?
+2020-01-08 10:54:38.574+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [c02a4840-4d24-42b0-b49b-984c3465b254]
+2020-01-08 10:54:38.574+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [BIGINT] - [4]
+2020-01-08 10:54:38.576+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 10:54:38.576+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [MortgageProjectQueryDTO(id=c02a4840-4d24-42b0-b49b-984c3465b254, referenceId=0.9832341471496187, pro (truncated)...]
+2020-01-08 10:54:38.577+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 10:56:59.392+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | POST "/mortgageProjects", parameters={}
+2020-01-08 10:56:59.393+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#createMortgageProject(MortgageProjectUpdateDTO)
+2020-01-08 10:56:59.395+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [MortgageProjectUpdateDTO(referenceId=0.9564623095351494, projectType=PURCHASE, householdCharges=100. (truncated)...]
+2020-01-08 10:56:59.396+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_1_,
+        mortgagepr0_.household_charges as househol2_2_1_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_1_,
+        mortgagepr0_.project_type as project_4_2_1_,
+        mortgagepr0_.reference_id as referenc5_2_1_,
+        borrowers1_.project_id as project_4_0_3_,
+        borrowers1_.id as id1_0_3_,
+        borrowers1_.id as id1_0_0_,
+        borrowers1_.date_of_birth as date_of_2_0_0_,
+        borrowers1_.net_income as net_inco3_0_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    left outer join
+        borrower borrowers1_ 
+            on mortgagepr0_.id=borrowers1_.project_id 
+    where
+        mortgagepr0_.id=?
+2020-01-08 10:56:59.396+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [ae6168f6-4d63-4d0e-8632-698601ef4dea]
+2020-01-08 10:56:59.398+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        mortgage_project
+        (household_charges, max_loan_payment, project_type, reference_id, id) 
+    values
+        (?, ?, ?, ?, ?)
+2020-01-08 10:56:59.398+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [100.0]
+2020-01-08 10:56:59.398+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [-35.0]
+2020-01-08 10:56:59.398+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [VARCHAR] - [PURCHASE]
+2020-01-08 10:56:59.398+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [VARCHAR] - [0.9564623095351494]
+2020-01-08 10:56:59.398+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [VARCHAR] - [ae6168f6-4d63-4d0e-8632-698601ef4dea]
+2020-01-08 10:56:59.399+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 10:56:59.400+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [MortgageProjectQueryDTO(id=ae6168f6-4d63-4d0e-8632-698601ef4dea, referenceId=0.9564623095351494, pro (truncated)...]
+2020-01-08 10:56:59.401+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 201 CREATED
+2020-01-08 10:57:40.638+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | OPTIONS "/mortgageProjects/ae6168f6-4d63-4d0e-8632-698601ef4dea", parameters={}
+2020-01-08 10:57:40.639+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#updateMortgageProject(String, MortgageProjectUpdateDTO)
+2020-01-08 10:57:40.640+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 10:57:40.645+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | PUT "/mortgageProjects/ae6168f6-4d63-4d0e-8632-698601ef4dea", parameters={}
+2020-01-08 10:57:40.646+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#updateMortgageProject(String, MortgageProjectUpdateDTO)
+2020-01-08 10:57:40.647+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [MortgageProjectUpdateDTO(referenceId=0.9564623095351494, projectType=PURCHASE, householdCharges=100. (truncated)...]
+2020-01-08 10:57:40.648+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_0_,
+        mortgagepr0_.household_charges as househol2_2_0_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_0_,
+        mortgagepr0_.project_type as project_4_2_0_,
+        mortgagepr0_.reference_id as referenc5_2_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    where
+        mortgagepr0_.id=?
+2020-01-08 10:57:40.649+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [ae6168f6-4d63-4d0e-8632-698601ef4dea]
+2020-01-08 10:57:40.649+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        borrowers0_.project_id as project_4_0_0_,
+        borrowers0_.id as id1_0_0_,
+        borrowers0_.id as id1_0_1_,
+        borrowers0_.date_of_birth as date_of_2_0_1_,
+        borrowers0_.net_income as net_inco3_0_1_ 
+    from
+        borrower borrowers0_ 
+    where
+        borrowers0_.project_id=?
+2020-01-08 10:57:40.650+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [ae6168f6-4d63-4d0e-8632-698601ef4dea]
+2020-01-08 10:57:40.650+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        homeloansi0_.project_id as project21_1_0_,
+        homeloansi0_.id as id1_1_0_,
+        homeloansi0_.id as id1_1_1_,
+        homeloansi0_.application_fee as applicat2_1_1_,
+        homeloansi0_.credit_request as credit_r3_1_1_,
+        homeloansi0_.fees_impact_on_interest_rate as fees_imp4_1_1_,
+        homeloansi0_.effective_interest_rate as effectiv5_1_1_,
+        homeloansi0_.global_loan_payment as global_l6_1_1_,
+        homeloansi0_.insurance_cost as insuranc7_1_1_,
+        homeloansi0_.insurance_impact_on_interest_rate as insuranc8_1_1_,
+        homeloansi0_.interest_cost as interest9_1_1_,
+        homeloansi0_.loan_amount as loan_am10_1_1_,
+        homeloansi0_.loan_cost as loan_co11_1_1_,
+        homeloansi0_.loan_duration as loan_du12_1_1_,
+        homeloansi0_.loan_guaranty as loan_gu13_1_1_,
+        homeloansi0_.loan_guaranty_rate as loan_gu14_1_1_,
+        homeloansi0_.loan_insurance_rate as loan_in15_1_1_,
+        homeloansi0_.loan_interest_rate as loan_in16_1_1_,
+        homeloansi0_.loan_payment as loan_pa17_1_1_,
+        homeloansi0_.periodicity as periodi18_1_1_,
+        homeloansi0_.personal_deposit as persona19_1_1_,
+        homeloansi0_.simulation_date as simulat20_1_1_ 
+    from
+        homeloan_simulation homeloansi0_ 
+    where
+        homeloansi0_.project_id=?
+2020-01-08 10:57:40.651+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [ae6168f6-4d63-4d0e-8632-698601ef4dea]
+2020-01-08 10:57:40.652+01:00 | DEBUG| org.hibernate.SQL | 
+    call next value for hibernate_sequence
+2020-01-08 10:57:40.654+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        borrower
+        (date_of_birth, net_income, id) 
+    values
+        (?, ?, ?)
+2020-01-08 10:57:40.654+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [TIMESTAMP] - [Tue Jan 01 01:00:00 CET 1980]
+2020-01-08 10:57:40.654+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [4000.0]
+2020-01-08 10:57:40.654+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [BIGINT] - [5]
+2020-01-08 10:57:40.655+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        mortgage_project 
+    set
+        household_charges=?,
+        max_loan_payment=?,
+        project_type=?,
+        reference_id=? 
+    where
+        id=?
+2020-01-08 10:57:40.655+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [100.0]
+2020-01-08 10:57:40.655+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [1365.0]
+2020-01-08 10:57:40.655+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [VARCHAR] - [PURCHASE]
+2020-01-08 10:57:40.655+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [VARCHAR] - [0.9564623095351494]
+2020-01-08 10:57:40.655+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [VARCHAR] - [ae6168f6-4d63-4d0e-8632-698601ef4dea]
+2020-01-08 10:57:40.656+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        borrower 
+    set
+        project_id=? 
+    where
+        id=?
+2020-01-08 10:57:40.656+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [ae6168f6-4d63-4d0e-8632-698601ef4dea]
+2020-01-08 10:57:40.656+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [BIGINT] - [5]
+2020-01-08 10:57:40.657+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 10:57:40.657+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [MortgageProjectQueryDTO(id=ae6168f6-4d63-4d0e-8632-698601ef4dea, referenceId=0.9564623095351494, pro (truncated)...]
+2020-01-08 10:57:40.659+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 10:58:03.161+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | POST "/mortgageProjects", parameters={}
+2020-01-08 10:58:03.162+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#createMortgageProject(MortgageProjectUpdateDTO)
+2020-01-08 10:58:03.163+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [MortgageProjectUpdateDTO(referenceId=0.056747527984534196, projectType=PURCHASE, householdCharges=10 (truncated)...]
+2020-01-08 10:58:03.164+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_1_,
+        mortgagepr0_.household_charges as househol2_2_1_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_1_,
+        mortgagepr0_.project_type as project_4_2_1_,
+        mortgagepr0_.reference_id as referenc5_2_1_,
+        borrowers1_.project_id as project_4_0_3_,
+        borrowers1_.id as id1_0_3_,
+        borrowers1_.id as id1_0_0_,
+        borrowers1_.date_of_birth as date_of_2_0_0_,
+        borrowers1_.net_income as net_inco3_0_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    left outer join
+        borrower borrowers1_ 
+            on mortgagepr0_.id=borrowers1_.project_id 
+    where
+        mortgagepr0_.id=?
+2020-01-08 10:58:03.164+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [75fded47-be46-4956-b4ce-0def9e16db36]
+2020-01-08 10:58:03.165+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        mortgage_project
+        (household_charges, max_loan_payment, project_type, reference_id, id) 
+    values
+        (?, ?, ?, ?, ?)
+2020-01-08 10:58:03.165+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [100.0]
+2020-01-08 10:58:03.166+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [-35.0]
+2020-01-08 10:58:03.166+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [VARCHAR] - [PURCHASE]
+2020-01-08 10:58:03.166+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [VARCHAR] - [0.056747527984534196]
+2020-01-08 10:58:03.166+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [VARCHAR] - [75fded47-be46-4956-b4ce-0def9e16db36]
+2020-01-08 10:58:03.167+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 10:58:03.167+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [MortgageProjectQueryDTO(id=75fded47-be46-4956-b4ce-0def9e16db36, referenceId=0.056747527984534196, p (truncated)...]
+2020-01-08 10:58:03.169+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 201 CREATED
+2020-01-08 10:58:10.345+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | OPTIONS "/mortgageProjects/75fded47-be46-4956-b4ce-0def9e16db36", parameters={}
+2020-01-08 10:58:10.346+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#updateMortgageProject(String, MortgageProjectUpdateDTO)
+2020-01-08 10:58:10.346+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 10:58:10.360+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | PUT "/mortgageProjects/75fded47-be46-4956-b4ce-0def9e16db36", parameters={}
+2020-01-08 10:58:10.361+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#updateMortgageProject(String, MortgageProjectUpdateDTO)
+2020-01-08 10:58:10.362+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [MortgageProjectUpdateDTO(referenceId=0.056747527984534196, projectType=PURCHASE, householdCharges=10 (truncated)...]
+2020-01-08 10:58:10.363+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_0_,
+        mortgagepr0_.household_charges as househol2_2_0_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_0_,
+        mortgagepr0_.project_type as project_4_2_0_,
+        mortgagepr0_.reference_id as referenc5_2_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    where
+        mortgagepr0_.id=?
+2020-01-08 10:58:10.363+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [75fded47-be46-4956-b4ce-0def9e16db36]
+2020-01-08 10:58:10.364+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        borrowers0_.project_id as project_4_0_0_,
+        borrowers0_.id as id1_0_0_,
+        borrowers0_.id as id1_0_1_,
+        borrowers0_.date_of_birth as date_of_2_0_1_,
+        borrowers0_.net_income as net_inco3_0_1_ 
+    from
+        borrower borrowers0_ 
+    where
+        borrowers0_.project_id=?
+2020-01-08 10:58:10.364+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [75fded47-be46-4956-b4ce-0def9e16db36]
+2020-01-08 10:58:10.365+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        homeloansi0_.project_id as project21_1_0_,
+        homeloansi0_.id as id1_1_0_,
+        homeloansi0_.id as id1_1_1_,
+        homeloansi0_.application_fee as applicat2_1_1_,
+        homeloansi0_.credit_request as credit_r3_1_1_,
+        homeloansi0_.fees_impact_on_interest_rate as fees_imp4_1_1_,
+        homeloansi0_.effective_interest_rate as effectiv5_1_1_,
+        homeloansi0_.global_loan_payment as global_l6_1_1_,
+        homeloansi0_.insurance_cost as insuranc7_1_1_,
+        homeloansi0_.insurance_impact_on_interest_rate as insuranc8_1_1_,
+        homeloansi0_.interest_cost as interest9_1_1_,
+        homeloansi0_.loan_amount as loan_am10_1_1_,
+        homeloansi0_.loan_cost as loan_co11_1_1_,
+        homeloansi0_.loan_duration as loan_du12_1_1_,
+        homeloansi0_.loan_guaranty as loan_gu13_1_1_,
+        homeloansi0_.loan_guaranty_rate as loan_gu14_1_1_,
+        homeloansi0_.loan_insurance_rate as loan_in15_1_1_,
+        homeloansi0_.loan_interest_rate as loan_in16_1_1_,
+        homeloansi0_.loan_payment as loan_pa17_1_1_,
+        homeloansi0_.periodicity as periodi18_1_1_,
+        homeloansi0_.personal_deposit as persona19_1_1_,
+        homeloansi0_.simulation_date as simulat20_1_1_ 
+    from
+        homeloan_simulation homeloansi0_ 
+    where
+        homeloansi0_.project_id=?
+2020-01-08 10:58:10.365+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [75fded47-be46-4956-b4ce-0def9e16db36]
+2020-01-08 10:58:10.366+01:00 | DEBUG| org.hibernate.SQL | 
+    call next value for hibernate_sequence
+2020-01-08 10:58:10.366+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        borrower
+        (date_of_birth, net_income, id) 
+    values
+        (?, ?, ?)
+2020-01-08 10:58:10.367+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [TIMESTAMP] - [Tue Jan 01 01:00:00 CET 1980]
+2020-01-08 10:58:10.367+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [4000.0]
+2020-01-08 10:58:10.367+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [BIGINT] - [6]
+2020-01-08 10:58:10.368+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        mortgage_project 
+    set
+        household_charges=?,
+        max_loan_payment=?,
+        project_type=?,
+        reference_id=? 
+    where
+        id=?
+2020-01-08 10:58:10.368+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [100.0]
+2020-01-08 10:58:10.369+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [1365.0]
+2020-01-08 10:58:10.369+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [VARCHAR] - [PURCHASE]
+2020-01-08 10:58:10.369+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [VARCHAR] - [0.056747527984534196]
+2020-01-08 10:58:10.369+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [VARCHAR] - [75fded47-be46-4956-b4ce-0def9e16db36]
+2020-01-08 10:58:10.369+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        borrower 
+    set
+        project_id=? 
+    where
+        id=?
+2020-01-08 10:58:10.370+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [75fded47-be46-4956-b4ce-0def9e16db36]
+2020-01-08 10:58:10.370+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [BIGINT] - [6]
+2020-01-08 10:58:10.371+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 10:58:10.372+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [MortgageProjectQueryDTO(id=75fded47-be46-4956-b4ce-0def9e16db36, referenceId=0.056747527984534196, p (truncated)...]
+2020-01-08 10:58:10.372+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 11:08:50.968+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | OPTIONS "/mortgageProjects", parameters={}
+2020-01-08 11:08:50.970+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#createMortgageProject(MortgageProjectUpdateDTO)
+2020-01-08 11:08:50.971+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 11:08:50.988+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | POST "/mortgageProjects", parameters={}
+2020-01-08 11:08:50.988+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#createMortgageProject(MortgageProjectUpdateDTO)
+2020-01-08 11:08:50.990+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [MortgageProjectUpdateDTO(referenceId=0.6601515839993481, projectType=PURCHASE, householdCharges=100. (truncated)...]
+2020-01-08 11:08:50.995+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_1_,
+        mortgagepr0_.household_charges as househol2_2_1_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_1_,
+        mortgagepr0_.project_type as project_4_2_1_,
+        mortgagepr0_.reference_id as referenc5_2_1_,
+        borrowers1_.project_id as project_4_0_3_,
+        borrowers1_.id as id1_0_3_,
+        borrowers1_.id as id1_0_0_,
+        borrowers1_.date_of_birth as date_of_2_0_0_,
+        borrowers1_.net_income as net_inco3_0_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    left outer join
+        borrower borrowers1_ 
+            on mortgagepr0_.id=borrowers1_.project_id 
+    where
+        mortgagepr0_.id=?
+2020-01-08 11:08:50.996+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [30e18398-3bbd-4cbe-a41c-4403114afeca]
+2020-01-08 11:08:51.000+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        mortgage_project
+        (household_charges, max_loan_payment, project_type, reference_id, id) 
+    values
+        (?, ?, ?, ?, ?)
+2020-01-08 11:08:51.000+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [100.0]
+2020-01-08 11:08:51.000+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [-35.0]
+2020-01-08 11:08:51.001+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [VARCHAR] - [PURCHASE]
+2020-01-08 11:08:51.001+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [VARCHAR] - [0.6601515839993481]
+2020-01-08 11:08:51.001+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [VARCHAR] - [30e18398-3bbd-4cbe-a41c-4403114afeca]
+2020-01-08 11:08:51.003+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 11:08:51.003+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [MortgageProjectQueryDTO(id=30e18398-3bbd-4cbe-a41c-4403114afeca, referenceId=0.6601515839993481, pro (truncated)...]
+2020-01-08 11:08:51.005+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 201 CREATED
+2020-01-08 11:08:52.809+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | OPTIONS "/mortgageProjects/30e18398-3bbd-4cbe-a41c-4403114afeca", parameters={}
+2020-01-08 11:08:52.811+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#updateMortgageProject(String, MortgageProjectUpdateDTO)
+2020-01-08 11:08:52.812+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 11:08:52.822+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | PUT "/mortgageProjects/30e18398-3bbd-4cbe-a41c-4403114afeca", parameters={}
+2020-01-08 11:08:52.823+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#updateMortgageProject(String, MortgageProjectUpdateDTO)
+2020-01-08 11:08:52.826+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [MortgageProjectUpdateDTO(referenceId=0.6601515839993481, projectType=PURCHASE, householdCharges=100. (truncated)...]
+2020-01-08 11:08:52.827+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_0_,
+        mortgagepr0_.household_charges as househol2_2_0_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_0_,
+        mortgagepr0_.project_type as project_4_2_0_,
+        mortgagepr0_.reference_id as referenc5_2_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    where
+        mortgagepr0_.id=?
+2020-01-08 11:08:52.828+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [30e18398-3bbd-4cbe-a41c-4403114afeca]
+2020-01-08 11:08:52.830+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        borrowers0_.project_id as project_4_0_0_,
+        borrowers0_.id as id1_0_0_,
+        borrowers0_.id as id1_0_1_,
+        borrowers0_.date_of_birth as date_of_2_0_1_,
+        borrowers0_.net_income as net_inco3_0_1_ 
+    from
+        borrower borrowers0_ 
+    where
+        borrowers0_.project_id=?
+2020-01-08 11:08:52.831+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [30e18398-3bbd-4cbe-a41c-4403114afeca]
+2020-01-08 11:08:52.832+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        homeloansi0_.project_id as project21_1_0_,
+        homeloansi0_.id as id1_1_0_,
+        homeloansi0_.id as id1_1_1_,
+        homeloansi0_.application_fee as applicat2_1_1_,
+        homeloansi0_.credit_request as credit_r3_1_1_,
+        homeloansi0_.fees_impact_on_interest_rate as fees_imp4_1_1_,
+        homeloansi0_.effective_interest_rate as effectiv5_1_1_,
+        homeloansi0_.global_loan_payment as global_l6_1_1_,
+        homeloansi0_.insurance_cost as insuranc7_1_1_,
+        homeloansi0_.insurance_impact_on_interest_rate as insuranc8_1_1_,
+        homeloansi0_.interest_cost as interest9_1_1_,
+        homeloansi0_.loan_amount as loan_am10_1_1_,
+        homeloansi0_.loan_cost as loan_co11_1_1_,
+        homeloansi0_.loan_duration as loan_du12_1_1_,
+        homeloansi0_.loan_guaranty as loan_gu13_1_1_,
+        homeloansi0_.loan_guaranty_rate as loan_gu14_1_1_,
+        homeloansi0_.loan_insurance_rate as loan_in15_1_1_,
+        homeloansi0_.loan_interest_rate as loan_in16_1_1_,
+        homeloansi0_.loan_payment as loan_pa17_1_1_,
+        homeloansi0_.periodicity as periodi18_1_1_,
+        homeloansi0_.personal_deposit as persona19_1_1_,
+        homeloansi0_.simulation_date as simulat20_1_1_ 
+    from
+        homeloan_simulation homeloansi0_ 
+    where
+        homeloansi0_.project_id=?
+2020-01-08 11:08:52.833+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [30e18398-3bbd-4cbe-a41c-4403114afeca]
+2020-01-08 11:08:52.836+01:00 | DEBUG| org.hibernate.SQL | 
+    call next value for hibernate_sequence
+2020-01-08 11:08:52.838+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        borrower
+        (date_of_birth, net_income, id) 
+    values
+        (?, ?, ?)
+2020-01-08 11:08:52.838+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [TIMESTAMP] - [Tue Jan 01 01:00:00 CET 1980]
+2020-01-08 11:08:52.839+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [4000.0]
+2020-01-08 11:08:52.839+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [BIGINT] - [7]
+2020-01-08 11:08:52.840+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        mortgage_project 
+    set
+        household_charges=?,
+        max_loan_payment=?,
+        project_type=?,
+        reference_id=? 
+    where
+        id=?
+2020-01-08 11:08:52.840+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [100.0]
+2020-01-08 11:08:52.841+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [1365.0]
+2020-01-08 11:08:52.841+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [VARCHAR] - [PURCHASE]
+2020-01-08 11:08:52.841+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [VARCHAR] - [0.6601515839993481]
+2020-01-08 11:08:52.841+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [VARCHAR] - [30e18398-3bbd-4cbe-a41c-4403114afeca]
+2020-01-08 11:08:52.842+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        borrower 
+    set
+        project_id=? 
+    where
+        id=?
+2020-01-08 11:08:52.843+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [30e18398-3bbd-4cbe-a41c-4403114afeca]
+2020-01-08 11:08:52.843+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [BIGINT] - [7]
+2020-01-08 11:08:52.845+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 11:08:52.845+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [MortgageProjectQueryDTO(id=30e18398-3bbd-4cbe-a41c-4403114afeca, referenceId=0.6601515839993481, pro (truncated)...]
+2020-01-08 11:08:52.846+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 11:08:59.278+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | OPTIONS "/mortgageProjects/30e18398-3bbd-4cbe-a41c-4403114afeca/homeloanSimulations/", parameters={}
+2020-01-08 11:08:59.279+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#addHomeloanSimulationToMortgageProject(String, HomeloanSimulationUpdateDTO)
+2020-01-08 11:08:59.281+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 11:08:59.290+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | POST "/mortgageProjects/30e18398-3bbd-4cbe-a41c-4403114afeca/homeloanSimulations/", parameters={}
+2020-01-08 11:08:59.291+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#addHomeloanSimulationToMortgageProject(String, HomeloanSimulationUpdateDTO)
+2020-01-08 11:08:59.294+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [HomeloanSimulationUpdateDTO(personalDeposit=100000.0, loanAmount=200000.0, loanPayment=0.0, loanInte (truncated)...]
+2020-01-08 11:08:59.295+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Démarrage du calcul du coût du crédit
+2020-01-08 11:08:59.296+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Montant crédit = 200000.0
+2020-01-08 11:08:59.296+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Echéance = 1196.9890290366611
+2020-01-08 11:08:59.296+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Frais de dossier = 1000.0
+2020-01-08 11:08:59.296+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût assurance = 9600.0
+2020-01-08 11:08:59.296+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût garantie = 2500.0
+2020-01-08 11:08:59.296+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Echéance globale = 1250.3223623699944
+2020-01-08 11:08:59.296+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût intérêts = 15458.025226599013
+2020-01-08 11:08:59.296+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût du crédit = 28558.025226599013
+2020-01-08 11:08:59.301+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Nominal EIR = 1.0000000000014886
+2020-01-08 11:08:59.304+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | EIR with insurance = 1.5979285893418904
+2020-01-08 11:08:59.304+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | TAEA = 0.5979285893404018
+2020-01-08 11:08:59.307+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | TAEG = 1.8427090260725976
+2020-01-08 11:08:59.307+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | TAEF = 0.24478043673070715
+2020-01-08 11:08:59.308+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_0_,
+        mortgagepr0_.household_charges as househol2_2_0_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_0_,
+        mortgagepr0_.project_type as project_4_2_0_,
+        mortgagepr0_.reference_id as referenc5_2_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    where
+        mortgagepr0_.id=?
+2020-01-08 11:08:59.309+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [30e18398-3bbd-4cbe-a41c-4403114afeca]
+2020-01-08 11:08:59.310+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        borrowers0_.project_id as project_4_0_0_,
+        borrowers0_.id as id1_0_0_,
+        borrowers0_.id as id1_0_1_,
+        borrowers0_.date_of_birth as date_of_2_0_1_,
+        borrowers0_.net_income as net_inco3_0_1_ 
+    from
+        borrower borrowers0_ 
+    where
+        borrowers0_.project_id=?
+2020-01-08 11:08:59.310+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [30e18398-3bbd-4cbe-a41c-4403114afeca]
+2020-01-08 11:08:59.312+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        homeloansi0_.project_id as project21_1_0_,
+        homeloansi0_.id as id1_1_0_,
+        homeloansi0_.id as id1_1_1_,
+        homeloansi0_.application_fee as applicat2_1_1_,
+        homeloansi0_.credit_request as credit_r3_1_1_,
+        homeloansi0_.fees_impact_on_interest_rate as fees_imp4_1_1_,
+        homeloansi0_.effective_interest_rate as effectiv5_1_1_,
+        homeloansi0_.global_loan_payment as global_l6_1_1_,
+        homeloansi0_.insurance_cost as insuranc7_1_1_,
+        homeloansi0_.insurance_impact_on_interest_rate as insuranc8_1_1_,
+        homeloansi0_.interest_cost as interest9_1_1_,
+        homeloansi0_.loan_amount as loan_am10_1_1_,
+        homeloansi0_.loan_cost as loan_co11_1_1_,
+        homeloansi0_.loan_duration as loan_du12_1_1_,
+        homeloansi0_.loan_guaranty as loan_gu13_1_1_,
+        homeloansi0_.loan_guaranty_rate as loan_gu14_1_1_,
+        homeloansi0_.loan_insurance_rate as loan_in15_1_1_,
+        homeloansi0_.loan_interest_rate as loan_in16_1_1_,
+        homeloansi0_.loan_payment as loan_pa17_1_1_,
+        homeloansi0_.periodicity as periodi18_1_1_,
+        homeloansi0_.personal_deposit as persona19_1_1_,
+        homeloansi0_.simulation_date as simulat20_1_1_ 
+    from
+        homeloan_simulation homeloansi0_ 
+    where
+        homeloansi0_.project_id=?
+2020-01-08 11:08:59.312+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [30e18398-3bbd-4cbe-a41c-4403114afeca]
+2020-01-08 11:08:59.313+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        homeloansi0_.id as id1_1_0_,
+        homeloansi0_.application_fee as applicat2_1_0_,
+        homeloansi0_.credit_request as credit_r3_1_0_,
+        homeloansi0_.fees_impact_on_interest_rate as fees_imp4_1_0_,
+        homeloansi0_.effective_interest_rate as effectiv5_1_0_,
+        homeloansi0_.global_loan_payment as global_l6_1_0_,
+        homeloansi0_.insurance_cost as insuranc7_1_0_,
+        homeloansi0_.insurance_impact_on_interest_rate as insuranc8_1_0_,
+        homeloansi0_.interest_cost as interest9_1_0_,
+        homeloansi0_.loan_amount as loan_am10_1_0_,
+        homeloansi0_.loan_cost as loan_co11_1_0_,
+        homeloansi0_.loan_duration as loan_du12_1_0_,
+        homeloansi0_.loan_guaranty as loan_gu13_1_0_,
+        homeloansi0_.loan_guaranty_rate as loan_gu14_1_0_,
+        homeloansi0_.loan_insurance_rate as loan_in15_1_0_,
+        homeloansi0_.loan_interest_rate as loan_in16_1_0_,
+        homeloansi0_.loan_payment as loan_pa17_1_0_,
+        homeloansi0_.periodicity as periodi18_1_0_,
+        homeloansi0_.personal_deposit as persona19_1_0_,
+        homeloansi0_.simulation_date as simulat20_1_0_ 
+    from
+        homeloan_simulation homeloansi0_ 
+    where
+        homeloansi0_.id=?
+2020-01-08 11:08:59.314+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [63dfad18-4395-4eb3-93f2-8999ca18a694]
+2020-01-08 11:08:59.316+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        homeloan_simulation
+        (application_fee, credit_request, fees_impact_on_interest_rate, effective_interest_rate, global_loan_payment, insurance_cost, insurance_impact_on_interest_rate, interest_cost, loan_amount, loan_cost, loan_duration, loan_guaranty, loan_guaranty_rate, loan_insurance_rate, loan_interest_rate, loan_payment, periodicity, personal_deposit, simulation_date, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2020-01-08 11:08:59.317+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [1000.0]
+2020-01-08 11:08:59.317+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [BOOLEAN] - [false]
+2020-01-08 11:08:59.317+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [DOUBLE] - [0.24478043673070715]
+2020-01-08 11:08:59.317+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [DOUBLE] - [1.8427090260725976]
+2020-01-08 11:08:59.317+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [DOUBLE] - [1250.3223623699944]
+2020-01-08 11:08:59.317+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [6] as [DOUBLE] - [9600.0]
+2020-01-08 11:08:59.317+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [7] as [DOUBLE] - [0.5979285893404018]
+2020-01-08 11:08:59.317+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [8] as [DOUBLE] - [15458.025226599013]
+2020-01-08 11:08:59.318+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [9] as [DOUBLE] - [200000.0]
+2020-01-08 11:08:59.318+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [10] as [DOUBLE] - [28558.025226599013]
+2020-01-08 11:08:59.318+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [11] as [INTEGER] - [15]
+2020-01-08 11:08:59.318+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [12] as [DOUBLE] - [2500.0]
+2020-01-08 11:08:59.318+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [13] as [DOUBLE] - [1.25]
+2020-01-08 11:08:59.318+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [14] as [DOUBLE] - [4.8]
+2020-01-08 11:08:59.319+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [15] as [DOUBLE] - [1.0]
+2020-01-08 11:08:59.319+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [16] as [DOUBLE] - [1196.9890290366611]
+2020-01-08 11:08:59.319+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [17] as [VARCHAR] - [MONTHLY]
+2020-01-08 11:08:59.319+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [18] as [DOUBLE] - [100000.0]
+2020-01-08 11:08:59.319+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [19] as [TIMESTAMP] - [Wed Jan 08 11:08:59 CET 2020]
+2020-01-08 11:08:59.319+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [20] as [VARCHAR] - [63dfad18-4395-4eb3-93f2-8999ca18a694]
+2020-01-08 11:08:59.320+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        homeloan_simulation 
+    set
+        project_id=? 
+    where
+        id=?
+2020-01-08 11:08:59.320+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [30e18398-3bbd-4cbe-a41c-4403114afeca]
+2020-01-08 11:08:59.320+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [VARCHAR] - [63dfad18-4395-4eb3-93f2-8999ca18a694]
+2020-01-08 11:08:59.322+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 11:08:59.323+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [HomeloanSimulationQueryDTO(id=63dfad18-4395-4eb3-93f2-8999ca18a694, simulationDate=Wed Jan 08 11:08: (truncated)...]
+2020-01-08 11:08:59.324+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 201 CREATED
+2020-01-08 11:14:04.104+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | POST "/mortgageProjects", parameters={}
+2020-01-08 11:14:04.106+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#createMortgageProject(MortgageProjectUpdateDTO)
+2020-01-08 11:14:04.109+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [MortgageProjectUpdateDTO(referenceId=0.7842866976188996, projectType=PURCHASE, householdCharges=100. (truncated)...]
+2020-01-08 11:14:04.112+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_1_,
+        mortgagepr0_.household_charges as househol2_2_1_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_1_,
+        mortgagepr0_.project_type as project_4_2_1_,
+        mortgagepr0_.reference_id as referenc5_2_1_,
+        borrowers1_.project_id as project_4_0_3_,
+        borrowers1_.id as id1_0_3_,
+        borrowers1_.id as id1_0_0_,
+        borrowers1_.date_of_birth as date_of_2_0_0_,
+        borrowers1_.net_income as net_inco3_0_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    left outer join
+        borrower borrowers1_ 
+            on mortgagepr0_.id=borrowers1_.project_id 
+    where
+        mortgagepr0_.id=?
+2020-01-08 11:14:04.114+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [7d6d1d7c-6617-40b8-9b15-4ba772cc27a7]
+2020-01-08 11:14:04.118+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        mortgage_project
+        (household_charges, max_loan_payment, project_type, reference_id, id) 
+    values
+        (?, ?, ?, ?, ?)
+2020-01-08 11:14:04.119+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [100.0]
+2020-01-08 11:14:04.119+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [-35.0]
+2020-01-08 11:14:04.119+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [VARCHAR] - [PURCHASE]
+2020-01-08 11:14:04.119+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [VARCHAR] - [0.7842866976188996]
+2020-01-08 11:14:04.119+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [VARCHAR] - [7d6d1d7c-6617-40b8-9b15-4ba772cc27a7]
+2020-01-08 11:14:04.123+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 11:14:04.123+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [MortgageProjectQueryDTO(id=7d6d1d7c-6617-40b8-9b15-4ba772cc27a7, referenceId=0.7842866976188996, pro (truncated)...]
+2020-01-08 11:14:04.125+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 201 CREATED
+2020-01-08 11:14:05.970+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | OPTIONS "/mortgageProjects/7d6d1d7c-6617-40b8-9b15-4ba772cc27a7", parameters={}
+2020-01-08 11:14:05.971+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#updateMortgageProject(String, MortgageProjectUpdateDTO)
+2020-01-08 11:14:05.973+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 11:14:05.983+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | PUT "/mortgageProjects/7d6d1d7c-6617-40b8-9b15-4ba772cc27a7", parameters={}
+2020-01-08 11:14:05.983+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#updateMortgageProject(String, MortgageProjectUpdateDTO)
+2020-01-08 11:14:05.990+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [MortgageProjectUpdateDTO(referenceId=0.7842866976188996, projectType=PURCHASE, householdCharges=100. (truncated)...]
+2020-01-08 11:14:05.992+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_0_,
+        mortgagepr0_.household_charges as househol2_2_0_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_0_,
+        mortgagepr0_.project_type as project_4_2_0_,
+        mortgagepr0_.reference_id as referenc5_2_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    where
+        mortgagepr0_.id=?
+2020-01-08 11:14:05.992+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [7d6d1d7c-6617-40b8-9b15-4ba772cc27a7]
+2020-01-08 11:14:05.994+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        borrowers0_.project_id as project_4_0_0_,
+        borrowers0_.id as id1_0_0_,
+        borrowers0_.id as id1_0_1_,
+        borrowers0_.date_of_birth as date_of_2_0_1_,
+        borrowers0_.net_income as net_inco3_0_1_ 
+    from
+        borrower borrowers0_ 
+    where
+        borrowers0_.project_id=?
+2020-01-08 11:14:05.994+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [7d6d1d7c-6617-40b8-9b15-4ba772cc27a7]
+2020-01-08 11:14:05.995+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        homeloansi0_.project_id as project21_1_0_,
+        homeloansi0_.id as id1_1_0_,
+        homeloansi0_.id as id1_1_1_,
+        homeloansi0_.application_fee as applicat2_1_1_,
+        homeloansi0_.credit_request as credit_r3_1_1_,
+        homeloansi0_.fees_impact_on_interest_rate as fees_imp4_1_1_,
+        homeloansi0_.effective_interest_rate as effectiv5_1_1_,
+        homeloansi0_.global_loan_payment as global_l6_1_1_,
+        homeloansi0_.insurance_cost as insuranc7_1_1_,
+        homeloansi0_.insurance_impact_on_interest_rate as insuranc8_1_1_,
+        homeloansi0_.interest_cost as interest9_1_1_,
+        homeloansi0_.loan_amount as loan_am10_1_1_,
+        homeloansi0_.loan_cost as loan_co11_1_1_,
+        homeloansi0_.loan_duration as loan_du12_1_1_,
+        homeloansi0_.loan_guaranty as loan_gu13_1_1_,
+        homeloansi0_.loan_guaranty_rate as loan_gu14_1_1_,
+        homeloansi0_.loan_insurance_rate as loan_in15_1_1_,
+        homeloansi0_.loan_interest_rate as loan_in16_1_1_,
+        homeloansi0_.loan_payment as loan_pa17_1_1_,
+        homeloansi0_.periodicity as periodi18_1_1_,
+        homeloansi0_.personal_deposit as persona19_1_1_,
+        homeloansi0_.simulation_date as simulat20_1_1_ 
+    from
+        homeloan_simulation homeloansi0_ 
+    where
+        homeloansi0_.project_id=?
+2020-01-08 11:14:05.996+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [7d6d1d7c-6617-40b8-9b15-4ba772cc27a7]
+2020-01-08 11:14:05.998+01:00 | DEBUG| org.hibernate.SQL | 
+    call next value for hibernate_sequence
+2020-01-08 11:14:06.000+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        borrower
+        (date_of_birth, net_income, id) 
+    values
+        (?, ?, ?)
+2020-01-08 11:14:06.001+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [TIMESTAMP] - [Tue Jan 01 01:00:00 CET 1980]
+2020-01-08 11:14:06.001+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [4000.0]
+2020-01-08 11:14:06.001+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [BIGINT] - [8]
+2020-01-08 11:14:06.002+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        mortgage_project 
+    set
+        household_charges=?,
+        max_loan_payment=?,
+        project_type=?,
+        reference_id=? 
+    where
+        id=?
+2020-01-08 11:14:06.003+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [100.0]
+2020-01-08 11:14:06.003+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [DOUBLE] - [1365.0]
+2020-01-08 11:14:06.003+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [VARCHAR] - [PURCHASE]
+2020-01-08 11:14:06.003+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [VARCHAR] - [0.7842866976188996]
+2020-01-08 11:14:06.003+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [VARCHAR] - [7d6d1d7c-6617-40b8-9b15-4ba772cc27a7]
+2020-01-08 11:14:06.004+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        borrower 
+    set
+        project_id=? 
+    where
+        id=?
+2020-01-08 11:14:06.004+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [7d6d1d7c-6617-40b8-9b15-4ba772cc27a7]
+2020-01-08 11:14:06.004+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [BIGINT] - [8]
+2020-01-08 11:14:06.006+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 11:14:06.006+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [MortgageProjectQueryDTO(id=7d6d1d7c-6617-40b8-9b15-4ba772cc27a7, referenceId=0.7842866976188996, pro (truncated)...]
+2020-01-08 11:14:06.009+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 11:14:10.629+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | OPTIONS "/mortgageProjects/7d6d1d7c-6617-40b8-9b15-4ba772cc27a7/homeloanSimulations/", parameters={}
+2020-01-08 11:14:10.631+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#addHomeloanSimulationToMortgageProject(String, HomeloanSimulationUpdateDTO)
+2020-01-08 11:14:10.632+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 200 OK
+2020-01-08 11:14:10.640+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | POST "/mortgageProjects/7d6d1d7c-6617-40b8-9b15-4ba772cc27a7/homeloanSimulations/", parameters={}
+2020-01-08 11:14:10.642+01:00 | DEBUG| o.s.w.s.m.m.a.RequestMappingHandlerMapping | Mapped to fr.bnp.homeloancalculator.exposition.MortgageProjectResource#addHomeloanSimulationToMortgageProject(String, HomeloanSimulationUpdateDTO)
+2020-01-08 11:14:10.645+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Read "application/json;charset=UTF-8" to [HomeloanSimulationUpdateDTO(personalDeposit=100000.0, loanAmount=200000.0, loanPayment=0.0, loanInte (truncated)...]
+2020-01-08 11:14:10.646+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Démarrage du calcul du coût du crédit
+2020-01-08 11:14:10.646+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Montant crédit = 200000.0
+2020-01-08 11:14:10.646+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Echéance = 1196.9890290366611
+2020-01-08 11:14:10.646+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Frais de dossier = 1000.0
+2020-01-08 11:14:10.646+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût assurance = 9600.0
+2020-01-08 11:14:10.646+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût garantie = 2500.0
+2020-01-08 11:14:10.646+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Echéance globale = 1250.3223623699944
+2020-01-08 11:14:10.647+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût intérêts = 15458.025226599013
+2020-01-08 11:14:10.647+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Coût du crédit = 28558.025226599013
+2020-01-08 11:14:10.652+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | Nominal EIR = 1.0000000000014886
+2020-01-08 11:14:10.656+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | EIR with insurance = 1.5979285893418904
+2020-01-08 11:14:10.656+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | TAEA = 0.5979285893404018
+2020-01-08 11:14:10.659+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | TAEG = 1.8427090260725976
+2020-01-08 11:14:10.659+01:00 | INFO | f.b.h.d.calculator.CalculatorImpl | TAEF = 0.24478043673070715
+2020-01-08 11:14:10.660+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        mortgagepr0_.id as id1_2_0_,
+        mortgagepr0_.household_charges as househol2_2_0_,
+        mortgagepr0_.max_loan_payment as max_loan3_2_0_,
+        mortgagepr0_.project_type as project_4_2_0_,
+        mortgagepr0_.reference_id as referenc5_2_0_ 
+    from
+        mortgage_project mortgagepr0_ 
+    where
+        mortgagepr0_.id=?
+2020-01-08 11:14:10.661+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [7d6d1d7c-6617-40b8-9b15-4ba772cc27a7]
+2020-01-08 11:14:10.662+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        borrowers0_.project_id as project_4_0_0_,
+        borrowers0_.id as id1_0_0_,
+        borrowers0_.id as id1_0_1_,
+        borrowers0_.date_of_birth as date_of_2_0_1_,
+        borrowers0_.net_income as net_inco3_0_1_ 
+    from
+        borrower borrowers0_ 
+    where
+        borrowers0_.project_id=?
+2020-01-08 11:14:10.662+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [7d6d1d7c-6617-40b8-9b15-4ba772cc27a7]
+2020-01-08 11:14:10.663+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        homeloansi0_.project_id as project21_1_0_,
+        homeloansi0_.id as id1_1_0_,
+        homeloansi0_.id as id1_1_1_,
+        homeloansi0_.application_fee as applicat2_1_1_,
+        homeloansi0_.credit_request as credit_r3_1_1_,
+        homeloansi0_.fees_impact_on_interest_rate as fees_imp4_1_1_,
+        homeloansi0_.effective_interest_rate as effectiv5_1_1_,
+        homeloansi0_.global_loan_payment as global_l6_1_1_,
+        homeloansi0_.insurance_cost as insuranc7_1_1_,
+        homeloansi0_.insurance_impact_on_interest_rate as insuranc8_1_1_,
+        homeloansi0_.interest_cost as interest9_1_1_,
+        homeloansi0_.loan_amount as loan_am10_1_1_,
+        homeloansi0_.loan_cost as loan_co11_1_1_,
+        homeloansi0_.loan_duration as loan_du12_1_1_,
+        homeloansi0_.loan_guaranty as loan_gu13_1_1_,
+        homeloansi0_.loan_guaranty_rate as loan_gu14_1_1_,
+        homeloansi0_.loan_insurance_rate as loan_in15_1_1_,
+        homeloansi0_.loan_interest_rate as loan_in16_1_1_,
+        homeloansi0_.loan_payment as loan_pa17_1_1_,
+        homeloansi0_.periodicity as periodi18_1_1_,
+        homeloansi0_.personal_deposit as persona19_1_1_,
+        homeloansi0_.simulation_date as simulat20_1_1_ 
+    from
+        homeloan_simulation homeloansi0_ 
+    where
+        homeloansi0_.project_id=?
+2020-01-08 11:14:10.664+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [7d6d1d7c-6617-40b8-9b15-4ba772cc27a7]
+2020-01-08 11:14:10.665+01:00 | DEBUG| org.hibernate.SQL | 
+    select
+        homeloansi0_.id as id1_1_0_,
+        homeloansi0_.application_fee as applicat2_1_0_,
+        homeloansi0_.credit_request as credit_r3_1_0_,
+        homeloansi0_.fees_impact_on_interest_rate as fees_imp4_1_0_,
+        homeloansi0_.effective_interest_rate as effectiv5_1_0_,
+        homeloansi0_.global_loan_payment as global_l6_1_0_,
+        homeloansi0_.insurance_cost as insuranc7_1_0_,
+        homeloansi0_.insurance_impact_on_interest_rate as insuranc8_1_0_,
+        homeloansi0_.interest_cost as interest9_1_0_,
+        homeloansi0_.loan_amount as loan_am10_1_0_,
+        homeloansi0_.loan_cost as loan_co11_1_0_,
+        homeloansi0_.loan_duration as loan_du12_1_0_,
+        homeloansi0_.loan_guaranty as loan_gu13_1_0_,
+        homeloansi0_.loan_guaranty_rate as loan_gu14_1_0_,
+        homeloansi0_.loan_insurance_rate as loan_in15_1_0_,
+        homeloansi0_.loan_interest_rate as loan_in16_1_0_,
+        homeloansi0_.loan_payment as loan_pa17_1_0_,
+        homeloansi0_.periodicity as periodi18_1_0_,
+        homeloansi0_.personal_deposit as persona19_1_0_,
+        homeloansi0_.simulation_date as simulat20_1_0_ 
+    from
+        homeloan_simulation homeloansi0_ 
+    where
+        homeloansi0_.id=?
+2020-01-08 11:14:10.666+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [51952589-1221-46a5-90cc-a6591199bc33]
+2020-01-08 11:14:10.668+01:00 | DEBUG| org.hibernate.SQL | 
+    insert 
+    into
+        homeloan_simulation
+        (application_fee, credit_request, fees_impact_on_interest_rate, effective_interest_rate, global_loan_payment, insurance_cost, insurance_impact_on_interest_rate, interest_cost, loan_amount, loan_cost, loan_duration, loan_guaranty, loan_guaranty_rate, loan_insurance_rate, loan_interest_rate, loan_payment, periodicity, personal_deposit, simulation_date, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2020-01-08 11:14:10.669+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [DOUBLE] - [1000.0]
+2020-01-08 11:14:10.669+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [BOOLEAN] - [false]
+2020-01-08 11:14:10.669+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [3] as [DOUBLE] - [0.24478043673070715]
+2020-01-08 11:14:10.669+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [4] as [DOUBLE] - [1.8427090260725976]
+2020-01-08 11:14:10.669+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [5] as [DOUBLE] - [1250.3223623699944]
+2020-01-08 11:14:10.669+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [6] as [DOUBLE] - [9600.0]
+2020-01-08 11:14:10.669+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [7] as [DOUBLE] - [0.5979285893404018]
+2020-01-08 11:14:10.669+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [8] as [DOUBLE] - [15458.025226599013]
+2020-01-08 11:14:10.669+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [9] as [DOUBLE] - [200000.0]
+2020-01-08 11:14:10.669+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [10] as [DOUBLE] - [28558.025226599013]
+2020-01-08 11:14:10.670+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [11] as [INTEGER] - [15]
+2020-01-08 11:14:10.670+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [12] as [DOUBLE] - [2500.0]
+2020-01-08 11:14:10.670+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [13] as [DOUBLE] - [1.25]
+2020-01-08 11:14:10.670+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [14] as [DOUBLE] - [4.8]
+2020-01-08 11:14:10.670+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [15] as [DOUBLE] - [1.0]
+2020-01-08 11:14:10.670+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [16] as [DOUBLE] - [1196.9890290366611]
+2020-01-08 11:14:10.670+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [17] as [VARCHAR] - [MONTHLY]
+2020-01-08 11:14:10.670+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [18] as [DOUBLE] - [100000.0]
+2020-01-08 11:14:10.670+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [19] as [TIMESTAMP] - [Wed Jan 08 11:14:10 CET 2020]
+2020-01-08 11:14:10.671+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [20] as [VARCHAR] - [51952589-1221-46a5-90cc-a6591199bc33]
+2020-01-08 11:14:10.671+01:00 | DEBUG| org.hibernate.SQL | 
+    update
+        homeloan_simulation 
+    set
+        project_id=? 
+    where
+        id=?
+2020-01-08 11:14:10.672+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [1] as [VARCHAR] - [7d6d1d7c-6617-40b8-9b15-4ba772cc27a7]
+2020-01-08 11:14:10.672+01:00 | TRACE| o.h.type.descriptor.sql.BasicBinder | binding parameter [2] as [VARCHAR] - [51952589-1221-46a5-90cc-a6591199bc33]
+2020-01-08 11:14:10.674+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-01-08 11:14:10.674+01:00 | DEBUG| o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor | Writing [HomeloanSimulationQueryDTO(id=51952589-1221-46a5-90cc-a6591199bc33, simulationDate=Wed Jan 08 11:14: (truncated)...]
+2020-01-08 11:14:10.675+01:00 | DEBUG| o.s.web.servlet.DispatcherServlet | Completed 201 CREATED
+2020-01-08 12:30:14.935+01:00 | WARN | com.zaxxer.hikari.pool.HikariPool | HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h12m63ms50µs300ns).
