@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>homeloancalculator</artifactId>
+        <groupId>fr.bnp.homeloan</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>configuration</artifactId>
+
+    <dependencies>
+        <dependency>
+            <artifactId>exposition</artifactId>
+            <groupId>fr.bnp.homeloan</groupId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <artifactId>domain</artifactId>
+            <groupId>fr.bnp.homeloan</groupId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <artifactId>infrastructure</artifactId>
+            <groupId>fr.bnp.homeloan</groupId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+</project>
