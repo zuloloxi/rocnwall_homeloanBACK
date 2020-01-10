@@ -106,11 +106,16 @@ public class MortgageProject {
 
     // public double getMaxLoanPayment() {return maxLoanPayment;}
 
-    // Max loan payment = 35% of borrowers net income minus global charges
+    // Max loan payment = 35% of borrowers monthly net income minus global charges,
+    // multiplied by the number of months of the period
     public double getMaxLoanPayment() {
-        return (((borrowers.stream().mapToDouble(b -> b.getNetIncome()).sum())
-                - householdCharges) * 0.35);
-    }
+
+ /**       return (((borrowers.stream().mapToDouble(b -> b.getNetIncome()).sum())
+                - householdCharges) * 0.35);} */
+
+        return ( ( ( (borrowers.stream().mapToDouble(b -> b.getNetIncome()).sum())
+                - householdCharges) * 0.35)
+                * (homeloanSimulations.get(0).getPeriodicity().numberOfMonths()));}
 
     public List<HomeloanSimulation> getHomeloanSimulations() {
         return homeloanSimulations;

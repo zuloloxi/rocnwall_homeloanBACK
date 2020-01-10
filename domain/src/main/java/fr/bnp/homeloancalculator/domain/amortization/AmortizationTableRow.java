@@ -1,20 +1,20 @@
 package fr.bnp.homeloancalculator.domain.amortization;
 
-import fr.bnp.homeloancalculator.domain.mortgage.HomeloanSimulation;
+import fr.bnp.homeloancalculator.domain.mortgage.Periodicity;
 
 public class AmortizationTableRow {
 
-    private int year; // Index of the year related to the row of AmortizationTable (begins with 1)
+    private int rowId; // Index related to the row of the amortization table (begins with 1)
     private double initialCapital; // amount of the outstanding capital at the beginning of the period
     private double interest; // Interest of the period
     private double depreciation; // Depreciation (=amortization) of the period
     private double payment;
     private double finalCapital; // amount of the outstanding capital at the end of the period
 
-    AmortizationTableRow(int year, double initialCapital, double interest,
+    AmortizationTableRow(int rowId, double initialCapital, double interest,
           double depreciation, double payment, double finalCapital)
     {
-        this.year = year;
+        this.rowId = rowId;
         this.initialCapital = initialCapital;
         this.interest = interest;
         this.depreciation = depreciation;
@@ -22,7 +22,7 @@ public class AmortizationTableRow {
         this.finalCapital = finalCapital;
     }
 
-    public int getYear() { return year+1; }
+    public int getRowId() { return rowId+1; }
 
     public double getInitialCapital() { return initialCapital; }
 
@@ -35,38 +35,40 @@ public class AmortizationTableRow {
     public double getFinalCapital() { return finalCapital; }
 
     // Return the first row of the amortization tableRow.
-    public static AmortizationTableRow firstAmortizationTableRow(HomeloanSimulation homeloanSimulation)
+    public static AmortizationTableRow firstAmortizationTableRow(
+            double loanAmount, double loanPayment,
+            double loanInterestRate, Periodicity periodicity)
     {
-        double interest = homeloanSimulation.getLoanAmount()
-                *(homeloanSimulation.getLoanInterestRate()/
-                    (100 * homeloanSimulation.getPeriodicity().numberOfMonths()));
-        double depreciation = homeloanSimulation.getLoanPayment() - interest;
-        double finalCapital = homeloanSimulation.getLoanAmount()- depreciation;
-        return new AmortizationTableRow (0, homeloanSimulation.getLoanAmount(), interest, depreciation, homeloanSimulation.getLoanPayment(), finalCapital);
+        double interest = loanAmount
+                *(loanInterestRate/
+                    (100 * periodicity.numberOfMonths()));
+        double depreciation = loanPayment - interest;
+        double finalCapital = loanAmount - depreciation;
+        return new AmortizationTableRow (0, loanAmount, interest, depreciation, loanPayment, finalCapital);
     }
 
     // Return the next row of the amortization tableRow (Null for the last one).
-    public AmortizationTableRow nextAmortizationTableRow(HomeloanSimulation homeloanSimulation)
+    public AmortizationTableRow nextAmortizationTableRow(
+            double loanInterestRate, int loanDuration, Periodicity periodicity)
     {
-        if(this.year == homeloanSimulation.getLoanDuration())
+        if (this.rowId == ((loanDuration * 12) / periodicity.numberOfMonths()))
         { return null; }
         else
         {
-            int yearNumber = this.year+1;
-            double loanAmount = this.finalCapital;
+            int rowIdNumber = this.rowId + 1;
+            double outstandingCapital = this.finalCapital;
             double interest =
-                    loanAmount *
-                            (homeloanSimulation.getLoanInterestRate()/
-                                    (100 * homeloanSimulation.getPeriodicity().numberOfMonths()));
+                    outstandingCapital * loanInterestRate
+                            * periodicity.numberOfMonths() / 1200;
             double depreciation = this.payment - interest;
-            double finalCapital = loanAmount- depreciation;
+            double finalCapital = outstandingCapital - depreciation;
 
-            return new AmortizationTableRow(yearNumber, loanAmount, interest, depreciation, this.payment, finalCapital);
+            return new AmortizationTableRow(rowIdNumber, outstandingCapital, interest, depreciation, this.payment, finalCapital);
         }
     }
 
     public String toString()
         {
-        return (this.getYear() + "|" + this.getInitialCapital() + "|" + this.getDepreciation() + "|" + this.getInterest() + "|" + this.getPayment() + "|" + this.getFinalCapital());
+        return (this.getRowId() + "|" + this.getInitialCapital() + "|" + this.getDepreciation() + "|" + this.getInterest() + "|" + this.getFinalCapital());
         }
 }
