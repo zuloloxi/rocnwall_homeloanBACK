@@ -56,7 +56,6 @@ public class MortgageProject {
         this.householdCharges = mortgageProjectWithNewInformation.getHouseholdCharges();
         this.borrowers = mortgageProjectWithNewInformation.getBorrowers();
         this.maxLoanPayment = mortgageProjectWithNewInformation.getMaxLoanPayment();
-        this.homeloanSimulations = mortgageProjectWithNewInformation.getHomeloanSimulations();
         return this;
     }
 

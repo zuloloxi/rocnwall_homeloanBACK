@@ -7,6 +7,7 @@ import fr.bnp.homeloancalculator.domain.mortgage.ProjectType;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -33,7 +34,7 @@ public class MortgageProjectJPA {
     @Column(name = "MAX_LOAN_PAYMENT")
     private double maxLoanPayment;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="PROJECT_ID", referencedColumnName = "ID")
     private List<HomeloanSimulationJPA> homeloanSimulations;
 
@@ -89,5 +90,46 @@ public class MortgageProjectJPA {
 
     public List<HomeloanSimulationJPA> getHomeloanSimulations() {
         return homeloanSimulations;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setReferenceId(String referenceId) {
+        this.referenceId = referenceId;
+    }
+
+    public void setProjectType(String projectType) {
+        this.projectType = projectType;
+    }
+
+    public void setHouseholdCharges(double householdCharges) {
+        this.householdCharges = householdCharges;
+    }
+
+    public void setBorrowers(List<BorrowerJPA> borrowers) {
+        this.borrowers = borrowers;
+    }
+
+    public void setMaxLoanPayment(double maxLoanPayment) {
+        this.maxLoanPayment = maxLoanPayment;
+    }
+
+    public void setHomeloanSimulations(List<HomeloanSimulationJPA> homeloanSimulations) {
+        this.homeloanSimulations = homeloanSimulations;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MortgageProjectJPA that = (MortgageProjectJPA) o;
+        return getId().equals(that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }

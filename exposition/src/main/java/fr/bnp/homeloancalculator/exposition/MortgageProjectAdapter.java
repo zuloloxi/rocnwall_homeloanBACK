@@ -8,12 +8,16 @@ import java.util.stream.Collectors;
 
 import static fr.bnp.homeloancalculator.exposition.BorrowerAdapter.adaptToBorrowerListDTO;
 import static fr.bnp.homeloancalculator.exposition.BorrowerAdapter.transformToBorrowerList;
-import static fr.bnp.homeloancalculator.exposition.HomeloanSimulationAdapter.adaptToHomeloanSimulationListDTO;
 
 
 public class MortgageProjectAdapter {
 
     public static MortgageProject transformToMortgageProject(MortgageProjectUpdateDTO mortgageProjectUpdateDTO) {
+        ProjectType projectType;
+
+        // Convert values to map to domain range of values (enum)
+
+
         return new MortgageProject(mortgageProjectUpdateDTO.referenceId,
                 Enum.valueOf(ProjectType.class, mortgageProjectUpdateDTO.projectType),
                 mortgageProjectUpdateDTO.householdCharges,
@@ -36,5 +40,19 @@ public class MortgageProjectAdapter {
         return mortgageProjects.stream().map(MortgageProjectAdapter::adaptToMortgageProjectDTO).collect(Collectors.toList());
     }
 
+    public static ProjectType convertProjectTypeDTOToDomainRange(ProjectTypeDTO projectTypeDTO) {
+        switch(projectTypeDTO) {
+            case ACHAT: return ProjectType.PURCHASE;
+            case CONSTRUCTION: return ProjectType.CONSTRUCTION;
+        }
+        throw new AssertionError("Opération inconnue : " + projectTypeDTO);
+    }
 
+    public static ProjectTypeDTO convertFromDomainRangeToProjectTypeDTO(ProjectType projectType) {
+        switch(projectType) {
+            case PURCHASE: return ProjectTypeDTO.ACHAT;
+            case CONSTRUCTION: return ProjectTypeDTO.CONSTRUCTION;
+        }
+        throw new AssertionError("Opération inconnue : " + projectType);
+    }
 }
