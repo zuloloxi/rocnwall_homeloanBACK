@@ -130,6 +130,7 @@ public class CalculatorImpl implements Calculator {
         logger.info("TAEF = {}", feesImpactOnInterestRate);
     }
 
+
     private double calculateLoanAmount(double annualInterestRate, double loanPayment, int loanDuration, int periodDurationInMonths) {
 
         // Periodic interest rate
