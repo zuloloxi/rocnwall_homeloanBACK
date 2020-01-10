@@ -39,7 +39,7 @@ public class AmortizationTable {
     // Return a representation of the table as a string
     public String toString() {
         String outputString = "";
-        outputString+= ("Rang période | Capital initial | Amortissement | Intérêt   | Capital final");
+        outputString+= ("Rang période | Capital initial | Intérêt | Amortissement   | Capital final"+"\n");
         for (int i = 0; i < amortizationTable.length; i++) {
             outputString+= amortizationTable[i].toString()+"\n";
         }
