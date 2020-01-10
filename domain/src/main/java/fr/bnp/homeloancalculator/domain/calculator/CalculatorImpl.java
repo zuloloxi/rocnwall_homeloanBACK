@@ -1,7 +1,9 @@
 package fr.bnp.homeloancalculator.domain.calculator;
 
+import fr.bnp.homeloancalculator.domain.amortization.AmortizationTable;
 import fr.bnp.homeloancalculator.domain.math.EIRCalculator;
 import fr.bnp.homeloancalculator.domain.mortgage.Calculator;
+import fr.bnp.homeloancalculator.domain.mortgage.Periodicity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -87,7 +89,14 @@ public class CalculatorImpl implements Calculator {
         logger.info("Coût du crédit = {}", loanCost);
 
         calculateEffectiveInterestRates();
+    }
 
+    public String calculateAmortizationTable() {
+        AmortizationTable amortizationTable = new AmortizationTable(this.loanAmount, this.loanPayment,
+                this.loanInterestRate, this.loanDuration, this.durationInPeriods);
+        String result = amortizationTable.toString();
+        logger.info("Plan d'amortissement = {}", result);
+        return result;
     }
 
     private void calculateEffectiveInterestRates() {

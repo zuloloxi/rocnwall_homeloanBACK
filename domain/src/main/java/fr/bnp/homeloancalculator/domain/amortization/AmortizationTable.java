@@ -9,22 +9,22 @@ public class AmortizationTable {
 
     public AmortizationTable(
             double loanAmount, double loanPayment,
-            double loanInterestRate, int loanDuration, Periodicity periodicity
+            double loanInterestRate, int loanDuration, int periodDurationInMonths
     )
     {
         amortizationTable =
                 new AmortizationTableRow [
-                        loanDuration * 12 / periodicity.numberOfMonths()];
+                        loanDuration * 12 / periodDurationInMonths];
         amortizationTable[0] =
                 AmortizationTableRow.firstAmortizationTableRow
-                        (loanAmount, loanPayment, loanInterestRate, periodicity);
+                        (loanAmount, loanPayment, loanInterestRate, periodDurationInMonths);
 
 
         for (int i = 1; i < amortizationTable.length; i++)
         {
             amortizationTable[i]=
                     amortizationTable[i-1].nextAmortizationTableRow
-                            (loanInterestRate, loanDuration, periodicity);
+                            (loanInterestRate, loanDuration, periodDurationInMonths);
         }
     }
 

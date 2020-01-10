@@ -48,29 +48,4 @@ public class BorrowerJPA {
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setNetIncome(double netIncome) {
-        this.netIncome = netIncome;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BorrowerJPA that = (BorrowerJPA) o;
-        return getId().equals(that.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
-    }
 }

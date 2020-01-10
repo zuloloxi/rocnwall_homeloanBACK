@@ -4,8 +4,6 @@ import fr.bnp.homeloancalculator.domain.exception.ErrorCodes;
 import fr.bnp.homeloancalculator.domain.exception.MyAppHomeloanSimulationException;
 import fr.bnp.homeloancalculator.domain.mortgage.MortgageProject;
 import fr.bnp.homeloancalculator.domain.mortgage.MortgageProjectRepository;
-import fr.bnp.homeloancalculator.infrastructure.MortgageProjectDAO;
-import fr.bnp.homeloancalculator.infrastructure.MortgageProjectJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

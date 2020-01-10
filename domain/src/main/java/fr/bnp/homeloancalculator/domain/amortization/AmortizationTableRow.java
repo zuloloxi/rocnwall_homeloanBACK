@@ -37,11 +37,11 @@ public class AmortizationTableRow {
     // Return the first row of the amortization tableRow.
     public static AmortizationTableRow firstAmortizationTableRow(
             double loanAmount, double loanPayment,
-            double loanInterestRate, Periodicity periodicity)
+            double loanInterestRate, int periodDurationInMonths)
     {
         double interest = loanAmount
                 *(loanInterestRate/
-                    (100 * periodicity.numberOfMonths()));
+                    (100 * periodDurationInMonths));
         double depreciation = loanPayment - interest;
         double finalCapital = loanAmount - depreciation;
         return new AmortizationTableRow (0, loanAmount, interest, depreciation, loanPayment, finalCapital);
@@ -49,9 +49,9 @@ public class AmortizationTableRow {
 
     // Return the next row of the amortization tableRow (Null for the last one).
     public AmortizationTableRow nextAmortizationTableRow(
-            double loanInterestRate, int loanDuration, Periodicity periodicity)
+            double loanInterestRate, int loanDuration, int periodDurationInMonths)
     {
-        if (this.rowId == ((loanDuration * 12) / periodicity.numberOfMonths()))
+        if (this.rowId == ((loanDuration * 12) / periodDurationInMonths))
         { return null; }
         else
         {
@@ -59,7 +59,7 @@ public class AmortizationTableRow {
             double outstandingCapital = this.finalCapital;
             double interest =
                     outstandingCapital * loanInterestRate
-                            * periodicity.numberOfMonths() / 1200;
+                            * periodDurationInMonths / 1200;
             double depreciation = this.payment - interest;
             double finalCapital = outstandingCapital - depreciation;
 
@@ -69,6 +69,11 @@ public class AmortizationTableRow {
 
     public String toString()
         {
-        return (this.getRowId() + "|" + this.getInitialCapital() + "|" + this.getDepreciation() + "|" + this.getInterest() + "|" + this.getFinalCapital());
+            double initialCapital = (double)Math.round(this.getInitialCapital() * 100)/100;
+            double depreciation = (double)Math.round(this.getDepreciation()* 100)/100;
+            double interest = (double)Math.round(this.getInterest() * 100)/100;
+            double finalCapital = (double)Math.round(this.getFinalCapital() * 100)/100;
+
+        return (this.getRowId() + "|" + initialCapital + "|" + depreciation + "|" + interest + "|" + finalCapital);
         }
 }

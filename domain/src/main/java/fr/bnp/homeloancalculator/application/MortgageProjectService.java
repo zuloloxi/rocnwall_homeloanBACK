@@ -3,6 +3,7 @@ package fr.bnp.homeloancalculator.application;
 import fr.bnp.homeloancalculator.domain.mortgage.HomeloanSimulation;
 import fr.bnp.homeloancalculator.domain.mortgage.MortgageProject;
 import fr.bnp.homeloancalculator.domain.mortgage.MortgageProjectRepository;
+import fr.bnp.homeloancalculator.domain.mortgage.Periodicity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,5 +71,11 @@ public class MortgageProjectService {
         MortgageProject mortgageProject = obtain(mortgageProjectId);
         mortgageProject.removeHomeloanSimulation(homeloanSimulationId);
         this.mortgageProjectRepository.save(mortgageProject);
+    }
+
+    public String calculateAmortizationTable(UUID mortgageProjectId, UUID homeloanSimulationId) {
+        MortgageProject mortgageProject = obtain(mortgageProjectId);
+        HomeloanSimulation homeloanSimulation= mortgageProject.searchHomeloanSimulation(homeloanSimulationId);
+        return homeloanSimulation.calculateAmortizationTable();
     }
 }

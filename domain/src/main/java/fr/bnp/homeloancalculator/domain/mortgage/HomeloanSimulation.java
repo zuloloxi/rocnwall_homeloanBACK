@@ -94,6 +94,12 @@ public class HomeloanSimulation {
         feesImpactOnInterestRate = calculator.getFeesImpactOnInterestRate();
     }
 
+    public String calculateAmortizationTable() {
+        Calculator calculator = new CalculatorImpl(loanInterestRate, loanInsuranceRate, loanGuarantyRate, applicationFee,
+                loanDuration, periodicity.numberOfMonths(), loanAmount, loanPayment);
+        return calculator.calculateAmortizationTable();
+    }
+
     public void update(HomeloanSimulation homeloanSimulationWithNewInformation) {
         this.simulationDate = homeloanSimulationWithNewInformation.getSimulationDate();
         this.personalDeposit = homeloanSimulationWithNewInformation.getPersonalDeposit();

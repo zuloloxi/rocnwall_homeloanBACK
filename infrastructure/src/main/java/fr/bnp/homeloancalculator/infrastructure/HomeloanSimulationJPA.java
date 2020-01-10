@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @Entity(name = "HOMELOAN_SIMULATION")
 public class HomeloanSimulationJPA {
-
     @Id
     @Column(name = "ID")
     private String id;
@@ -195,98 +194,5 @@ public class HomeloanSimulationJPA {
 
     public boolean getCreditRequest() {
         return creditRequest;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setSimulationDate(Date simulationDate) {
-        this.simulationDate = simulationDate;
-    }
-
-    public void setPersonalDeposit(double personalDeposit) {
-        this.personalDeposit = personalDeposit;
-    }
-
-    public void setLoanAmount(double loanAmount) {
-        this.loanAmount = loanAmount;
-    }
-
-    public void setLoanPayment(double loanPayment) {
-        this.loanPayment = loanPayment;
-    }
-
-    public void setLoanInterestRate(double loanInterestRate) {
-        this.loanInterestRate = loanInterestRate;
-    }
-
-    public void setLoanInsuranceRate(double loanInsuranceRate) {
-        this.loanInsuranceRate = loanInsuranceRate;
-    }
-
-    public void setLoanGuarantyRate(double loanGuarantyRate) {
-        this.loanGuarantyRate = loanGuarantyRate;
-    }
-
-    public void setLoanDuration(int loanDuration) {
-        this.loanDuration = loanDuration;
-    }
-
-    public void setPeriodicity(Periodicity periodicity) {
-        this.periodicity = periodicity;
-    }
-
-    public void setGlobalLoanPayment(double globalLoanPayment) {
-        this.globalLoanPayment = globalLoanPayment;
-    }
-
-    public void setLoanCost(double loanCost) {
-        this.loanCost = loanCost;
-    }
-
-    public void setInterestCost(double interestCost) {
-        this.interestCost = interestCost;
-    }
-
-    public void setInsuranceCost(double insuranceCost) {
-        this.insuranceCost = insuranceCost;
-    }
-
-    public void setApplicationFee(double applicationFee) {
-        this.applicationFee = applicationFee;
-    }
-
-    public void setLoanGuaranty(double loanGuaranty) {
-        this.loanGuaranty = loanGuaranty;
-    }
-
-    public void setGlobalEffectiveInterestRate(double globalEffectiveInterestRate) {
-        this.globalEffectiveInterestRate = globalEffectiveInterestRate;
-    }
-
-    public void setInsuranceImpactOnInterestRate(double insuranceImpactOnInterestRate) {
-        this.insuranceImpactOnInterestRate = insuranceImpactOnInterestRate;
-    }
-
-    public void setFeesImpactOnInterestRate(double feesImpactOnInterestRate) {
-        this.feesImpactOnInterestRate = feesImpactOnInterestRate;
-    }
-
-    public void setCreditRequest(boolean creditRequest) {
-        this.creditRequest = creditRequest;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        HomeloanSimulationJPA that = (HomeloanSimulationJPA) o;
-        return getId().equals(that.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
     }
 }

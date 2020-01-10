@@ -101,4 +101,11 @@ public class MortgageProjectResource {
         this.mortgageProjectService.removeHomeloanSimulation(mortgageProjectId, homeloanSimulationId);
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = {"/mortgageProjects/{mortgageProjectId}/homeloanSimulations/{homeloanSimulationId}/table"})
+    public void getAmortizationTable(@PathVariable("mortgageProjectId") String projectId,
+                                     @PathVariable("homeloanSimulationId") String simulationId) {
+        UUID mortgageProjectId = UUID.fromString(projectId);
+        UUID homeloanSimulationId = UUID.fromString(simulationId);
+        String amortizationTable = this.mortgageProjectService.calculateAmortizationTable(mortgageProjectId, homeloanSimulationId);
+    }
 }

@@ -4,6 +4,7 @@ import fr.bnp.homeloancalculator.domain.mortgage.HomeloanSimulation;
 
 public interface Calculator {
     void calculateCost();
+    String calculateAmortizationTable();
     double getLoanAmount();
     double getLoanPayment();
     double getInsuranceCost();

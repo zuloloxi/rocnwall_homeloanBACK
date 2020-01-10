@@ -13,10 +13,6 @@ import static fr.bnp.homeloancalculator.exposition.BorrowerAdapter.transformToBo
 public class MortgageProjectAdapter {
 
     public static MortgageProject transformToMortgageProject(MortgageProjectUpdateDTO mortgageProjectUpdateDTO) {
-        ProjectType projectType;
-
-        // Convert values to map to domain range of values (enum)
-
 
         return new MortgageProject(mortgageProjectUpdateDTO.referenceId,
                 Enum.valueOf(ProjectType.class, mortgageProjectUpdateDTO.projectType),
