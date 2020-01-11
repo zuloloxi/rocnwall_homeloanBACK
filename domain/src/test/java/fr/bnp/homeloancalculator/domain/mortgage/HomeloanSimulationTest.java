@@ -50,6 +50,7 @@ class HomeloanSimulationTest {
                         15, Periodicity.MONTHLY);
         double arrondi = (double)Math.round(homeloanSimulation.getGlobalEffectiveInterestRate() * 100)/100;
         Assertions.assertEquals(1.66,arrondi);
+        homeloanSimulation.calculateAmortizationTable();
     }
 
 }

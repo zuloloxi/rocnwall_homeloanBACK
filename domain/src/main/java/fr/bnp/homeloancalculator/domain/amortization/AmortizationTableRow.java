@@ -41,7 +41,7 @@ public class AmortizationTableRow {
     {
         double interest = loanAmount
                 *(loanInterestRate/
-                    (100 * periodDurationInMonths));
+                    (12 * periodDurationInMonths));
         double depreciation = loanPayment - interest;
         double finalCapital = loanAmount - depreciation;
         return new AmortizationTableRow (0, loanAmount, interest, depreciation, loanPayment, finalCapital);
@@ -59,7 +59,7 @@ public class AmortizationTableRow {
             double outstandingCapital = this.finalCapital;
             double interest =
                     outstandingCapital * loanInterestRate
-                            * periodDurationInMonths / 1200;
+                            * periodDurationInMonths / 12;
             double depreciation = this.payment - interest;
             double finalCapital = outstandingCapital - depreciation;
 
@@ -74,6 +74,6 @@ public class AmortizationTableRow {
             double interest = (double)Math.round(this.getInterest() * 100)/100;
             double finalCapital = (double)Math.round(this.getFinalCapital() * 100)/100;
 
-        return (this.getRowId() + "|" + initialCapital + "|" + depreciation + "|" + interest + "|" + finalCapital);
+        return (this.getRowId() + "|" + initialCapital + "|" + interest + "|" + depreciation + "|" + finalCapital);
         }
 }

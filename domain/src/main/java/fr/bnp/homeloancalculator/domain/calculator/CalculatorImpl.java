@@ -93,9 +93,11 @@ public class CalculatorImpl implements Calculator {
 
     public String calculateAmortizationTable() {
         AmortizationTable amortizationTable = new AmortizationTable(this.loanAmount, this.loanPayment,
-                this.loanInterestRate, this.loanDuration, this.durationInPeriods);
+                this.loanInterestRate, this.loanDuration, this.periodDurationInMonths);
         String result = amortizationTable.toString();
         logger.info("Plan d'amortissement = {}", result);
+        System.out.println("PLAN D'AMORTISSEMENT");
+        System.out.printf(result);
         return result;
     }
 
