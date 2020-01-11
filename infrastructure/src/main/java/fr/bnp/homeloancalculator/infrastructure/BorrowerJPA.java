@@ -22,15 +22,15 @@ public class BorrowerJPA {
     @Column(name = "DATE_OF_BIRTH")
     private Date dateOfBirth;
 
-    private BorrowerJPA() {}
+    protected BorrowerJPA() {}
 
-    public BorrowerJPA(Borrower borrower){
+    protected BorrowerJPA(Borrower borrower){
         this.id = borrower.getId();
         this.netIncome = borrower.getNetIncome();
         this.dateOfBirth = borrower.getDateOfBirth();
     }
 
-    public Borrower toBorrower() {
+    protected Borrower toBorrower() {
         return new Borrower(
                 getId(),
                 getNetIncome(),

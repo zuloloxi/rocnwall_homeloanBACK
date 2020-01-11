@@ -38,10 +38,10 @@ public class MortgageProjectJPA {
     @JoinColumn(name="PROJECT_ID", referencedColumnName = "ID")
     private List<HomeloanSimulationJPA> homeloanSimulations;
 
-    public MortgageProjectJPA() {
+    protected MortgageProjectJPA() {
     }
 
-    public MortgageProjectJPA(MortgageProject mortgageProject) {
+    protected MortgageProjectJPA(MortgageProject mortgageProject) {
         this.id = mortgageProject.getId().toString();
         this.referenceId = mortgageProject.getReferenceId();
         this.projectType = mortgageProject.getProjectType().toString();
@@ -53,7 +53,7 @@ public class MortgageProjectJPA {
                 .collect(Collectors.toList());
     }
 
-    public MortgageProject toMortgageProject() {
+    protected MortgageProject toMortgageProject() {
 
         List<Borrower> borrowerList = borrowers.stream()
                 .map(BorrowerJPA::toBorrower)
@@ -91,5 +91,7 @@ public class MortgageProjectJPA {
     public List<HomeloanSimulationJPA> getHomeloanSimulations() {
         return homeloanSimulations;
     }
+
+
 
 }

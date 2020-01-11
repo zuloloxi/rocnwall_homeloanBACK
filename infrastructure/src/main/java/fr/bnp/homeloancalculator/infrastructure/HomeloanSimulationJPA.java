@@ -5,7 +5,6 @@ import fr.bnp.homeloancalculator.domain.mortgage.Periodicity;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity(name = "HOMELOAN_SIMULATION")
@@ -75,7 +74,7 @@ public class HomeloanSimulationJPA {
     public HomeloanSimulationJPA() {
     }
 
-    public HomeloanSimulationJPA(HomeloanSimulation homeloanSimulation) {
+    protected HomeloanSimulationJPA(HomeloanSimulation homeloanSimulation) {
         this.id = homeloanSimulation.getId().toString();
         this.simulationDate = homeloanSimulation.getSimulationDate();
         this.personalDeposit = homeloanSimulation.getPersonalDeposit();
@@ -98,7 +97,7 @@ public class HomeloanSimulationJPA {
         this.creditRequest = homeloanSimulation.isCreditRequest();
     }
 
-    public HomeloanSimulation toHomeloanSimulation () {
+    protected HomeloanSimulation toHomeloanSimulation () {
         return new HomeloanSimulation(
                 UUID.fromString(getId()),
                 getSimulationDate(),
