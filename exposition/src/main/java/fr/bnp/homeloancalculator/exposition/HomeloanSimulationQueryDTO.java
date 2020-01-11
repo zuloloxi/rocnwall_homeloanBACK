@@ -28,7 +28,7 @@ public class HomeloanSimulationQueryDTO {
     @JsonProperty
     int loanDuration;
     @JsonProperty
-    Periodicity periodicity;
+    String periodicity;
     @JsonProperty
     double globalLoanPayment;
     @JsonProperty
@@ -63,7 +63,7 @@ public class HomeloanSimulationQueryDTO {
             double loanInsuranceRate,
             double loanGuarantyRate,
             int loanDuration,
-            Periodicity periodicity,
+            String periodicity,
             double globalLoanPayment,
             double loanCost,
             double interestCost,
@@ -95,5 +95,4 @@ public class HomeloanSimulationQueryDTO {
         this.feesImpactOnInterestRate = feesImpactOnInterestRate;
         this.creditRequest = creditRequest;
     }
-
 }

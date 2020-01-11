@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MortgageProjectAdapterTest {
     @Test
     void given_ProjectTypeDTO_Then_Calculate_ProjectType () {
-        ProjectTypeDTO projectTypeDTO = ProjectTypeDTO.ACHAT;
+        ProjectTypeDTO projectTypeDTO = ProjectTypeDTO.Achat;
         ProjectType projectType = MortgageProjectAdapter.convertProjectTypeDTOToDomainRange(projectTypeDTO);
         Assertions.assertEquals(ProjectType.PURCHASE, projectType);
     }
@@ -18,6 +18,6 @@ class MortgageProjectAdapterTest {
     void given_ProjectType_Then_Create_ProjectTypeDTO () {
         ProjectType projectType = ProjectType.PURCHASE;
         ProjectTypeDTO projectTypeDTO = MortgageProjectAdapter.convertFromDomainRangeToProjectTypeDTO(projectType);
-        Assertions.assertEquals(ProjectTypeDTO.ACHAT, projectTypeDTO);
+        Assertions.assertEquals(ProjectTypeDTO.Construction, projectTypeDTO);
     }
 }

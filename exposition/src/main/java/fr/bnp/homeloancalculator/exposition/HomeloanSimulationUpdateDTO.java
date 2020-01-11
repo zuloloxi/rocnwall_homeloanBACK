@@ -26,7 +26,7 @@ public class HomeloanSimulationUpdateDTO {
     @JsonProperty
     int loanDuration;
     @JsonProperty
-    Periodicity periodicity;
+    String periodicity;
 
 
     public HomeloanSimulationUpdateDTO() {
@@ -41,7 +41,7 @@ public class HomeloanSimulationUpdateDTO {
             double loanGuarantyRate,
             double applicationFee,
             int loanDuration,
-            Periodicity periodicity) {
+            String periodicity) {
         this.personalDeposit = personalDeposit;
         this.loanAmount = loanAmount;
         this.loanPayment = loanPayment;
