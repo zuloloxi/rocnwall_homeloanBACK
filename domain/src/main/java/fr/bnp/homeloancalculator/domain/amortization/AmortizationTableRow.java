@@ -39,9 +39,7 @@ public class AmortizationTableRow {
             double loanAmount, double loanPayment,
             double loanInterestRate, int periodDurationInMonths)
     {
-        double interest = loanAmount
-                *(loanInterestRate/
-                    (12 * periodDurationInMonths));
+        double interest = loanAmount * loanInterestRate * periodDurationInMonths / 12;
         double depreciation = loanPayment - interest;
         double finalCapital = loanAmount - depreciation;
         return new AmortizationTableRow (0, loanAmount, interest, depreciation, loanPayment, finalCapital);
