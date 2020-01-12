@@ -18,6 +18,6 @@ class MortgageProjectAdapterTest {
     void given_ProjectType_Then_Create_ProjectTypeDTO () {
         ProjectType projectType = ProjectType.PURCHASE;
         ProjectTypeDTO projectTypeDTO = MortgageProjectAdapter.convertFromDomainRangeToProjectTypeDTO(projectType);
-        Assertions.assertEquals(ProjectTypeDTO.Construction, projectTypeDTO);
+        Assertions.assertEquals(ProjectTypeDTO.Achat, projectTypeDTO);
     }
 }

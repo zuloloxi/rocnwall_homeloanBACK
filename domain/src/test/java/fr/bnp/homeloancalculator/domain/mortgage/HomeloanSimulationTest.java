@@ -40,6 +40,15 @@ class HomeloanSimulationTest {
                         15, Periodicity.MONTHLY);
         double arrondi = (double)Math.round(homeloanSimulation.getGlobalEffectiveInterestRate() * 100)/100;
         Assertions.assertEquals(1.64,arrondi);
+        Assertions.assertEquals(300000, homeloanSimulation.getLoanAmount());
+        Assertions.assertEquals(1795, (double)Math.round(homeloanSimulation.getLoanPayment()));
+        Assertions.assertEquals(1000, homeloanSimulation.getApplicationFee());
+        Assertions.assertEquals(9900, homeloanSimulation.getInsuranceCost());
+        Assertions.assertEquals(3915, (double)Math.round((homeloanSimulation.getLoanGuaranty())));
+        Assertions.assertEquals(1850, (double)Math.round(homeloanSimulation.getGlobalLoanPayment()));
+        Assertions.assertEquals(23187, (double)Math.round(homeloanSimulation.getInterestCost()));
+        Assertions.assertEquals(38002, (double)Math.round(homeloanSimulation.getLoanCost()));
+        Assertions.assertEquals(1.0, (double)Math.round(homeloanSimulation.getLoanInterestRate()));
     }
 
     @Test

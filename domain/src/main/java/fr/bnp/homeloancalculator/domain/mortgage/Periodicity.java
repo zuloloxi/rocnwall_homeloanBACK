@@ -8,12 +8,17 @@ public enum Periodicity {
 
     // Retourne le nombre de mois de la période
     public int numberOfMonths() {
+        int numberOfMonths = 0;
         switch(this) {
-            case MONTHLY: return 1;
-            case QUARTERLY: return 3;
-            case BIANNUALLY: return 6;
-            case ANNUALLY: return 12;
+            case MONTHLY: numberOfMonths = 1;
+            break;
+            case QUARTERLY: numberOfMonths = 3;
+            break;
+            case BIANNUALLY: numberOfMonths = 6;
+            break;
+            case ANNUALLY: numberOfMonths = 12;
+            break;
         }
-        throw new AssertionError("Opération inconnue : " + this);
+        return  numberOfMonths;
     }
 }

@@ -2,12 +2,8 @@ package fr.bnp.homeloancalculator.infrastructure;
 
 import fr.bnp.homeloancalculator.domain.mortgage.Borrower;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity(name = "BORROWER")
 public class BorrowerJPA {
